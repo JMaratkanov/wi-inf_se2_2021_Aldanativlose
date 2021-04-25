@@ -20,11 +20,6 @@ public class RegistrationTest {
 
     @BeforeEach
     void setup() {
-        a = new UserDTOimpl(1, "Max", "Mustermann", "max.mustermann@test.com");
-        b = new UserDTOimpl();
-        c = new UserDTOimpl();
-        d = new UserDTOimpl();
-        e = new UserDTOimpl();
     }
 
     @Test

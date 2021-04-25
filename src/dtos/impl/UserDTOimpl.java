@@ -3,17 +3,49 @@ package dtos.impl;
 import dtos.UserDTO;
 
 public class UserDTOimpl implements UserDTO {
-    private int id;
+    private int id = 0;
     private String firstname;
     private String lastname;
-    private String eMail;
-    //private List<RolleDTO> roles;
 
-    public UserDTOimpl(int id, String firstname, String lastname, String eMail) {
+    public UserDTOimpl createUser(int id, String firstname, String lastname) {
+        UserDTOimpl x = new UserDTOimpl();
+        x.setId(id);
+        x.setFirstname(firstname);
+        x.setLastname(lastname);
+        return x;
+    }
+
+    public UserDTOimpl createUserIF(int id, String firstname) {
+        UserDTOimpl x = new UserDTOimpl();
+        x.setId(id);
+        x.setFirstname(firstname);
+        return x;
+    }
+
+    public UserDTOimpl createUserIL(int id, String lastname) {
+        UserDTOimpl x = new UserDTOimpl();
+        x.setId(id);
+        x.setLastname(lastname);
+        return x;
+    }
+
+    public UserDTOimpl createUserFL(String firstname, String lastname) {
+        UserDTOimpl x = new UserDTOimpl();
+        x.setFirstname(firstname);
+        x.setLastname(lastname);
+        return x;
+    }
+
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public void setFirstname(String firstname) {
         this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
         this.lastname = lastname;
-        this.eMail = eMail;
     }
 
     public int getId() {
@@ -28,24 +60,12 @@ public class UserDTOimpl implements UserDTO {
         return this.lastname;
     }
 
-    public String getEMail() {
-        return this.eMail;
-    }
-    /*
-    @Override
-    public List<RolleDTO> getRoles() {
-        return this.roles;
-    }
-     */
-
     @Override
     public String toString() {
         return "UserDTOImpl{" +
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", E-Mail='" + eMail +
-                //", roles=" + roles +
+                ", lastname='" + lastname +
                 '}';
     }
 }
