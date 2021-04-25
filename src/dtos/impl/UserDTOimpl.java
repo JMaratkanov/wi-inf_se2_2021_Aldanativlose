@@ -1,13 +1,20 @@
 package dtos.impl;
 
-import java.util.List;
+import dtos.UserDTO;
 
-public class UserDTOimpl {
+public class UserDTOimpl implements UserDTO {
     private int id;
     private String firstname;
     private String lastname;
     private String eMail;
     //private List<RolleDTO> roles;
+
+    public UserDTOimpl(int id, String firstname, String lastname, String eMail) {
+        this.id = id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.eMail = eMail;
+    }
 
     public int getId() {
         return this.id;
@@ -21,7 +28,7 @@ public class UserDTOimpl {
         return this.lastname;
     }
 
-    public String geteMail() {
+    public String getEMail() {
         return this.eMail;
     }
     /*
