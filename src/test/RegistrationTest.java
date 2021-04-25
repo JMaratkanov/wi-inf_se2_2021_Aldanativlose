@@ -16,6 +16,7 @@ public class RegistrationTest {
     private UserDTO user3 = null;
     private UserDTO user4 = null;
     private UserDTO user5 = null;
+    private UserDTO user6 = null;
     RegistrationControl rc = null;
 
     @BeforeEach
@@ -25,6 +26,7 @@ public class RegistrationTest {
         user3 = Factory.createUserIL(3, "Müller");
         user4 = Factory.createUserFL("Eren", "Jäger");
         user5 = Factory.createUser(4, "A", "Meyer");
+        user6 = Factory.createUser(5, "Alexander", "M");
         rc = new RegistrationControl();
     }
 
@@ -44,5 +46,6 @@ public class RegistrationTest {
         assertEquals("Kein Vorname angegeben!", rc.registerUser(user3), "Fehler im RegistrationControl");
         assertEquals("Keine ID angegeben!", rc.registerUser(user4), "Fehler im RegistrationControl");
         assertEquals("Vorname ist zu kurz!", rc.registerUser(user5), "Fehler im RegistrationControl");
+        assertEquals("Nachname ist zu kurz!", rc.registerUser(user6), "Fehler im RegistrationControl");
     }
 }

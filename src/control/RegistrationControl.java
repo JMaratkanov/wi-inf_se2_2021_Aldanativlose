@@ -18,5 +18,6 @@ public class RegistrationControl {
             return "Registrierung erfolgreich!";
         }
 
+        // Wenn die Tests erfolgreich waren, würde hier dann der User wahrscheinlich in die Datenbank geschrieben werden.
     }
 }
