@@ -21,6 +21,8 @@ public class RegistrationTest {
     RegistrationControl rc = null;
     UserBuilder ub = null;
 
+    /* test */
+    
     @BeforeEach
     void setup() {
         user1 = Factory.createUser(1, "Max", "Mustermann");
