@@ -3,19 +3,19 @@ package control;
 import dtos.UserDTO;
 
 public class RegistrationControl {
-    public String registerUser(UserDTO user) {
+    public RegistrationResult registerUser(UserDTO user) {
         if(user.getId() == 0) {
-            return "Keine ID angegeben!";
+            return new RegistrationResult(1);
         } else if(user.getFirstName() == null) {
-            return "Kein Vorname angegeben!";
+            return new RegistrationResult(2);
         } else if(user.getLastName() == null) {
-            return "Kein Nachname angegeben!";
+            return new RegistrationResult(3);
         } else if(user.getFirstName().length() < 2) {
-            return "Vorname ist zu kurz!";
+            return new RegistrationResult(4);
         } else if(user.getLastName().length() < 2) {
-            return "Nachname ist zu kurz!";
+            return new RegistrationResult(5);
         } else {
-            return "Registrierung erfolgreich!";
+            return new RegistrationResult(0);
         }
 
         // Wenn die Tests erfolgreich waren, würde hier dann der User wahrscheinlich in die Datenbank geschrieben werden.

@@ -46,12 +46,12 @@ public class RegistrationTest {
 
     @Test
     void testRegistrationControl() {
-        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1), "Fehler im RegistrationControl");
-        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2), "Fehler im RegistrationControl");
-        assertEquals("Kein Vorname angegeben!", rc.registerUser(user3), "Fehler im RegistrationControl");
-        assertEquals("Keine ID angegeben!", rc.registerUser(user4), "Fehler im RegistrationControl");
-        assertEquals("Vorname ist zu kurz!", rc.registerUser(user5), "Fehler im RegistrationControl");
-        assertEquals("Nachname ist zu kurz!", rc.registerUser(user6), "Fehler im RegistrationControl");
+        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Kein Vorname angegeben!", rc.registerUser(user3).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Keine ID angegeben!", rc.registerUser(user4).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Vorname ist zu kurz!", rc.registerUser(user5).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Nachname ist zu kurz!", rc.registerUser(user6).getMeldung(), "Fehler im RegistrationControl");
     }
 
     @Test
@@ -69,11 +69,11 @@ public class RegistrationTest {
         user5 = ub.buildEmptyUser().withThisID(4).withThisFirstName("A").withThisLastName("Meyer").done();
         user6 = ub.buildEmptyUser().withThisID(5).withThisFirstName("Alexander").withThisLastName("M").done();
 
-        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1), "Fehler im RegistrationControl");
-        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2), "Fehler im RegistrationControl");
-        assertEquals("Kein Vorname angegeben!", rc.registerUser(user3), "Fehler im RegistrationControl");
-        assertEquals("Keine ID angegeben!", rc.registerUser(user4), "Fehler im RegistrationControl");
-        assertEquals("Vorname ist zu kurz!", rc.registerUser(user5), "Fehler im RegistrationControl");
-        assertEquals("Nachname ist zu kurz!", rc.registerUser(user6), "Fehler im RegistrationControl");
+        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Kein Vorname angegeben!", rc.registerUser(user3).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Keine ID angegeben!", rc.registerUser(user4).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Vorname ist zu kurz!", rc.registerUser(user5).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Nachname ist zu kurz!", rc.registerUser(user6).getMeldung(), "Fehler im RegistrationControl");
     }
 }
