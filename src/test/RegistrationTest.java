@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RegistrationTest {
@@ -74,5 +75,6 @@ public class RegistrationTest {
         assertEquals("Keine ID angegeben!", rc.registerUser(user4).getMeldung(), "Fehler im RegistrationControl");
         assertEquals("Vorname ist zu kurz!", rc.registerUser(user5).getMeldung(), "Fehler im RegistrationControl");
         assertEquals("Nachname ist zu kurz!", rc.registerUser(user6).getMeldung(), "Fehler im RegistrationControl");
+        //TestCommentFürCommit
     }
 }
