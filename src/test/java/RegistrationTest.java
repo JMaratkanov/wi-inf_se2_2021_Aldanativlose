@@ -1,5 +1,3 @@
-package test;
-
 import control.RegistrationControl;
 import control.builder.UserBuilder;
 import control.factory.Factory;

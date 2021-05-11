@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Coll@HBRS:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Coll@HBRS</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="CollHBRS-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Coll@HBRS:war exploded" />
+    </root>
+  </artifact>
+</component>
