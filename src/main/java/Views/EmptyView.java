@@ -11,6 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 @PageTitle("Empty")
 public class EmptyView extends Div {
 
+    //
     public EmptyView() {
         addClassName("empty-view");
         add(new Text("Content placeholder"));
