@@ -16,6 +16,7 @@ import com.vaadin.flow.router.RouteAlias;
 @RouteAlias(value = "registration")
 public class RegistrationView extends Composite {
 
+    //Welche Felder sollen noch hinzu?
     @Override
     protected Component initContent() {
         TextField firstName = new TextField("Vorname");
