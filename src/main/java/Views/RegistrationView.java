@@ -30,7 +30,7 @@ public class RegistrationView extends Composite {
                 email,
                 password1,
                 password2,
-                new Button("Send", event -> register(
+                new Button("Registrieren", event -> register(
                         firstName.getValue(),
                         lastName.getValue(),
                         email.getValue(),
