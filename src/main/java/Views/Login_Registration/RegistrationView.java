@@ -1,4 +1,4 @@
-package Views;
+package Views.Login_Registration;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -14,10 +14,8 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-//@Route(value = "")
 @Route(value = "registration")
-//@RouteAlias(value = "registration")
-@PageTitle("Registration Form")
+@PageTitle("Registration Form alt")
 public class RegistrationView extends Composite {
 
     //Welche Felder sollen noch hinzu?

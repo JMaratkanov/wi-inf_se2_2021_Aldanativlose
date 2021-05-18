@@ -1,5 +1,6 @@
 package Views.Login_Registration;
 
+import Views.MainView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -14,7 +15,7 @@ import dtos.UserDTO;
 import globals.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "login" )
+@Route(value = "login", layout = MainView.class)
 //@RouteAlias(value = "login")
 public class LoginView extends VerticalLayout {
 

@@ -20,7 +20,7 @@ import dtos.impl.UserDTOimpl;
 
 @Route(value = "", layout = MainView.class)
 @RouteAlias(value = "registration2", layout = MainView.class)
-@PageTitle("Registration Form2")
+@PageTitle("Registration")
 public class RegistrationView2 extends Div {
 
     private TextField firstName = new TextField("First name");

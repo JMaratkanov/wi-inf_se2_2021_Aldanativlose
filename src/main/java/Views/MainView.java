@@ -1,5 +1,6 @@
 package Views;
 
+import Views.Login_Registration.LoginView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -20,7 +21,7 @@ import java.util.Optional;
 /**
  * The main view is a top-level placeholder for other views.
  */
-@PWA(name = "My App", shortName = "My App", enableInstallPrompt = false)
+@PWA(name = "Coll@HBRS", shortName = "Coll@HBRS", enableInstallPrompt = false)
 //@Theme(themeFolder = "myapp")
 public class MainView extends AppLayout {
 
@@ -50,12 +51,12 @@ public class MainView extends AppLayout {
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.setId("header");
-        Image logo = new Image("images/logo.png", "My App logo");
+        Image logo = new Image("images/logo.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
         Avatar avatar = new Avatar();
         avatar.setId("avatar");
-        header.add(new H1("My App"));
+        header.add(new H1("Coll@HBRS"));
         header.add(avatar);
         return header;
     }
@@ -68,7 +69,8 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Registration Form2", RegistrationView2.class)};
+        return new Tab[]{createTab("Registration", RegistrationView2.class),
+                createTab("Login", LoginView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
