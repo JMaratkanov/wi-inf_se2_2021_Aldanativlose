@@ -1,2 +1,5 @@
-Views\RegistrationView.class
 Views\CollatHBRSApplication.class
+Views\MainView.class
+Views\RegistrationView.class
+Views\RegistrationView2.class
+Views\EmptyView.class

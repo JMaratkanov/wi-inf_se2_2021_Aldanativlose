@@ -1,21 +1,26 @@
-package Views.Login_Registration;
+package Views;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
+//@Route(value = "")
 @Route(value = "registration")
-@RouteAlias(value = "registration")
+//@RouteAlias(value = "registration")
+@PageTitle("Registration Form")
 public class RegistrationView extends Composite {
 
+    //Welche Felder sollen noch hinzu?
     @Override
     protected Component initContent() {
         TextField firstName = new TextField("Vorname");
@@ -23,6 +28,7 @@ public class RegistrationView extends Composite {
         EmailField email = new EmailField("E-Mail");
         PasswordField password1 = new PasswordField("Passwort");
         PasswordField password2 = new PasswordField("Passwort bestätigen");
+
         return new VerticalLayout(
                 new H2("Register"),
                 firstName,
@@ -38,6 +44,7 @@ public class RegistrationView extends Composite {
                         password2.getValue()
                 ))
         );
+
     }
 
     private void register(String firstName, String lastName, String email, String password1, String password2) {
