@@ -1,4 +1,4 @@
-package Views;
+package Views.Login_Registration;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
@@ -12,7 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-@Route(value = "")
+@Route(value = "registration")
 @RouteAlias(value = "registration")
 public class RegistrationView extends Composite {
 
