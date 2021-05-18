@@ -14,7 +14,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-@Route(value = "registration")
+@Route(value = "registration_alt")
 @PageTitle("Registration Form alt")
 public class RegistrationView extends Composite {
 

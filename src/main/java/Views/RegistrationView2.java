@@ -7,6 +7,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -18,8 +19,7 @@ import com.vaadin.flow.router.RouteAlias;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 
-@Route(value = "", layout = MainView.class)
-@RouteAlias(value = "registration2", layout = MainView.class)
+@Route(value = "registration", layout = MainView.class)
 @PageTitle("Registration")
 public class RegistrationView2 extends Div {
 
@@ -35,7 +35,7 @@ public class RegistrationView2 extends Div {
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
 
     public RegistrationView2() {
-        addClassName("person-form-view");
+        addClassName("registration-view");
 
         add(createTitle());
         add(createFormLayout());

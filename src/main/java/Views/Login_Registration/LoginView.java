@@ -16,7 +16,7 @@ import globals.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "login", layout = MainView.class)
-//@RouteAlias(value = "login")
+@RouteAlias(value = "", layout = MainView.class)
 public class LoginView extends VerticalLayout {
 
     //Autowired macht Probleme

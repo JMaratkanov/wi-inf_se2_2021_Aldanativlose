@@ -15,6 +15,7 @@ import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
 
 import java.util.Optional;
 
@@ -22,7 +23,7 @@ import java.util.Optional;
  * The main view is a top-level placeholder for other views.
  */
 @PWA(name = "Coll@HBRS", shortName = "Coll@HBRS", enableInstallPrompt = false)
-//@Theme(themeFolder = "myapp")
+@Theme(themeFolder = "collathbrs")
 public class MainView extends AppLayout {
 
     private final Tabs menu;
