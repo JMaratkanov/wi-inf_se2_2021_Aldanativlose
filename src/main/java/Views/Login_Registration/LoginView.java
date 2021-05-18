@@ -14,8 +14,8 @@ import dtos.UserDTO;
 import globals.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "" )
-@RouteAlias(value = "login")
+@Route(value = "login" )
+//@RouteAlias(value = "login")
 public class LoginView extends VerticalLayout {
 
     //Autowired macht Probleme
