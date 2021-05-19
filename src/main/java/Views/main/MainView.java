@@ -1,6 +1,7 @@
-package Views;
+package Views.main;
 
 import Views.Login_Registration.LoginView;
+import Views.RegistrationView2;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -52,7 +53,7 @@ public class MainView extends AppLayout {
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.setId("header");
-        Image logo = new Image("images/logo.png", "Coll@HBRS Logo");
+        Image logo = new Image("resources/META-INF.resources/images/logo.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
         Avatar avatar = new Avatar();

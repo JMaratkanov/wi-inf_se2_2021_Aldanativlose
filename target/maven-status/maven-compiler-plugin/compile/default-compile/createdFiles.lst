@@ -1,5 +1,6 @@
 globals\Globals$Errors.class
 globals\Globals$Roles.class
+Views\main\MainView.class
 Views\RegistrationView2.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
@@ -8,4 +9,3 @@ control\LoginControl.class
 Views\Login_Registration\RegistrationView.class
 globals\Globals$Pages.class
 Views\CollatHBRSApplication.class
-Views\MainView.class

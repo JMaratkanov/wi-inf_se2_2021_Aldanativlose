@@ -1,19 +1,15 @@
 package Views.Login_Registration;
 
-import Views.MainView;
-import com.vaadin.flow.component.Text;
+import Views.main.MainView;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import control.LoginControl;
-import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
 
 import globals.Globals;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "login", layout = MainView.class)
 @RouteAlias(value = "", layout = MainView.class)
