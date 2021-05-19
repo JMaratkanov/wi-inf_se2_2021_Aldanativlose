@@ -53,7 +53,7 @@ public class MainView extends AppLayout {
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.setId("header");
-        Image logo = new Image("resources/META-INF.resources/images/logo.png", "Coll@HBRS Logo");
+        Image logo = new Image("images/logo1.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
         Avatar avatar = new Avatar();
@@ -71,7 +71,7 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Registration", RegistrationView2.class),
+        return new Tab[]{createTab("Registrieren", RegistrationView2.class),
                 createTab("Login", LoginView.class)};
     }
 

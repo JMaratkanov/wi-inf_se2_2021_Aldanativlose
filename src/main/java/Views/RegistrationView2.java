@@ -22,14 +22,14 @@ import dtos.impl.UserDTOimpl;
 @PageTitle("Registration")
 public class RegistrationView2 extends Div {
 
-    private TextField firstName = new TextField("First name");
-    private TextField lastName = new TextField("Last name");
-    private EmailField email = new EmailField("Email address");
+    private TextField firstname = new TextField("Vorname");
+    private TextField lastname = new TextField("Nachname");
+    private EmailField email = new EmailField("Email Adresse");
     private PasswordField password1 = new PasswordField("Passwort");
     private PasswordField password2 = new PasswordField("Passwort bestätigen");
 
-    private Button cancel = new Button("Cancel");
-    private Button save = new Button("Save");
+    private Button cancel = new Button("Abbrechen");
+    private Button save = new Button("Registrieren");
 
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
 
@@ -40,31 +40,33 @@ public class RegistrationView2 extends Div {
         add(createFormLayout());
         add(createButtonLayout());
 
-        binder.bindInstanceFields(this);
-        clearForm();
+        //binder.bindInstanceFields(this);
+        //clearForm();
 
-        cancel.addClickListener(e -> clearForm());
+        //cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> register(
-                firstName.getValue(),
-                lastName.getValue(),
+                firstname.getValue(),
+                lastname.getValue(),
                 email.getValue(),
                 password1.getValue(),
                 password2.getValue()
         ));
     }
 
+    /*
     private void clearForm() {
         binder.setBean(new UserDTOimpl());
     }
+     */
 
     private Component createTitle() {
-        return new H3("Personal information");
+        return new H3("Persönliche Informationen");
     }
 
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        email.setErrorMessage("Please enter a valid email address");
-        formLayout.add(firstName, lastName, email, password1, password2);
+        email.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
+        formLayout.add(firstname, lastname, email, password1, password2);
         return formLayout;
     }
 
