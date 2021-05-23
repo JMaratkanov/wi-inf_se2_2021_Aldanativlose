@@ -2,6 +2,7 @@ package db.exceptions;
 
 public class DatabaseLayerException extends Exception {
 
+    //reason sollte nicht null sein
     private String reason = null;
 
     public String getReason() {

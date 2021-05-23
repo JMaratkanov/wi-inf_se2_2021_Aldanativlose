@@ -25,21 +25,22 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
+            //TODO SQL Query hier einfügen
             set = statement.executeQuery("");
             /*
             set = statement.executeQuery(
                     "SELECT * "
-                            + "FROM carlook.user "
-                            + "WHERE carlook.user.userid = \'" + id + "\'"
-                            + " AND carlook.user.password = \'" + password + "\'");
+                            + "FROM db.user "
+                            + "WHERE db.user.userid = \'" + id + "\'"
+                            + " AND db.user.password = \'" + password + "\'");
             */
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            DatabaseLayerException e = new DatabaseLayerException("SQL-Fehler");
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
         }
         catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            DatabaseLayerException e = new DatabaseLayerException("Datenbankverbindungs-Fehler");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
         }
@@ -66,12 +67,12 @@ public class UserDAO {
 
             } else {
                 // Error Handling
-                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
+                DatabaseLayerException e = new DatabaseLayerException("USER NICHT GEFUNDEN");
                 e.setReason(Globals.Errors.NOUSERFOUND);
                 throw e;
             }
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
+            DatabaseLayerException e = new DatabaseLayerException("Irgendwo in der DB ist kacke am dampfen");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
 

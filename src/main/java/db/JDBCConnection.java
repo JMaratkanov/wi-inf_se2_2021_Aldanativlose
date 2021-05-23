@@ -7,16 +7,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JDBCConnection {
-
-    private static JDBCConnection connection = null;
-
+    //Hier die URL einfügen
     private String url = "";
     //private String url = "jdbc:postgresql://dumbo.inf.h-brs.de/demouser";
 
+    private static JDBCConnection connection = null;
     private Connection conn;
 
+    //Hier User und PW der DB einfügen
     private String login = "emouserd";
-
     private String password = "emouserd";
 
     public static JDBCConnection getInstance() throws DatabaseLayerException {
@@ -37,6 +36,7 @@ public class JDBCConnection {
         this.openConnection();
     }
 
+    //Hier user und pw der DB einfügen
     public void openConnection() throws DatabaseLayerException {
         try {
             Properties props = new Properties();
@@ -47,7 +47,7 @@ public class JDBCConnection {
 
         } catch (SQLException ex) {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
-            throw new DatabaseLayerException( "Fehler bei Zugriff auf die DB! Sichere Verbindung vorhanden!?" );
+            throw new DatabaseLayerException( "Fehler! Verbindung pürfen" );
         }
     }
 
