@@ -1,8 +1,10 @@
 package dtos.impl;
 
+import dtos.RolleDTO;
 import dtos.UserDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UserDTOimpl implements UserDTO {
     private int id;
@@ -16,6 +18,11 @@ public class UserDTOimpl implements UserDTO {
     private int status;
     private String firstname;
     private String lastname;
+
+    public void setRoles(List<RolleDTO> rollen) {
+
+        //TODO
+    }
 
     public String getEmail() {
         return email;
