@@ -17,7 +17,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="Coll@HBRS" />
+          <factory-entry name="Coll@HBRS" value="a645c133-2e4e-4918-a5ce-b2b7a09d6ace" />
           <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />

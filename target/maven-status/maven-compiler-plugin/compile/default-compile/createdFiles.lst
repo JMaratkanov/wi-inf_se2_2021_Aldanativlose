@@ -1,11 +1,13 @@
-globals\Globals$Roles.class
-control\LoginControl.class
-Views\Login_Registration\RegistrationView.class
-globals\Globals$Pages.class
 globals\Globals$Errors.class
+globals\Globals$Roles.class
 Views\main\MainView.class
 Views\RegistrationView2.class
+dtos\InseratDTO.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 Views\Login_Registration\LoginView.class
+control\LoginControl.class
+Views\Login_Registration\RegistrationView.class
+globals\Globals$Pages.class
 Views\CollatHBRSApplication.class
+dtos\RolleDTO.class
