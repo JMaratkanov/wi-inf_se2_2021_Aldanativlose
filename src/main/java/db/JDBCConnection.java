@@ -8,15 +8,15 @@ import java.util.logging.Logger;
 
 public class JDBCConnection {
     //Hier die URL einfügen
-    private String url = "";
+    private String url = "jdbc:postgresql://dumbo.inf.h-brs.de/nthiel2s";
     //private String url = "jdbc:postgresql://dumbo.inf.h-brs.de/demouser";
 
     private static JDBCConnection connection = null;
     private Connection conn;
 
     //Hier User und PW der DB einfügen
-    private String login = "emouserd";
-    private String password = "emouserd";
+    private String login = "nthiel2s";
+    private String password = "nthiel2s";
 
     public static JDBCConnection getInstance() throws DatabaseLayerException {
         if ( connection == null ) connection = new JDBCConnection();
@@ -40,14 +40,14 @@ public class JDBCConnection {
     public void openConnection() throws DatabaseLayerException {
         try {
             Properties props = new Properties();
-            props.setProperty("user", "emouserd" );
-            props.setProperty("password", "emouserd" );
+            props.setProperty("user", "nthiel2s" );
+            props.setProperty("password", "nthiel2s" );
 
             this.conn = DriverManager.getConnection(this.url, props);
 
         } catch (SQLException ex) {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
-            throw new DatabaseLayerException( "Fehler! Verbindung pürfen" );
+            throw new DatabaseLayerException( "Fehler! Verbindung prüfen" );
         }
     }
 

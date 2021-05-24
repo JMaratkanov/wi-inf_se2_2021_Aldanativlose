@@ -27,13 +27,11 @@ public class UserDAO {
 
             //TODO SQL Query hier einfügen
             set = statement.executeQuery("");
-            /*
             set = statement.executeQuery(
                     "SELECT * "
-                            + "FROM db.user "
-                            + "WHERE db.user.userid = \'" + id + "\'"
-                            + " AND db.user.password = \'" + password + "\'");
-            */
+                            + "FROM collhbrs.user "
+                            + "WHERE collhbrs.user.email = \'" + id + "\'"
+                            + " AND collhbrs.user.password = \'" + password + "\'");
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("SQL-Fehler");
             e.setReason(Globals.Errors.SQLERROR);
