@@ -1,4 +1,4 @@
-package Views;
+package Views.Login_Registration;
 
 import Views.main.MainView;
 import com.vaadin.flow.component.Component;
@@ -7,9 +7,11 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -18,13 +20,28 @@ import com.vaadin.flow.router.Route;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 
-@Route(value = "registration", layout = MainView.class)
-@PageTitle("Registration")
-public class RegistrationView2 extends Div {
+@Route(value = "registration_employer", layout = MainView.class)
+@PageTitle("Registration Employer")
+public class RegistrationEmployer extends Div {
 
-    private TextField firstname = new TextField("Vorname");
-    private TextField lastname = new TextField("Nachname");
-    private EmailField email = new EmailField("Email Adresse");
+    private TextField compamyName = new TextField("Firmenname");
+    private TextField country = new TextField("Land des Hauptsitzes");
+
+    /*
+    public static final ContentMode HTML
+
+    Label textLabel = new Label(
+            "Text where formatting characters, such as \\n, " +
+                    "and HTML, such as <b>here</b>, are quoted.",
+            ContentMode.HTML);
+     */
+
+    private TextField street = new TextField("Straße");
+    private TextField number = new TextField("Haus Nr.");
+    private TextField place = new TextField("Ort");
+    private NumberField plz = new NumberField("PLZ");
+    private EmailField email1 = new EmailField("Email Adresse");
+    private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
     private PasswordField password2 = new PasswordField("Passwort bestätigen");
 
@@ -33,8 +50,8 @@ public class RegistrationView2 extends Div {
 
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
 
-    public RegistrationView2() {
-        addClassName("registration-view");
+    public RegistrationEmployer() {
+        addClassName("registration-employer");
 
         add(createTitle());
         add(createFormLayout());
@@ -45,9 +62,14 @@ public class RegistrationView2 extends Div {
 
         //cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> register(
-                firstname.getValue(),
-                lastname.getValue(),
-                email.getValue(),
+                compamyName.getValue(),
+                country.getValue(),
+                street.getValue(),
+                number.getValue(),
+                place.getValue(),
+                plz.getValue(),
+                email1.getValue(),
+                email2.getValue(),
                 password1.getValue(),
                 password2.getValue()
         ));
@@ -60,13 +82,14 @@ public class RegistrationView2 extends Div {
      */
 
     private Component createTitle() {
-        return new H3("Persönliche Informationen");
+        return new H3("Unternehmens Registrierung");
     }
 
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
-        email.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
-        formLayout.add(firstname, lastname, email, password1, password2);
+        email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
+        email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
+        formLayout.add(compamyName, country, street, number, place, plz, email1, email2, password1, password2);
         return formLayout;
     }
 
@@ -79,12 +102,8 @@ public class RegistrationView2 extends Div {
         return buttonLayout;
     }
 
-    private void register(String firstName, String lastName, String email, String password1, String password2) {
-        if (firstName.trim().isEmpty()) {
-            Notification.show("Geben Sie Ihren Vornamen an");
-        } else if (lastName.trim().isEmpty()) {
-            Notification.show("Geben Sie Ihren Nachnamen an");
-        } else if (email.isEmpty()) {
+    private void register(String companyName, String country, String street, String number, String place, double plz, String email1, String email2, String password1, String password2) {
+        if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
         } else if (password1.isEmpty()) {
             Notification.show("Geben Sie ein Passwort an");

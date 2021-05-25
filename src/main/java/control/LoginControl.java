@@ -12,11 +12,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoginControl {
 
+    /*
     @Autowired
     private UserRepository repository;
-
+*/
     private UserDTO userDTO = null;
 
+    /*
     public boolean authentificate(String username, String password ) throws DatabaseUserException {
         // Standard: User wird mit Spring JPA ausgelesen (Was sind die Vorteile?)
         UserDTO tmpUser = this.getUserWithJPA( username , password );
@@ -31,12 +33,13 @@ public class LoginControl {
         this.userDTO = tmpUser;
         return true;
     }
+     */
 
     public UserDTO getCurrentUser(){
         return this.userDTO;
-
     }
 
+    /*
     private UserDTO getUserWithJDBC( String username , String password ) throws DatabaseUserException {
         UserDTO userTmp = null;
         UserDAO dao = new UserDAO();
@@ -78,5 +81,7 @@ public class LoginControl {
         }
         return userTmp;
     }
+
+     */
 
 }

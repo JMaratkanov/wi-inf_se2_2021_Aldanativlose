@@ -35,6 +35,7 @@ public class LoginControlTest {
         lc = null;
     }
 
+    /*
     @Test
     public void testAuthentificate() {
         assertEquals(true, lc.authentificate(emailCorrect, passwordCorrect));
@@ -42,6 +43,7 @@ public class LoginControlTest {
         assertEquals(false, lc.authentificate(emailWrong, passwordCorrect));
         assertEquals(false, lc.authentificate(emailWrong, passwordWrong));
     }
+     */
 
     @Test
     public void testGetCurrentUser() {
