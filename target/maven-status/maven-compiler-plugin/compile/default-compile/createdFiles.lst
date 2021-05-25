@@ -10,10 +10,11 @@ dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
 globals\Globals$Errors.class
 Views\main\MainView.class
-Views\RegistrationView2.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 Views\Login_Registration\LoginView.class
 db\exceptions\DatabaseLayerException.class
+Views\Login_Registration\RegistrationEmployer.class
 Views\CollatHBRSApplication.class
+Views\Login_Registration\RegistrationStudent.class
 dtos\RolleDTO.class

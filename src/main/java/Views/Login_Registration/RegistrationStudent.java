@@ -22,9 +22,10 @@ import dtos.impl.UserDTOimpl;
 
 @Route(value = "registration_student", layout = MainView.class)
 @PageTitle("Registration Student")
-public class RegistrationStudent extends VerticalLayout {
+public class RegistrationStudent extends Div {
 
-    private EmailField email = new EmailField("Email Adresse");
+    private EmailField email1 = new EmailField("Email Adresse");
+    private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
     private PasswordField password2 = new PasswordField("Passwort bestätigen");
 
@@ -34,7 +35,7 @@ public class RegistrationStudent extends VerticalLayout {
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
 
     public RegistrationStudent() {
-        addClassName("registration-student");
+        addClassName("registration-view");
 
         add(createTitle());
         add(createFormLayout());
@@ -45,12 +46,11 @@ public class RegistrationStudent extends VerticalLayout {
 
         //cancel.addClickListener(e -> clearForm());
         save.addClickListener(e -> register(
-                email.getValue(),
+                email1.getValue(),
+                email2.getValue(),
                 password1.getValue(),
                 password2.getValue()
         ));
-
-        this.setAlignItems( Alignment.CENTER );
     }
 
     /*
@@ -64,14 +64,15 @@ public class RegistrationStudent extends VerticalLayout {
     }
 
     private Component createFormLayout() {
-        VerticalLayout formLayout = new VerticalLayout();
-        email.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
-        formLayout.add(email, password1, password2);
+        FormLayout formLayout = new FormLayout();
+        email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
+        email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
+        formLayout.add(email1, email2, password1, password2);
         return formLayout;
     }
 
     private Component createButtonLayout() {
-        VerticalLayout buttonLayout = new VerticalLayout();
+        HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(save);
@@ -79,8 +80,8 @@ public class RegistrationStudent extends VerticalLayout {
         return buttonLayout;
     }
 
-    private void register(String email, String password1, String password2) {
-        if (email.isEmpty()) {
+    private void register(String email1, String email2, String password1, String password2) {
+        if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
         } else if (password1.isEmpty()) {
             Notification.show("Geben Sie ein Passwort an");
