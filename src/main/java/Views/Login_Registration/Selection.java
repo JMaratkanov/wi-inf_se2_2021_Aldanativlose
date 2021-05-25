@@ -21,14 +21,14 @@ import com.vaadin.flow.router.Route;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 
-@Route(value = "registration", layout = MainView.class)
-@PageTitle("Registration")
-public class RegistrationView extends VerticalLayout {
+@Route(value = "selection", layout = MainView.class)
+@PageTitle("Selection")
+public class Selection extends VerticalLayout {
 
     private Button registerStudent = new Button("Als Student registrieren", event -> UI.getCurrent().navigate("registration_student"));
     private Button registerEmployer = new Button("Als Unternehmen registrieren", event -> UI.getCurrent().navigate("registration_employer"));
 
-    public RegistrationView() {
+    public Selection() {
         addClassName("selection");
 
         add(createTitle());

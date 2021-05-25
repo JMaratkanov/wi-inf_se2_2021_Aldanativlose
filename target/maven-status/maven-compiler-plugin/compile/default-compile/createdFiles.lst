@@ -3,7 +3,6 @@ globals\Globals$Roles.class
 daos\RolleDAO.class
 dtos\InseratDTO.class
 control\LoginControl.class
-Views\Login_Registration\RegistrationView.class
 globals\Globals$Pages.class
 daos\UserDAO.class
 dtos\impl\InseratDTOimpl.class
@@ -17,4 +16,5 @@ db\exceptions\DatabaseLayerException.class
 Views\Login_Registration\RegistrationEmployer.class
 Views\CollatHBRSApplication.class
 Views\Login_Registration\RegistrationStudent.class
+Views\Login_Registration\Selection.class
 dtos\RolleDTO.class

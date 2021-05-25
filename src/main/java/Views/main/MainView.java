@@ -1,7 +1,7 @@
 package Views.main;
 
 import Views.Login_Registration.LoginView;
-import Views.Login_Registration.RegistrationView;
+import Views.Login_Registration.Selection;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -71,7 +71,7 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Registrieren", RegistrationView.class),
+        return new Tab[]{createTab("Registrieren", Selection.class),
                 createTab("Login", LoginView.class)};
     }
 

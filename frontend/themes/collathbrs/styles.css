@@ -1,3 +1,4 @@
 /* Import your application global css files here or add the styles directly to this file */
 @import url('views/main-view.css');
 @import url('views/registration-view.css');
+@import url('views/selection.css');

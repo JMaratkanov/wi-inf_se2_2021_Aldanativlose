@@ -1,0 +1,9 @@
+.selection .button-layout {
+    margin-bottom: var(--lumo-space-l);
+    margin-top: var(--lumo-space-m);
+    align-items: center;
+}
+.button {
+    color: red;
+    font-family: Arial;
+}
