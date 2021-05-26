@@ -35,8 +35,8 @@ public class Selection extends VerticalLayout {
         registerStudent.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         registerEmployer.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(createTitle());
-        registerStudent.setWidth("15%");
-        registerEmployer.setWidth("15%");
+        registerStudent.setWidth("300px");
+        registerEmployer.setWidth("300px");
         buttonLayout.add(registerStudent);
         buttonLayout.add(registerEmployer);
         return buttonLayout;

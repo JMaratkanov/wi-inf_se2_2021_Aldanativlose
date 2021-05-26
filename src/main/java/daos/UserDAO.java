@@ -1,3 +1,4 @@
+/*
 package daos;
 
 import db.JDBCConnection;
@@ -71,6 +72,83 @@ public class UserDAO {
             }
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Irgendwo in der DB ist kacke am dampfen");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+
+}
+*/
+package daos;
+
+import db.JDBCConnection;
+import db.exceptions.DatabaseLayerException;
+import dtos.RolleDTO;
+import dtos.UserDTO;
+import dtos.impl.UserDTOimpl;
+import globals.Globals;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
+
+
+public class UserDAO {
+
+    public UserDTO findUserByUseridAndPassword(String id, String password) throws DatabaseLayerException {
+        ResultSet set = null;
+
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            set = statement.executeQuery(
+                    "SELECT * "
+                            + "FROM collhbrs2.user "
+                            + "WHERE collhbrs2.user.userid = \'" + id + "\'"
+                            + " AND collhbrs2.user.password = \'" + password + "\'");
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        }
+        catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        }
+
+        UserDTOimpl user = null;
+
+        try {
+            if (set.next()) {
+                // Durchführung des Object-Relational-Mapping (ORM)
+
+                user = new UserDTOimpl();
+                user.setId( set.getInt(1));
+                user.setFirstname( set.getString(4) );
+                user.setLastname(set.getString(5));
+
+
+                return user;
+
+            } else {
+                // Error Handling
+                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
+                e.setReason(Globals.Errors.NOUSERFOUND);
+                throw e;
+            }
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
 

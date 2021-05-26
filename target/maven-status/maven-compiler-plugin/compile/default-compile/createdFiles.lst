@@ -1,10 +1,13 @@
 db\JDBCConnection.class
+ApplicationConfig.class
 globals\Globals$Roles.class
 daos\RolleDAO.class
 dtos\InseratDTO.class
 control\LoginControl.class
 globals\Globals$Pages.class
 daos\UserDAO.class
+repository\UserRepository.class
+entities\User.class
 dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
 globals\Globals$Errors.class

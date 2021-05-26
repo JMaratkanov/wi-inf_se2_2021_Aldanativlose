@@ -3,5 +3,9 @@
 @import url('views/registration-view.css');
 @import url('views/selection.css');
 html {
-      --lumo-primary-color: hsl(197, 100%, 43%);
+      --lumo-primary-color: #009DDB;
     }
+
+a:active, a:hover, a {
+    --lumo-primary-color: red;
+}
