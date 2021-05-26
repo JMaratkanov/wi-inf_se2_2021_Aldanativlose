@@ -83,8 +83,14 @@ public class RegistrationStudent extends Div {
     private void register(String email1, String email2, String password1, String password2) {
         if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
+        } else if (email2.isEmpty()) {
+            Notification.show("Bestätigen Sie Ihre E-Mail Adresse");
+        } else if (!email1.equals(email2)) {
+            Notification.show("E-Mail Adressen stimmen nicht überein");
         } else if (password1.isEmpty()) {
             Notification.show("Geben Sie ein Passwort an");
+        } else if (password2.isEmpty()) {
+            Notification.show("Bestätigen Sie Ihr Passwort");
         } else if (!password1.equals(password2)) {
             Notification.show("Passwörter stimmen nicht überein");
         } else {
