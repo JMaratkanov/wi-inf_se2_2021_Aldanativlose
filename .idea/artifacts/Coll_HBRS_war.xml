@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="CollHBRS-Aldanativlose Haarspaldarei.war">
+    <root id="archive" name="CollHBRS-Aldanativlose_Haarspaldarei.war">
       <element id="artifact" artifact-name="Coll@HBRS:war exploded" />
     </root>
   </artifact>
