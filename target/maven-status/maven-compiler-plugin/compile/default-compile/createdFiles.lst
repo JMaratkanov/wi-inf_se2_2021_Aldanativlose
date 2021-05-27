@@ -1,6 +1,8 @@
 db\JDBCConnection.class
+Views\AppViews\HomeView.class
 ApplicationConfig.class
 globals\Globals$Roles.class
+Views\main\AppView.class
 daos\RolleDAO.class
 dtos\InseratDTO.class
 control\LoginControl.class
@@ -10,11 +12,14 @@ repository\UserRepository.class
 entities\User.class
 dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
+Views\AppViews\AdView.class
 globals\Globals$Errors.class
+Views\AppViews\ApplicationView.class
 Views\main\MainView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 Views\Login_Registration\LoginView.class
+Views\AppViews\SettingsView.class
 db\exceptions\DatabaseLayerException.class
 Views\Login_Registration\RegistrationEmployer.class
 Views\CollatHBRSApplication.class

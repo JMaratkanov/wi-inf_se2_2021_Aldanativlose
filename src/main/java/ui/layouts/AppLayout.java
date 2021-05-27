@@ -1,16 +1,19 @@
-package Views.main;
+package ui.layouts;
 
-import Views.Login_Registration.LoginView;
-import Views.Login_Registration.Selection;
+import ui.appViews.AdView;
+import ui.appViews.ApplicationView;
+import ui.appViews.HomeView;
+import ui.appViews.SettingsView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
-import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.progressbar.ProgressBar;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -25,11 +28,11 @@ import java.util.Optional;
  */
 @PWA(name = "Coll@HBRS", shortName = "Coll@HBRS", enableInstallPrompt = false)
 @Theme(themeFolder = "collathbrs")
-public class MainView extends AppLayout {
+public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
 
     private final Tabs menu;
 
-    public MainView() {
+    public AppLayout() {
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
@@ -71,8 +74,10 @@ public class MainView extends AppLayout {
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Registrieren", Selection.class),
-                createTab("Login", LoginView.class)};
+        return new Tab[]{createTab("Home", HomeView.class),//wie Tristan sie nennt anpassen statt LoginView
+                         createTab("Stellenanzeigen", AdView.class),//hier auch
+                         createTab("Bewerbungen", ApplicationView.class),//hier auch
+                         createTab("Einstellungen", SettingsView.class)};//hier auch
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
@@ -93,4 +98,16 @@ public class MainView extends AppLayout {
         return menu.getChildren().filter(tab -> ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
                 .findFirst().map(Tab.class::cast);
     }
+
+    ProgressBar progressBar = new ProgressBar(20, 100, 40); //läuft noch nicht, weiß noch nicht wie man es implementiert
+    NativeButton progressButton = new NativeButton("Profil Vervollständigung", e -> {
+        double value = progressBar.getValue() + 10;
+        if (value > progressBar.getMax()) {
+            value = progressBar.getMin();
+        }
+        progressBar.setValue(value);
+    });
+
+    //add(progressBar, progressButton);
 }
+

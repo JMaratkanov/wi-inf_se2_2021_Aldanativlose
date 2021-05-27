@@ -1,6 +1,6 @@
-package Views.Login_Registration;
+package ui.Login_Registration;
 
-import Views.main.MainView;
+import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -14,10 +14,9 @@ import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
 
 import globals.Globals;
-import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "login", layout = MainView.class)
-@RouteAlias(value = "", layout = MainView.class)
+@Route(value = "login", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
 public class LoginView extends VerticalLayout {
 
     /**

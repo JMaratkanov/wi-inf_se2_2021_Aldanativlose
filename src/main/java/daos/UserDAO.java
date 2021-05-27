@@ -156,6 +156,4 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
-
-
 }

@@ -1,6 +1,6 @@
-package Views.Login_Registration;
+package ui.Login_Registration;
 
-import Views.main.MainView;
+import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route(value = "selection", layout = MainView.class)
+@Route(value = "selection", layout = MainLayout.class)
 @PageTitle("Selection")
 public class Selection extends VerticalLayout {
 

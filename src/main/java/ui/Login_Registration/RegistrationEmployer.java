@@ -1,13 +1,12 @@
-package Views.Login_Registration;
+package ui.Login_Registration;
 
-import Views.main.MainView;
+import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -20,7 +19,7 @@ import com.vaadin.flow.router.Route;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 
-@Route(value = "registration_employer", layout = MainView.class)
+@Route(value = "registration_employer", layout = MainLayout.class)
 @PageTitle("Registration Employer")
 public class RegistrationEmployer extends Div {
 
