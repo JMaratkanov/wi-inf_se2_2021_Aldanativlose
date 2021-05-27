@@ -119,4 +119,13 @@ public class UserDTOimpl implements UserDTO {
     public String getLastName() {
         return this.lastname;
     }
+
+    @Override
+    public String toString() {
+        return "UserDTOImpl{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
 }

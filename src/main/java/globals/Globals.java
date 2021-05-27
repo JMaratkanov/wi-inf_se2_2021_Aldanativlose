@@ -9,6 +9,7 @@ public class Globals {
         public static final String SHOW_MAIN = "";
         public static final String LOGIN_VIEW = "login";
 
+        public static final String SELECTION_VIEW = "selection";
     }
 
     public static class Roles {

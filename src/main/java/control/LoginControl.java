@@ -7,24 +7,23 @@ import dtos.UserDTO;
 import globals.Globals;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import repository.UserRepository;
 
 
 @Component
 public class LoginControl {
 
-    /*
     @Autowired
     private UserRepository repository;
-*/
+
     private UserDTO userDTO = null;
 
-    /*
     public boolean authentificate(String username, String password ) throws DatabaseUserException {
         // Standard: User wird mit Spring JPA ausgelesen (Was sind die Vorteile?)
-        UserDTO tmpUser = this.getUserWithJPA( username , password );
+        // UserDTO tmpUser = this.getUserWithJPA( username , password );
 
         // Alternative: Auslesen des Users mit JDBC (Was sind die Vorteile bzw. Nachteile?)
-        // UserDTO tmpUser = this.getUserWithJDBC( username , password );
+         UserDTO tmpUser = this.getUserWithJDBC( username , password );
 
         if ( tmpUser == null ) {
             // ggf. hier ein Loggin einfügen
@@ -33,13 +32,11 @@ public class LoginControl {
         this.userDTO = tmpUser;
         return true;
     }
-     */
 
     public UserDTO getCurrentUser(){
         return this.userDTO;
     }
 
-    /*
     private UserDTO getUserWithJDBC( String username , String password ) throws DatabaseUserException {
         UserDTO userTmp = null;
         UserDAO dao = new UserDAO();
@@ -81,7 +78,4 @@ public class LoginControl {
         }
         return userTmp;
     }
-
-     */
-
 }
