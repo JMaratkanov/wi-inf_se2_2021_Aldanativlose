@@ -12,7 +12,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>CollHBRS</artifactId>
-    <version>Aldanativlose Haarspaldarei</version>
+    <version>Aldanativlose_Haarspaldarei</version>
     <name>CollAtHbrs</name>
     <description>Demo project for SE-2</description>
     <packaging>war</packaging>
