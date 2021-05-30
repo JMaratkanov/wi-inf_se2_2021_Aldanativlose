@@ -63,7 +63,6 @@ public class LoginControl {
             else {
                 throw new DatabaseUserException("A failure occured while");
             }
-
         }
         return userDTO;
     }

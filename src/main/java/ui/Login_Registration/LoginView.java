@@ -26,7 +26,7 @@ public class LoginView extends VerticalLayout {
 
     //Autowired macht Probleme
     //@Autowired
-    private LoginControl loginControl;
+    private LoginControl loginControl = new LoginControl();
 
     public LoginView() {
         setSizeFull();
@@ -39,6 +39,8 @@ public class LoginView extends VerticalLayout {
             boolean isAuthenticated = false;
 
             try {
+                //TODO
+                // Username ist eigentlich E-Mail Adresse. Sollte noch aus Verständnis Gründen umbenannt werden!
                 isAuthenticated = loginControl.authentificate( e.getUsername() , e.getPassword() );
 
             } catch (DatabaseUserException databaseException) {
@@ -67,7 +69,7 @@ public class LoginView extends VerticalLayout {
     }
 
     private void navigateToMainPage() {
-        UI.getCurrent().navigate(Globals.Pages.SELECTION_VIEW);
+        UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
     }
 
     private LoginI18n createCustomLogin() {

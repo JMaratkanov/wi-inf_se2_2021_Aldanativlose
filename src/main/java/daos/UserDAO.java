@@ -112,9 +112,9 @@ public class UserDAO {
 
             set = statement.executeQuery(
                     "SELECT * "
-                            + "FROM collhbrs2.user "
-                            + "WHERE collhbrs2.user.userid = \'" + id + "\'"
-                            + " AND collhbrs2.user.password = \'" + password + "\'");
+                            + "FROM collhbrs.user "
+                            + "WHERE collhbrs.user.email = \'" + id + "\'"
+                            + " AND collhbrs.user.password = \'" + password + "\'");
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
@@ -135,8 +135,11 @@ public class UserDAO {
 
                 user = new UserDTOimpl();
                 user.setId( set.getInt(1));
-                user.setFirstname( set.getString(4) );
-                user.setLastname(set.getString(5));
+                //TODO
+                // Haben setFirstname und setLastname für den Zugriff auf unsere Datenbank ausgenommen, da wir Vor- und Nachname
+                // bisher nicht in der User Tabelle vorhanden ist. Ggf.: muss das hier noch angepasst werden!
+                //user.setFirstname( set.getString(4) );
+                //user.setLastname(set.getString(5));
 
 
                 return user;
