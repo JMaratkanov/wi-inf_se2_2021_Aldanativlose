@@ -159,4 +159,31 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
+    public void setUserByEmailAndPassword(String email, String password)  throws DatabaseLayerException{
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            statement.executeQuery(
+                    "INSERT INTO collhbrs.user(id, email, password, userid)"
+                        + "VALUES ( 10,  \'" + email + "\', \'" + password + "\', 'test2')");
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        }
+        catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
 }
