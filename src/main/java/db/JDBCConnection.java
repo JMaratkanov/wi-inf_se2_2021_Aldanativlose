@@ -1,6 +1,7 @@
 package db;
 
 import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 
 import java.sql.*;
@@ -63,14 +64,6 @@ public class JDBCConnection {
         }
     }
 
-    public void setStatement(UserDTOimpl x) throws SQLException {
-        Statement stmt = conn.createStatement();
-        // INSERT a record
-        String sqlInsert = "insert into books values (3001, 'Gone Fishing', 'Kumar', 11.11, 11)";
-        int countInserted = stmt.executeUpdate(sqlInsert);
-
-    }
-
     public PreparedStatement getPreparedStatement( String sql  ) throws DatabaseLayerException {
         try {
             if ( this.conn.isClosed() )  this.openConnection();
@@ -79,7 +72,6 @@ public class JDBCConnection {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-
     }
 
     public void closeConnection(){
