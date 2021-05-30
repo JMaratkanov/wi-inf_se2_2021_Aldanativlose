@@ -1,6 +1,11 @@
 package ui.Login_Registration;
 
 
+import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.dialog.Dialog;
+import control.LoginControl;
+import control.RegistrationControl;
+import control.exceptions.DatabaseUserException;
 import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -21,6 +26,8 @@ import dtos.impl.UserDTOimpl;
 @Route(value = "registration_student", layout = MainLayout.class)
 @PageTitle("Registration Student")
 public class RegistrationStudent extends Div {
+
+    private RegistrationControl registrationControl = new RegistrationControl();
 
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
@@ -92,8 +99,16 @@ public class RegistrationStudent extends Div {
         } else if (!password1.equals(password2)) {
             Notification.show("Passwörter stimmen nicht überein");
         } else {
-            //authService.register(username, password1);
-            Notification.show("E-Mail Bestätigung versendet!");
+            try {
+                registrationControl.registerStudentWithJDBC(email1, password1);
+            } catch (DatabaseUserException databaseException) {
+                Dialog dialog = new Dialog();
+                dialog.add( new Text( databaseException.getReason()) );
+                dialog.setWidth("400px");
+                dialog.setHeight("150px");
+                dialog.open();
+            }
+            Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
         }
     }
 }
