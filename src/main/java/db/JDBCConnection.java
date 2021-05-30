@@ -23,7 +23,7 @@ public class JDBCConnection {
         return connection;
     }
 
-    private JDBCConnection() throws DatabaseLayerException {
+    protected JDBCConnection() throws DatabaseLayerException {
         this.initConnection();
     }
 
@@ -59,6 +59,15 @@ public class JDBCConnection {
             Logger.getLogger(JDBCConnection.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    public void setStatement() throws SQLException {
+        Statement stmt = conn.createStatement();
+
+        // INSERT a record
+        String sqlInsert = "insert into books values (3001, 'Gone Fishing', 'Kumar', 11.11, 11)";
+        //System.out.println("The SQL statement is: " + sqlInsert + "\n");  // Echo for debugging
+        int countInserted = stmt.executeUpdate(sqlInsert);
     }
 
     public PreparedStatement getPreparedStatement( String sql  ) throws DatabaseLayerException {
