@@ -24,6 +24,7 @@ public class RegistrationControl {
 
             //TODO
             // Prüfen ob User bereits in der Datenbank vorhanden ist!!!
+            // Dem User eine Fehlermeldung ausgeben wenn ein User mit derselben E-Mail bereits vorhanden ist
             if ( reason.equals((Globals.Errors.SQLERROR))) {
                 throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
             }
