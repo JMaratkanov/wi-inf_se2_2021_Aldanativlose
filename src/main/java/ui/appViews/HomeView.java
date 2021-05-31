@@ -13,7 +13,8 @@ import com.vaadin.flow.router.Route;
 public class HomeView extends Div {
 
     public HomeView() {
-        addClassName("home-view");
+        setId("home-view");
+        addClassName("wrapper");
         add(createTitle());
         add(new Text("Wie geht's?"));
     }

@@ -21,6 +21,11 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.contextmenu.MenuItem;
+import com.vaadin.flow.component.menubar.MenuBar;
+import com.vaadin.flow.component.UI;
+
 import java.util.Optional;
 
 /**
@@ -56,14 +61,28 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
         header.setWidthFull();
         header.setAlignItems(FlexComponent.Alignment.CENTER);
         header.setId("header");
+
         Image logo = new Image("images/logo1.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
+
+        header.add(new H1("Coll@HBRS"));
+
         Avatar avatar = new Avatar();
         avatar.setId("avatar");
-        header.add(new H1("Coll@HBRS"));
         header.add(avatar);
+
+        Button logoutbtn = new Button("Logout" , e -> logoutUser());
+        logoutbtn.setId("logoutbtn");
+        header.add(logoutbtn);
+
         return header;
+    }
+
+    private void logoutUser() {
+        UI ui = this.getUI().get();
+        ui.getSession().close();
+        ui.getPage().setLocation("/");
     }
 
     private static Tabs createMenuTabs() {

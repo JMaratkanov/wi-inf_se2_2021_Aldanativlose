@@ -5,6 +5,7 @@ import dtos.UserDTO;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -35,8 +36,7 @@ public class LoginControlTest {
         user = null;
         lc = null;
     }
-
-    /*
+/*
     @Test
     public void testAuthentificate() throws DatabaseUserException {
         assertEquals(true, lc.authentificate(emailCorrect, passwordCorrect));
@@ -49,6 +49,6 @@ public class LoginControlTest {
     public void testGetCurrentUser() {
         assertEquals(user, lc.getCurrentUser());
     }
-    */
+  */
 
 }

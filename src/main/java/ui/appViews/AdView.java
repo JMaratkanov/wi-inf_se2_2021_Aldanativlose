@@ -13,7 +13,8 @@ import com.vaadin.flow.router.Route;
 public class AdView extends Div {
 
     public AdView() {
-        addClassName("ad-view");
+        setId("ad-view");
+        addClassName("wrapper");
         add(createTitle());
         add(new Text("Hier sehen Sie alle Stellenanzeigen"));
     }

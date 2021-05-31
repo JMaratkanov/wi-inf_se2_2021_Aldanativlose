@@ -18,7 +18,8 @@ public class ApplicationView extends Div {
     Grid<String> tabelle = new Grid<>();
 
     public ApplicationView() {
-        addClassName("application-view");
+        setId("application-view");
+        addClassName("wrapper");
         add(createTitle());
         add(createcombobox());
         add(creatgrid());
