@@ -13,7 +13,8 @@ import com.vaadin.flow.router.Route;
 public class SettingsView extends Div {
 
     public SettingsView() {
-        addClassName("settings-view");
+        addClassName("wrapper");
+        setId("settings-view");
         add(createTitle());
         add(new Text("Hier können Sie Anpassungen an den Einstellungen vornehmen."));
     }
