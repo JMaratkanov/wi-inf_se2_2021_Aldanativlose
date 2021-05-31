@@ -101,6 +101,7 @@ public class RegistrationStudent extends Div {
         } else {
             try {
                 registrationControl.registerStudentWithJDBC(email1, password1);
+                Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
             } catch (DatabaseUserException databaseException) {
                 Dialog dialog = new Dialog();
                 dialog.add( new Text( databaseException.getReason()) );
@@ -108,7 +109,6 @@ public class RegistrationStudent extends Div {
                 dialog.setHeight("150px");
                 dialog.open();
             }
-            Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
         }
     }
 }

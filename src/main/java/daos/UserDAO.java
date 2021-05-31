@@ -170,8 +170,8 @@ public class UserDAO {
             }
 
             statement.executeQuery(
-                    "INSERT INTO collhbrs.user(id, email, password, userid)"
-                        + "VALUES ( 10,  \'" + email + "\', \'" + password + "\', 'test2')");
+                    "INSERT INTO collhbrs.user(email, password, userid)"
+                        + "VALUES ( \'" + email + "\', \'" + password + "\', 'test2')");
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");

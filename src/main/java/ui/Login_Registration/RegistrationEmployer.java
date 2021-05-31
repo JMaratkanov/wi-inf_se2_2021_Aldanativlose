@@ -37,8 +37,8 @@ public class RegistrationEmployer extends Div {
 
     private TextField street = new TextField("Straße");
     private TextField number = new TextField("Haus Nr.");
-    private TextField place = new TextField("Ort");
     private NumberField plz = new NumberField("PLZ");
+    private TextField place = new TextField("Ort");
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
