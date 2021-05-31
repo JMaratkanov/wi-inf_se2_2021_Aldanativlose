@@ -20,7 +20,7 @@ public class LoginWebPageTest {
 
     @BeforeClass
     public static void setUpClass(){
-        System.setProperty("webdriver.gecko.driver","D:\\Users\\okorian\\Downloads\\geckodriver-v0.29.1-win64\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver","D:\\Users\\okorian\\Datein\\Uni\\SE2\\geckodriver-v0.29.1-win64\\geckodriver.exe");
         driver = new FirefoxDriver();
     }
 
