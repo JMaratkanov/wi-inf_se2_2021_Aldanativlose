@@ -18,9 +18,13 @@ a:active, a:hover, a {
 }
 
 :host([selected]){
-    var(--lumo-primary-color));
+    var(--lumo-primary-color)) !important;
 }
 
 :host([selected])::before, :host([selected])::after {
-    background-color: var(--lumo-primary-color));
+    background-color: var(--lumo-primary-color)) !important;
+}
+
+:host([selected]) {
+    background-color: var(--lumo-primary-color)) !important;
 }
