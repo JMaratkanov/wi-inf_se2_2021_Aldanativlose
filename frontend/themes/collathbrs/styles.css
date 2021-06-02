@@ -6,6 +6,13 @@ html {
       --lumo-primary-color: #009DDB;
     }
 
+vaadin-tab { /*Hier die Farbe für die nicht ausgewählten Tabs angeben*/
+    color: #009DDB;
+}
+vaadin-tab[selected] {
+    color: #009DDB; /*Hier die Farbe für die ausgewählten Tabs angeben*/
+}
+
 a:active, a:hover, a {
     --lumo-primary-color: red;
 }
