@@ -16,15 +16,3 @@ a:active, a:hover, a {
     max-width: 1280px;
     padding: 10px;
 }
-
-:host([selected]){
-    var(--lumo-primary-color)) !important;
-}
-
-:host([selected])::before, :host([selected])::after {
-    background-color: var(--lumo-primary-color)) !important;
-}
-
-:host([selected]) {
-    background-color: var(--lumo-primary-color)) !important;
-}
