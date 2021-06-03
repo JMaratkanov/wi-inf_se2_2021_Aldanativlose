@@ -1,5 +1,6 @@
 package ui.Login_Registration;
 
+import com.vaadin.flow.component.UI;
 import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -44,7 +45,7 @@ public class RegistrationEmployer extends Div {
     private PasswordField password1 = new PasswordField("Passwort");
     private PasswordField password2 = new PasswordField("Passwort bestätigen");
 
-    private Button cancel = new Button("Abbrechen");
+    private Button back = new Button("Zurück");
     private Button save = new Button("Registrieren");
 
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
@@ -56,10 +57,7 @@ public class RegistrationEmployer extends Div {
         add(createFormLayout());
         add(createButtonLayout());
 
-        //binder.bindInstanceFields(this);
-        //clearForm();
-
-        //cancel.addClickListener(e -> clearForm());
+        back.addClickListener(e -> UI.getCurrent().navigate("selection"));
         save.addClickListener(e -> register(
                 compamyName.getValue(),
                 country.getValue(),
@@ -73,12 +71,6 @@ public class RegistrationEmployer extends Div {
                 password2.getValue()
         ));
     }
-
-    /*
-    private void clearForm() {
-        binder.setBean(new UserDTOimpl());
-    }
-     */
 
     private Component createTitle() {
         return new H3("Unternehmens Registrierung");
@@ -97,7 +89,7 @@ public class RegistrationEmployer extends Div {
         buttonLayout.addClassName("button-layout");
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(save);
-        buttonLayout.add(cancel);
+        buttonLayout.add(back);
         return buttonLayout;
     }
 

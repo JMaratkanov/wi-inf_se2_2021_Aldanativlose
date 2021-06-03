@@ -57,4 +57,31 @@ public class RegistrationControl {
         // Wenn die Tests erfolgreich waren, würde hier dann der User wahrscheinlich in die Datenbank geschrieben werden.
         */
     }
+
+    public void registerEmployerWithJDBC(String fName, String country, String street, String no, String place, String plz, String email, String password) throws DatabaseUserException {
+        UserDAO dao = new UserDAO();
+        try {
+            dao.checkOnExistingUser(email);
+            dao.setStudentByEmailAndPassword( email , password );
+        }
+        catch ( DatabaseLayerException e) {
+
+            // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
+            // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
+            String reason = e.getReason();
+
+            if ( reason.equals((Globals.Errors.SQLERROR))) {
+                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
+            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
+                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
+                        "Please contact the admin");
+            } else if (reason.equals(Globals.Errors.EXISTINGUSER)) {
+                throw new DatabaseUserException("There is already a user with this email!");
+            } else {
+                throw new DatabaseUserException("A failure occured while");
+            }
+        }
+
+
+    }
 }
