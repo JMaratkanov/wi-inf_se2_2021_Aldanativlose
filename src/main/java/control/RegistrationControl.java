@@ -14,7 +14,8 @@ public class RegistrationControl {
     public void registerStudentWithJDBC(String email, String password) throws DatabaseUserException {
         UserDAO dao = new UserDAO();
         try {
-            dao.setUserByEmailAndPassword( email , password );
+            dao.checkOnExistingUser(email);
+            dao.setStudentByEmailAndPassword( email , password );
         }
         catch ( DatabaseLayerException e) {
 
@@ -22,17 +23,14 @@ public class RegistrationControl {
             // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
             String reason = e.getReason();
 
-            //TODO
-            // Prüfen ob User bereits in der Datenbank vorhanden ist!!!
-            // Dem User eine Fehlermeldung ausgeben wenn ein User mit derselben E-Mail bereits vorhanden ist
             if ( reason.equals((Globals.Errors.SQLERROR))) {
                 throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
-            }
-            else if ( reason.equals((Globals.Errors.DATABASE ) )) {
-                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC. " +
+            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
+                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
                         "Please contact the admin");
-            }
-            else {
+            } else if (reason.equals(Globals.Errors.EXISTINGUSER)) {
+                throw new DatabaseUserException("There is already a user with this email!");
+            } else {
                 throw new DatabaseUserException("A failure occured while");
             }
         }
