@@ -107,7 +107,7 @@ public class SettingsView extends Div {
 
         add(tabs, pages);
     }
-
+    //Konstruktor von Tab1: Profil aktualisieren
     private void SettingsView_Tab1(Div page1) {
         //TODO get this vals from DB
         //###########################
@@ -116,7 +116,7 @@ public class SettingsView extends Div {
         String desFromDB = "getthisfromDB";  //TextAreas
         String skillFromDB = "getthisfromDB";
         String refFromDB = "getthisfromDB";
-        String fachfromDB = "getthisfromDB";
+        String fachfromDB = "getthisfromDB"; //Selects
         String sGangfromDB = "getthisfromDB";
         String semFromDB = "getthisfromDB";
         //##########################
@@ -165,6 +165,7 @@ public class SettingsView extends Div {
         page1.add(formLayout, buttonLayout);
     }
 
+    //Konstruktor von Tab2: Upload
     private void SettingsView_Tab2(Div page2) {
         //Upload
         MemoryBuffer buffer = new MemoryBuffer();
@@ -240,8 +241,6 @@ public class SettingsView extends Div {
         delete.addClickListener(event -> dialog.open());
         page4.add(dialog);
     }
-
-
 
     private Component createTitle() {
         return new H3("Einstellungen");
