@@ -171,9 +171,9 @@ public class SettingsView extends Div {
         MemoryBuffer buffer = new MemoryBuffer();
         Upload upload = new Upload(buffer);
         upload.setMaxFiles(1);
-        upload.setDropLabel(new Label("Uploade deinen Lebenslauf als PDF a̶u̶f̶ ̶d̶e̶n̶ ̶S̶e̶r̶v̶e̶r̶ ins Nirvana! (JA geprüft!!)"));
+        upload.setDropLabel(new Label("Lade deinen Lebenslauf als PDF hoch"));
         upload.setAcceptedFileTypes("text/pdf");
-        upload.setMaxFileSize(300);
+        upload.setMaxFileSize(10000000);
         Div output = new Div();
 
         upload.addFileRejectedListener(event -> {
