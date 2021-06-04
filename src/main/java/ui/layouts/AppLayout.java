@@ -1,5 +1,9 @@
 package ui.layouts;
 
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import dtos.UserDTO;
+import globals.Globals;
 import ui.appViews.AdView;
 import ui.appViews.ApplicationView;
 import ui.appViews.HomeView;
@@ -33,9 +37,10 @@ import java.util.Optional;
  */
 @PWA(name = "Coll@HBRS", shortName = "Coll@HBRS", enableInstallPrompt = false)
 @Theme(themeFolder = "collathbrs")
-public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
+public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout implements BeforeEnterObserver {
 
     private final Tabs menu;
+    private H1 helloUser;
 
     public AppLayout() {
         HorizontalLayout header = createHeader();
@@ -72,6 +77,10 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
         avatar.setId("avatar");
         header.add(avatar);
 
+        helloUser = new H1();
+        // Der Name des Users wird später reingesetzt, falls die Navigation stattfindet
+        header.add(helloUser);
+
         Button logoutbtn = new Button("Logout" , e -> logoutUser());
         logoutbtn.setId("logoutbtn");
         header.add(logoutbtn);
@@ -82,7 +91,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
     private void logoutUser() {
         UI ui = this.getUI().get();
         ui.getSession().close();
-        ui.getPage().setLocation("/");
+        ui.getPage().setLocation("./");
     }
 
     private static Tabs createMenuTabs() {
@@ -110,12 +119,42 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout {
     @Override
     protected void afterNavigation() {
         super.afterNavigation();
+
+        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite gelenkt
+        if ( !checkIfUserIsLoggedIn() ) return;
+
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
+        helloUser.setText("Hallo "  + this.getCurrentEmailOfUser() );
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
         return menu.getChildren().filter(tab -> ComponentUtil.getData(tab, Class.class).equals(component.getClass()))
                 .findFirst().map(Tab.class::cast);
+    }
+
+    private boolean checkIfUserIsLoggedIn() {
+        // Falls der Benutzer nicht eingeloggt ist, dann wird er auf die Startseite gelenkt
+        UserDTO userDTO = this.getCurrentUser();
+        if (userDTO == null) {
+            UI.getCurrent().navigate(Globals.Pages.LOGIN_VIEW);
+            return false;
+        }
+        return true;
+    }
+
+    private String getCurrentEmailOfUser() {
+        return getCurrentUser().getEmail();
+    }
+
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        if (getCurrentUser() == null){
+            beforeEnterEvent.rerouteTo(Globals.Pages.LOGIN_VIEW);
+        }
     }
 
     ProgressBar progressBar = new ProgressBar(20, 100, 40); //läuft noch nicht, weiß noch nicht wie man es implementiert

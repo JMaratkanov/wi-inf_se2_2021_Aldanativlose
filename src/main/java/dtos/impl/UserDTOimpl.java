@@ -20,7 +20,6 @@ public class UserDTOimpl implements UserDTO {
     private String lastname;
 
     public void setRoles(List<RolleDTO> rollen) {
-
         //TODO
     }
 
