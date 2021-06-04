@@ -122,6 +122,7 @@ public class RegistrationEmployer extends Div {
             try {
                 registrationControl.registerEmployerWithJDBC(companyName, country, street, number, place, plz, email1, password1);
                 Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
+                UI.getCurrent().navigate("login");
             } catch (DatabaseUserException databaseException) {
                 Dialog dialog = new Dialog();
                 dialog.add( new Text( databaseException.getReason()) );

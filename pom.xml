@@ -108,6 +108,11 @@
             <version>3.141.59</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-ordered-layout-flow</artifactId>
+            <version>14.6.1</version>
+        </dependency>
 
     </dependencies>
 
