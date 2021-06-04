@@ -190,7 +190,9 @@ public class SettingsView extends Div {
 
     //Konstruktor von Tab3: Passwort ändern
     public void SettingsView_Tab3(Div page3){
-        page3.add(email1, email2, password1, password2);
+        FormLayout formLayout = new FormLayout();
+        formLayout.add(email1, email2, password1, password2);
+        page3.add(formLayout);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
