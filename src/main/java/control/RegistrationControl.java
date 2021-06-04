@@ -58,11 +58,12 @@ public class RegistrationControl {
         */
     }
 
-    public void registerEmployerWithJDBC(String fName, String country, String street, String no, String place, String plz, String email, String password) throws DatabaseUserException {
+    public void registerEmployerWithJDBC(String companyName, String country, String street, String number, String place, String plz,
+                                         String email, String password) throws DatabaseUserException {
         UserDAO dao = new UserDAO();
         try {
             dao.checkOnExistingUser(email);
-            dao.setStudentByEmailAndPassword( email , password );
+            dao.setEmployer( companyName, country, street, number, place, plz, email , password );
         }
         catch ( DatabaseLayerException e) {
 

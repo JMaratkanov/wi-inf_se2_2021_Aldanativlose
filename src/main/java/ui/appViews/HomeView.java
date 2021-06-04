@@ -19,6 +19,6 @@ public class HomeView extends Div {
         add(new Text("Wie geht's?"));
     }
     private Component createTitle() {
-        return new H3("Hallo Timo Salda!");
+        return new H3("Guten Tag!");
     }
 }
