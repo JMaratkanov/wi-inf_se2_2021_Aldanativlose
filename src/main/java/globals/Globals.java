@@ -20,10 +20,11 @@ public class Globals {
     }
 
     public static class Errors {
-        public static final String NOUSERFOUND = "nouser";
-        public static final String EXISTINGUSER = "exuser";
-        public static final String SQLERROR = "sql";
-        public static final String DATABASE = "database";
+        public static final String NOUSERFOUND = "Nutzer konnte nicht gefunden werden, sind sie bereits registriert?";
+        public static final String EXISTINGUSER = "Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein";
+        public static final String SQLERROR = "sql error";
+        public static final String DATABASE = "database error";
+        public static final String ILLEGALCHAR = "Sie versuchen ein nicht erlaubtes Zeichen zu verwenden. " +  "\n" + " Nicht erlaubt sind: '!'  ','  ':'";
     }
 
 }
