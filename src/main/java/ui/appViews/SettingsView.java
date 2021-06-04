@@ -46,10 +46,9 @@ public class SettingsView extends Div {
     private Button actualize = new Button("Aktualisieren");
 
     //Tab3 Passwort ändern
-    private EmailField email1 = new EmailField("Email Adresse");
-    private EmailField email2 = new EmailField("Email Adresse bestätigen");
-    private PasswordField password1 = new PasswordField("Passwort");
-    private PasswordField password2 = new PasswordField("Passwort bestätigen");
+    private PasswordField passwordOld = new PasswordField("Altes Passwort");
+    private PasswordField password1 = new PasswordField("Neues Passwort");
+    private PasswordField password2 = new PasswordField("Neues Passwort bestätigen");
     private Button cancel = new Button("Abbrechen");
     private Button save = new Button("Ändern");
 
@@ -190,7 +189,7 @@ public class SettingsView extends Div {
 
     //Konstruktor von Tab3: Passwort ändern
     public void SettingsView_Tab3(Div page3){
-        page3.add(email1, email2, password1, password2);
+        page3.add(passwordOld, password1, password2);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -200,7 +199,21 @@ public class SettingsView extends Div {
         buttonLayout.add(cancel);
         page3.add(buttonLayout);
 
-        //TODO Click -> Datenbank
+        Dialog dialog = new Dialog();
+        dialog.setWidth("400px");
+        dialog.setHeight("150px");
+        dialog.add(new Text("Passwort Änderung bestätigen"));
+        dialog.setCloseOnEsc(true);
+        dialog.setCloseOnOutsideClick(false);
+
+        Span message = new Span();
+
+        Button confirmButton = new Button("Bestätigen", event -> {
+            message.setText("Passwort erfolgreich geändert");
+            //TODO Hier Action - Confirm -> Delegation richtung DB
+            dialog.close();
+        });
+        Button cancelButton = new Button("Abbrechen", event -> {dialog.close();});
     }
 
     //Konstruktor von Tab4: Konto löschen

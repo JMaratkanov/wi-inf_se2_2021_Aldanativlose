@@ -11,6 +11,7 @@ globals\Globals$Pages.class
 daos\UserDAO.class
 repository\UserRepository.class
 ui\layouts\AppLayout.class
+ui\appViews\MyUploadContext.class
 ui\Login_Registration\RegistrationEmployer.class
 entities\User.class
 dtos\impl\InseratDTOimpl.class

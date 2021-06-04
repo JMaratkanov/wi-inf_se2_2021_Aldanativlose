@@ -94,6 +94,7 @@ public class RegistrationStudent extends Div {
             try {
                 registrationControl.registerStudentWithJDBC(email1, password1);
                 Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
+                UI.getCurrent().navigate("login");
             } catch (DatabaseUserException databaseException) {
                 Dialog dialog = new Dialog();
                 dialog.add( new Text( databaseException.getReason()) );
