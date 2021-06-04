@@ -1,6 +1,10 @@
 package ui.Login_Registration;
 
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.dialog.Dialog;
+import control.RegistrationControl;
+import control.exceptions.DatabaseUserException;
 import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -24,21 +28,14 @@ import dtos.impl.UserDTOimpl;
 @PageTitle("Registration Employer")
 public class RegistrationEmployer extends Div {
 
-    private TextField compamyName = new TextField("Firmenname");
+    private TextField companyName = new TextField("Firmenname");
     private TextField country = new TextField("Land des Hauptsitzes");
 
-    /*
-    public static final ContentMode HTML
-
-    Label textLabel = new Label(
-            "Text where formatting characters, such as \\n, " +
-                    "and HTML, such as <b>here</b>, are quoted.",
-            ContentMode.HTML);
-     */
+    private RegistrationControl registrationControl = new RegistrationControl();
 
     private TextField street = new TextField("Straße");
     private TextField number = new TextField("Haus Nr.");
-    private NumberField plz = new NumberField("PLZ");
+    private TextField plz = new TextField("PLZ");
     private TextField place = new TextField("Ort");
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
@@ -59,7 +56,7 @@ public class RegistrationEmployer extends Div {
 
         back.addClickListener(e -> UI.getCurrent().navigate("selection"));
         save.addClickListener(e -> register(
-                compamyName.getValue(),
+                companyName.getValue(),
                 country.getValue(),
                 street.getValue(),
                 number.getValue(),
@@ -80,7 +77,7 @@ public class RegistrationEmployer extends Div {
         FormLayout formLayout = new FormLayout();
         email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
         email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
-        formLayout.add(compamyName, country, street, number, place, plz, email1, email2, password1, password2);
+        formLayout.add(companyName, country, street, number, place, plz, email1, email2, password1, password2);
         return formLayout;
     }
 
@@ -93,16 +90,45 @@ public class RegistrationEmployer extends Div {
         return buttonLayout;
     }
 
-    private void register(String companyName, String country, String street, String number, String place, double plz, String email1, String email2, String password1, String password2) {
+    private void register(String companyName, String country, String street, String number, String place, String plz, String email1, String email2, String password1, String password2) {
+
         if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
+        } else if (email2.isEmpty()) {
+            Notification.show("Bestätigen Sie Ihre E-Mail Adresse");
+        } else if (!email1.equals(email2)) {
+            Notification.show("E-Mail Adressen stimmen nicht überein");
         } else if (password1.isEmpty()) {
             Notification.show("Geben Sie ein Passwort an");
+        } else if (password2.isEmpty()) {
+            Notification.show("Bestätigen Sie Ihr Passwort");
         } else if (!password1.equals(password2)) {
             Notification.show("Passwörter stimmen nicht überein");
+        } else if (companyName.isEmpty()) {
+            Notification.show("Bitte geben Sie einen Firmennamen an!");
+        } else if (country.isEmpty()) {
+            Notification.show("Bitte geben Sie das Land des Hauptsitzes an!");
+        } else if (street.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Staße an!");
+        } else if (number.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Hausnumer an!");
+        } else if (place.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Stadt an!");
+        } else if (plz.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Postleitzahl an!");
+        } else if (plz.length() < 5 || plz.length() > 5) {
+            Notification.show("Bitte geben sie eine korrekte Postleitzahl an!");
         } else {
-            //authService.register(username, password1);
-            Notification.show("E-Mail Bestätigung versendet!");
+            try {
+                registrationControl.registerEmployerWithJDBC(companyName, country, street, number, place, plz, email1, password1);
+                Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
+            } catch (DatabaseUserException databaseException) {
+                Dialog dialog = new Dialog();
+                dialog.add( new Text( databaseException.getReason()) );
+                dialog.setWidth("400px");
+                dialog.setHeight("150px");
+                dialog.open();
+            }
         }
     }
 }
