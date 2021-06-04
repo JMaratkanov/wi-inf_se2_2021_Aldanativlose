@@ -1,6 +1,8 @@
 db\JDBCConnection.class
 ApplicationConfig.class
 globals\Globals$Roles.class
+control\builder\Builder.class
+control\builder\UserBuilder.class
 daos\RolleDAO.class
 ui\CollatHBRSApplication.class
 dtos\InseratDTO.class
@@ -18,12 +20,17 @@ dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
 ui\layouts\MainLayout.class
 globals\Globals$Errors.class
+dtos\impl\UserDTOimpl.class
+dtos\UserDTO.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
+control\factory\Factory.class
 ui\appViews\ApplicationView.class
 db\exceptions\DatabaseLayerException.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
+control\RegistrationResult.class
 dtos\RolleDTO.class
 ui\Login_Registration\RegistrationStudent.class
+control\RegistrationControl.class

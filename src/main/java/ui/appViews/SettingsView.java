@@ -46,9 +46,10 @@ public class SettingsView extends Div {
     private Button actualize = new Button("Aktualisieren");
 
     //Tab3 Passwort ändern
-    private PasswordField passwordOld = new PasswordField("Altes Passwort");
-    private PasswordField password1 = new PasswordField("Neues Passwort");
-    private PasswordField password2 = new PasswordField("Neues Passwort bestätigen");
+    private EmailField email1 = new EmailField("Email Adresse");
+    private EmailField email2 = new EmailField("Email Adresse bestätigen");
+    private PasswordField password1 = new PasswordField("Passwort");
+    private PasswordField password2 = new PasswordField("Passwort bestätigen");
     private Button cancel = new Button("Abbrechen");
     private Button save = new Button("Ändern");
 
@@ -170,9 +171,9 @@ public class SettingsView extends Div {
         MemoryBuffer buffer = new MemoryBuffer();
         Upload upload = new Upload(buffer);
         upload.setMaxFiles(1);
-        upload.setDropLabel(new Label("Uploade deinen Lebenslauf als PDF a̶u̶f̶ ̶d̶e̶n̶ ̶S̶e̶r̶v̶e̶r̶ ins Nirvana! (JA geprüft!!)"));
+        upload.setDropLabel(new Label("Lade deinen Lebenslauf als PDF hoch"));
         upload.setAcceptedFileTypes("text/pdf");
-        upload.setMaxFileSize(300);
+        upload.setMaxFileSize(10000000);
         Div output = new Div();
 
         upload.addFileRejectedListener(event -> {
@@ -189,7 +190,9 @@ public class SettingsView extends Div {
 
     //Konstruktor von Tab3: Passwort ändern
     public void SettingsView_Tab3(Div page3){
-        page3.add(passwordOld, password1, password2);
+        FormLayout formLayout = new FormLayout();
+        formLayout.add(email1, email2, password1, password2);
+        page3.add(formLayout);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
