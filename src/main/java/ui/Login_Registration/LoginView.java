@@ -41,7 +41,7 @@ public class LoginView extends VerticalLayout {
             try {
                 //TODO
                 // Username ist eigentlich E-Mail Adresse. Sollte noch aus Verständnis Gründen umbenannt werden!
-                isAuthenticated = loginControl.authentificate( e.getUsername() , e.getPassword() );
+                isAuthenticated = loginControl.authenticate( e.getUsername() , e.getPassword() );
 
             } catch (DatabaseUserException databaseException) {
                 Dialog dialog = new Dialog();

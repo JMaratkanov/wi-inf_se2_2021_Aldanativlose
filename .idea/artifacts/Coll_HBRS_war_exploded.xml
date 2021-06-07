@@ -73,9 +73,6 @@
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-list-mixin:2.5.1" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-item:2.3.0" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-overlay:3.5.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-control-state-mixin:2.2.4" />
-          <element id="library" level="project" name="Maven: com.vaadin:vaadin-button-flow:14.6.1" />
-          <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-button:2.4.0" />
           <element id="library" level="project" name="Maven: com.vaadin:vaadin-checkbox-flow:14.6.1" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-checkbox:2.5.0" />
           <element id="library" level="project" name="Maven: com.vaadin:vaadin-combo-box-flow:14.6.1" />
@@ -187,6 +184,9 @@
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-element-mixin:2.4.2" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-usage-statistics:2.1.0" />
           <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-development-mode-detector:2.0.4" />
+          <element id="library" level="project" name="Maven: com.vaadin:vaadin-button-flow:14.6.1" />
+          <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-button:2.4.0" />
+          <element id="library" level="project" name="Maven: org.webjars.bowergithub.vaadin:vaadin-control-state-mixin:2.2.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -86,6 +86,7 @@ public class UserDAO {
 package daos;
 
 import com.vaadin.flow.component.html.Pre;
+import control.exceptions.DatabaseUserException;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.RolleDTO;
@@ -124,8 +125,7 @@ public class UserDAO {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
-        }
-        catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
@@ -155,6 +155,8 @@ public class UserDAO {
                 e.setReason(Globals.Errors.NOUSERFOUND);
                 throw e;
             }
+        } catch (DatabaseLayerException e) {
+            throw e;
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
             e.setReason(Globals.Errors.DATABASE);
@@ -192,6 +194,7 @@ public class UserDAO {
         }
     }
 
+    // Prüft anhand einer E-Mail ob ein User mit dieser E-Mail schon existiert
     public void checkOnExistingUser(String email) throws DatabaseLayerException{
         ResultSet set = null;
         try {
