@@ -47,7 +47,8 @@ public class SettingsView extends Div {
     private DatePicker datePicker = new DatePicker();
     private Select<String> Fachbereich = new Select<>();
     private Select<String> Studiengang = new Select<>();
-    private Select<String> Semester = new Select<>();
+    //private Select<String> Semester = new Select<>();
+    private DatePicker semesterdatePicker = new DatePicker();
     private Button actualize = new Button("Aktualisieren");
 
     //Tab3 Passwort ändern
@@ -123,7 +124,7 @@ public class SettingsView extends Div {
         String refFromDB = "getthisfromDB";
         String fachfromDB = "getthisfromDB"; //Selects
         String sGangfromDB = "getthisfromDB";
-        String semFromDB = "getthisfromDB";
+        //String semFromDB = "getthisfromDB";
         //##########################
 
         //init Placeholders Textfields & Areas
@@ -145,6 +146,18 @@ public class SettingsView extends Div {
             }
         });
 
+        //Semester Datepicker
+        semesterdatePicker.setLabel("Geburtstag");
+        Div value2 = new Div();
+        value2.setText("Studienbeginn: ");
+        datePicker.addValueChangeListener(event -> {
+            if (event.getValue() == null) {
+                value2.setText("No date selected");
+            } else {
+                value2.setText("Selected date: " + event.getValue());
+            }
+        });
+
         //Selects
         Fachbereich.setItems("Fisch", "Apfel", "Kürbis", fachfromDB);
         Fachbereich.setValue(fachfromDB);
@@ -152,13 +165,13 @@ public class SettingsView extends Div {
         Studiengang.setItems("Fisch", "Apfel", "Kürbis", sGangfromDB);
         Studiengang.setValue(sGangfromDB);
         Studiengang.setLabel("Studiengang");
-        Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
-        Semester.setValue(semFromDB);
-        Semester.setLabel("Semester");
+        //Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
+        //Semester.setValue(semFromDB);
+        //Semester.setLabel("Semester");
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value,Fachbereich,Studiengang, Semester, description,skills,references);
+        formLayout.add(Vorname,Nachname, datePicker, value,Fachbereich,Studiengang, value2 /*Semester*/, description,skills,references);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -176,16 +189,14 @@ public class SettingsView extends Div {
                 datePicker.getValue(),
                 Fachbereich.getValue(),
                 Studiengang.getValue(),
-                Semester.getValue()
+                semesterdatePicker.getValue()
+                //Semester.getValue()
         ));
 
         page1.add(formLayout, buttonLayout);
     }
 
-    private void update(String value,   String value1,   String value2,      String value3, String value4, LocalDate value5, String value6, String value7) {
-    }
-
-    private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, String semester) {
+    private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
 
         try {
             settingsControl.updateStudentWithJDBC(Vorname, Nachname, description, skills, references, date, fachbereich, studiengang, semester);
