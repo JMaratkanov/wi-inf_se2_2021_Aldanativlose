@@ -21,7 +21,8 @@ public class LoginWebPageTest {
     @BeforeClass
     public static void setUpClass(){
         // Muss jeder für sich selber setzten!!!
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\Deadman\\IdeaProjects\\geckodriver.exe");
+        //System.setProperty("webdriver.gecko.driver","C:\\Users\\Deadman\\IdeaProjects\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver","D:\\Users\\okorian\\Datein\\Uni\\SE2\\geckodriver-v0.29.1-win64\\geckodriver.exe");
         driver = new FirefoxDriver();
     }
 
@@ -90,23 +91,23 @@ public class LoginWebPageTest {
         assertEquals(true, pageText.contains("Incorrect username or password"));
         assertEquals(true, pageText.contains("Check that you have entered the correct username and password and try again."));
     }
-    /*
+
     @Test
     public void testLoginWithCorrectEmailAndCorrectPassword(){
         // Go to Login page
         driver.get("http://localhost:8080/login");
 
         // Set Email
-        driver.findElement( By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-login-form/vaadin-login-form-wrapper/form/vaadin-text-field/input")).sendKeys("MaxMuster@hbrs.de");
+        driver.findElement( By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-login-form/vaadin-login-form-wrapper/form/vaadin-text-field/input")).sendKeys("demo");
 
         // Set Password
-        driver.findElement( By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-login-form/vaadin-login-form-wrapper/form/vaadin-password-field/input")).sendKeys(("123456"));
+        driver.findElement( By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-login-form/vaadin-login-form-wrapper/form/vaadin-password-field/input")).sendKeys(("demo"));
 
         // Click Login
         driver.findElement( (By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-login-form/vaadin-login-form-wrapper/form/vaadin-button"))).click();
 
     }
-    */
+
     @AfterClass
     public static void tearDownClass(){
         driver.quit();

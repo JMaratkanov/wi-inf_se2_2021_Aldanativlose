@@ -50,6 +50,8 @@ public class RegistrationStudentWebPageTest {
 
         // Press Registrieren
         //driver.findElement(By.xpath("/html/body/vaadin-app-layout/div/vaadin-horizontal-layout/vaadin-button[1]//button")).click();
+
+        //TODO User Loeschen
     }
 
     @AfterClass
