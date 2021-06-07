@@ -244,7 +244,7 @@ public class SettingsView extends Div {
             //TODO Hier Action - Confirm -> Delegation richtung DB
             dialog.close();
         });
-        Button cancelButton = new Button("Ich bin cool!", event -> {
+        Button cancelButton = new Button("Abbrechen", event -> {
             message.setText("Wir freuen uns dass du geblieben bist :)");
             dialog.close();
         });

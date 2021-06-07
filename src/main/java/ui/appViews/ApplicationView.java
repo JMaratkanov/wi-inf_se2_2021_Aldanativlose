@@ -24,11 +24,13 @@ public class ApplicationView extends Div {
         add(createcombobox());
         add(creatgrid());
     }
+
     private Component createcombobox() {
-        add(new Text("Für folgende Anzeigen"));
+        add(new Text("Für folgende Stellen"));
         filter.setPlaceholder("-alle-");
         filter.setItems("-alle-");
-        filter.setItems("firma 1");
+        filter.setItems("Stelle A", "Stelle B");
+
         return filter;
     }
     private Component creatgrid(){
@@ -43,6 +45,6 @@ public class ApplicationView extends Div {
 
 
     private Component createTitle() {
-        return new H3("Bewerbungen");
+        return new H3("Meine Bewerbungen");
     }
 }
