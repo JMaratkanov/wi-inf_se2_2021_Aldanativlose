@@ -7,5 +7,5 @@ public interface UserDTO {
     public String getEmail();
     public String getFirstName();
     public String getLastName();
-    //public List<RolleDTO> getRoles();
+    public int getRole();
 }

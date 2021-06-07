@@ -16,11 +16,10 @@ import java.sql.Statement;
 import java.time.LocalDate;
 
 public class SettingsControl {
-    public void updateStudentWithJDBC(String email, String password) throws DatabaseUserException {
+    public void updateStudentWithJDBC(int id, String vorname, String nachname,  String description, String skills, String references, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseUserException {
         UserDAO dao = new UserDAO();
         try {
-            dao.checkOnExistingUser(email);
-            dao.setStudentByEmailAndPassword( email , password );
+            dao.updateUserData(id, vorname, nachname, fachbereich, semester, studiengang, gebTag);
         }
         catch ( DatabaseLayerException e) {
 
@@ -33,16 +32,9 @@ public class SettingsControl {
             } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
                 throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
                         "Please contact the admin");
-            } else if (reason.equals(Globals.Errors.EXISTINGUSER)) {
-                throw new DatabaseUserException("There is already a user with this email!");
             } else {
                 throw new DatabaseUserException("A failure occured while");
             }
         }
-
-    }
-
-    public void updateStudentWithJDBC(int id, String vorname, String nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester) throws DatabaseUserException {
-        if(false) throw new DatabaseUserException("bla");
     }
 }

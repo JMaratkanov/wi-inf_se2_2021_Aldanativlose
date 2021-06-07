@@ -179,11 +179,11 @@ public class SettingsView extends Div {
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
-        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        actualize.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(actualize);
         //TODO update vals into DB -> schicke daten richtung DB
 
-        save.addClickListener(e -> update(
+        actualize.addClickListener(e -> update(
                 Vorname.getValue(),
                 Nachname.getValue(),
                 description.getValue(),
@@ -203,7 +203,7 @@ public class SettingsView extends Div {
         int ID = loginControl.getCurrentUser().getId();
 
         try {
-            settingsControl.updateStudentWithJDBC(ID, Vorname, Nachname, description, skills, references, date, fachbereich, studiengang, semester);
+            settingsControl.updateStudentWithJDBC(ID, Vorname, Nachname, description, skills, references, fachbereich, semester, studiengang, date);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate("setting");
         } catch (DatabaseUserException databaseException) {
