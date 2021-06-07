@@ -18,6 +18,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import ui.layouts.AppLayout;
@@ -38,6 +39,8 @@ import java.util.Map;
 @PageTitle("Settings")
 public class SettingsView extends Div {
     private SettingsControl settingsControl = new SettingsControl();
+    private LoginControl loginControl = new LoginControl();
+
     //Tab1
     private TextField Vorname = new TextField("Vorname");
     private TextField Nachname = new TextField("Nachname");
@@ -197,9 +200,10 @@ public class SettingsView extends Div {
     }
 
     private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
+        int ID = loginControl.getCurrentUser().getId();
 
         try {
-            settingsControl.updateStudentWithJDBC(Vorname, Nachname, description, skills, references, date, fachbereich, studiengang, semester);
+            settingsControl.updateStudentWithJDBC(ID, Vorname, Nachname, description, skills, references, date, fachbereich, studiengang, semester);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate("setting");
         } catch (DatabaseUserException databaseException) {

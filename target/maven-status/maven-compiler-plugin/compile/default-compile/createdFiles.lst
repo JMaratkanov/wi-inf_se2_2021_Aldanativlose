@@ -22,6 +22,7 @@ ui\layouts\MainLayout.class
 globals\Globals$Errors.class
 dtos\impl\UserDTOimpl.class
 dtos\UserDTO.class
+control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class

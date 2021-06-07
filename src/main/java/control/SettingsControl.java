@@ -13,6 +13,7 @@ import globals.Globals;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 public class SettingsControl {
     public void updateStudentWithJDBC(String email, String password) throws DatabaseUserException {
@@ -39,5 +40,9 @@ public class SettingsControl {
             }
         }
 
+    }
+
+    public void updateStudentWithJDBC(int id, String vorname, String nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester) throws DatabaseUserException {
+        if(false) throw new DatabaseUserException("bla");
     }
 }
