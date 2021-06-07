@@ -1,5 +1,8 @@
-RegistrationStudentWebPageTest.class
 LoginControlTest.class
+RegistrationControlTest.class
+UserDAOTest.class
+RegistrationStudentWebPageTest.class
 UserDTOimplTest.class
 LoginWebPageTest.class
 RegistrationEmployerWebPageTest.class
+LogoutWebPageTest.class
