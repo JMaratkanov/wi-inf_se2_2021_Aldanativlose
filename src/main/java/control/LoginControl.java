@@ -18,7 +18,7 @@ public class LoginControl {
 
     private UserDTO userDTO = null;
 
-    public boolean authentificate(String username, String password ) throws DatabaseUserException {
+    public boolean authenticate(String username, String password ) throws DatabaseUserException {
         // Standard: User wird mit Spring JPA ausgelesen (Was sind die Vorteile?)
         // UserDTO tmpUser = this.getUserWithJPA( username , password );
         if(username.contains(";") || username.contains(",") || username.contains(":")){ //Check for Illegal Chars
@@ -53,8 +53,7 @@ public class LoginControl {
             String reason = e.getReason();
 
             if (reason.equals(Globals.Errors.NOUSERFOUND)) {
-                return userTmp;
-                // throw new DatabaseUserException("No User could be found! Please check your credentials!");
+                throw new DatabaseUserException("No User could be found! Please check your credentials!");
             }
             else if ( reason.equals((Globals.Errors.SQLERROR))) {
                 throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");

@@ -227,6 +227,8 @@ public class SettingsView extends Div {
 
     //Konstruktor von Tab3: Passwort ändern
     public void SettingsView_Tab3(Div page3){
+        //TODO Normalerweise wären hier nur die Felder Altes Passwort, Neues Passwort und Neues Passwort bestätigen notwendig
+        // Altes Passwort zur Kontrolle ist ZWINGEND NOTWENDIG!
         FormLayout formLayout = new FormLayout();
         formLayout.add(email1, email2, password1, password2);
         page3.add(formLayout);

@@ -202,9 +202,6 @@
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-list-mixin:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-item:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-overlay:3.5.1" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-control-state-mixin:2.2.4" level="project" />
-    <orderEntry type="library" name="Maven: com.vaadin:vaadin-button-flow:14.6.1" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-button:2.4.0" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-checkbox-flow:14.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-checkbox:2.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-combo-box-flow:14.6.1" level="project" />
@@ -362,5 +359,8 @@
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-element-mixin:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-usage-statistics:2.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-development-mode-detector:2.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.vaadin:vaadin-button-flow:14.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-button:2.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-control-state-mixin:2.2.4" level="project" />
   </component>
 </module>
