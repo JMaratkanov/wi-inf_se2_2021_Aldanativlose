@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.webjars.bowergithub.vaadin:vaadin-radio-button:1.5.1">
+  <library name="Maven: com.vaadin:vaadin-material-theme:2.6.1">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-radio-button/1.5.1/vaadin-radio-button-1.5.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/vaadin/vaadin-material-theme/2.6.1/vaadin-material-theme-2.6.1.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-radio-button/1.5.1/vaadin-radio-button-1.5.1-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/vaadin/vaadin-material-theme/2.6.1/vaadin-material-theme-2.6.1-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-radio-button/1.5.1/vaadin-radio-button-1.5.1-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/vaadin/vaadin-material-theme/2.6.1/vaadin-material-theme-2.6.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

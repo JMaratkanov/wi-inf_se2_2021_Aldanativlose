@@ -7,6 +7,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.tabs.Tab;
@@ -17,10 +18,14 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+import control.LoginControl;
+import control.SettingsControl;
+import control.exceptions.DatabaseUserException;
 import ui.layouts.AppLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 /*
@@ -33,6 +38,9 @@ import java.util.Map;
 @Route(value = "setting", layout = AppLayout.class)
 @PageTitle("Settings")
 public class SettingsView extends Div {
+    private SettingsControl settingsControl = new SettingsControl();
+    private LoginControl loginControl = new LoginControl();
+
     //Tab1
     private TextField Vorname = new TextField("Vorname");
     private TextField Nachname = new TextField("Nachname");
@@ -42,7 +50,8 @@ public class SettingsView extends Div {
     private DatePicker datePicker = new DatePicker();
     private Select<String> Fachbereich = new Select<>();
     private Select<String> Studiengang = new Select<>();
-    private Select<String> Semester = new Select<>();
+    //private Select<String> Semester = new Select<>();
+    private DatePicker semesterdatePicker = new DatePicker();
     private Button actualize = new Button("Aktualisieren");
 
     //Tab3 Passwort ändern
@@ -118,7 +127,7 @@ public class SettingsView extends Div {
         String refFromDB = "getthisfromDB";
         String fachfromDB = "getthisfromDB"; //Selects
         String sGangfromDB = "getthisfromDB";
-        String semFromDB = "getthisfromDB";
+        //String semFromDB = "getthisfromDB";
         //##########################
 
         //init Placeholders Textfields & Areas
@@ -140,6 +149,18 @@ public class SettingsView extends Div {
             }
         });
 
+        //Semester Datepicker
+        semesterdatePicker.setLabel("Geburtstag");
+        Div value2 = new Div();
+        value2.setText("Studienbeginn: ");
+        datePicker.addValueChangeListener(event -> {
+            if (event.getValue() == null) {
+                value2.setText("No date selected");
+            } else {
+                value2.setText("Selected date: " + event.getValue());
+            }
+        });
+
         //Selects
         Fachbereich.setItems("Fisch", "Apfel", "Kürbis", fachfromDB);
         Fachbereich.setValue(fachfromDB);
@@ -147,13 +168,13 @@ public class SettingsView extends Div {
         Studiengang.setItems("Fisch", "Apfel", "Kürbis", sGangfromDB);
         Studiengang.setValue(sGangfromDB);
         Studiengang.setLabel("Studiengang");
-        Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
-        Semester.setValue(semFromDB);
-        Semester.setLabel("Semester");
+        //Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
+        //Semester.setValue(semFromDB);
+        //Semester.setLabel("Semester");
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value,Fachbereich,Studiengang, Semester, description,skills,references);
+        formLayout.add(Vorname,Nachname, datePicker, value,Fachbereich,Studiengang, value2 /*Semester*/, description,skills,references);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -162,8 +183,39 @@ public class SettingsView extends Div {
         buttonLayout.add(actualize);
         //TODO update vals into DB -> schicke daten richtung DB
 
+        save.addClickListener(e -> update(
+                Vorname.getValue(),
+                Nachname.getValue(),
+                description.getValue(),
+                skills.getValue(),
+                references.getValue(),
+                datePicker.getValue(),
+                Fachbereich.getValue(),
+                Studiengang.getValue(),
+                semesterdatePicker.getValue()
+                //Semester.getValue()
+        ));
+
         page1.add(formLayout, buttonLayout);
     }
+
+    private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
+        int ID = loginControl.getCurrentUser().getId();
+
+        try {
+            settingsControl.updateStudentWithJDBC(ID, Vorname, Nachname, description, skills, references, date, fachbereich, studiengang, semester);
+            Notification.show("Update erfolgreich!");
+            UI.getCurrent().navigate("setting");
+        } catch (DatabaseUserException databaseException) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( databaseException.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+
+    }
+
 
     //Konstruktor von Tab2: Upload
     private void SettingsView_Tab2(Div page2) {

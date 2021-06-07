@@ -45,8 +45,8 @@ public class RegistrationTest {
     /*
     @Test
     void testRegistrationControl() {
-        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1).getMeldung(), "Fehler im RegistrationControl");
-        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2).getMeldung(), "Fehler im RegistrationControl");
+        assertEquals("Registrierung erfolgreich!", rc.registerUser(user1).getM "Fehler im RegistrationControl");
+        assertEquals("Kein Nachname angegeben!", rc.registerUser(user2).getMeleldung(),dung(), "Fehler im RegistrationControl");
         assertEquals("Kein Vorname angegeben!", rc.registerUser(user3).getMeldung(), "Fehler im RegistrationControl");
         assertEquals("Keine ID angegeben!", rc.registerUser(user4).getMeldung(), "Fehler im RegistrationControl");
         assertEquals("Vorname ist zu kurz!", rc.registerUser(user5).getMeldung(), "Fehler im RegistrationControl");
