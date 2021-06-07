@@ -16,7 +16,7 @@ public class HomeView extends Div {
         setId("home-view");
         addClassName("wrapper");
         add(createTitle());
-        add(new Text("Wie geht's?"));
+        add(new Text("Schön dich wieder zu sehen, wie geht's dir?"));
     }
     private Component createTitle() {
         return new H3("Guten Tag!");
