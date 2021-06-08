@@ -1,13 +1,10 @@
 package ui.appViews;
 
-import com.vaadin.flow.component.*;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.*;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -15,16 +12,14 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.upload.Upload;
-import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
-import control.SettingsControl;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
 import ui.appViews.SettingsViewParts.SettingsView_Tab1;
 import ui.appViews.SettingsViewParts.SettingsView_Tab2;
 import ui.appViews.SettingsViewParts.SettingsView_Tab3;
 import ui.appViews.SettingsViewParts.SettingsView_Tab4;
 import ui.layouts.AppLayout;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,14 +27,15 @@ import java.util.Map;
 @Route(value = "setting", layout = AppLayout.class)
 @PageTitle("Settings")
 public class SettingsView extends Div {
-    private SettingsControl settingsControl = new SettingsControl();
 
+    //Die 4 Tabs werden in diesen Klassen jeweils einzeln gebaut und dann als Div zurück hierhin geschickt.
+    //Idealerweise sollte der Zugriff auf die DB in den jeweiligen _Tabx Klassen passieren um die Logik voneinander zu trennen
     private SettingsView_Tab1 buildTab1 = new SettingsView_Tab1();
     private SettingsView_Tab2 buildTab2 = new SettingsView_Tab2();
     private SettingsView_Tab3 buildTab3 = new SettingsView_Tab3();
     private SettingsView_Tab4 buildTab4 = new SettingsView_Tab4();
 
-    //Tab1
+    //Tab1 Profildaten aktualisieren - vars
     private TextField Vorname = new TextField("Vorname");
     private TextField Nachname = new TextField("Nachname");
     private TextArea description = new TextArea("Kurzbeschreibung über dich");
@@ -52,7 +48,7 @@ public class SettingsView extends Div {
     private DatePicker semesterdatePicker = new DatePicker();
     private Button actualize = new Button("Aktualisieren");
 
-    //Tab3 Passwort ändern
+    //Tab3 Passwort ändern - vars
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
@@ -60,7 +56,7 @@ public class SettingsView extends Div {
     private Button cancel = new Button("Abbrechen");
     private Button save = new Button("Ändern");
 
-    //Tab4 Konto löschen
+    //Tab4 Konto löschen - vars
     private Button delete = new Button("Konto löschen");
 
     //Konstruktor
@@ -68,7 +64,6 @@ public class SettingsView extends Div {
         addClassName("wrapper");
         setId("settings-view");
         add(createTitle());
-        //add(new Text("Hier können Sie Anpassungen an den Einstellungen vornehmen."));
 
         //Tab 1
         Tab tab1 = new Tab("Allgemeine Daten");
@@ -93,7 +88,7 @@ public class SettingsView extends Div {
         page4.setVisible(false);
         page4 = buildTab4.createView(page4, delete);
 
-        //allgemein
+        //allgemein Tab management
         Map<Tab, Component> tabsToPages = new HashMap<>();
         tabsToPages.put(tab1, page1);
         tabsToPages.put(tab2, page2);
@@ -104,7 +99,7 @@ public class SettingsView extends Div {
         tabs.setSelectedTab(tab1);
         Div pages = new Div(page1, page2, page3, page4);
 
-        //switch tabs
+        //switch tabs listener
         tabs.addSelectedChangeListener(event -> {
             tabsToPages.values().forEach(page -> page.setVisible(false));
             Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
@@ -113,9 +108,6 @@ public class SettingsView extends Div {
 
         add(tabs, pages);
     }
-
-
-
 
     private Component createTitle() {
         return new H3("Einstellungen");

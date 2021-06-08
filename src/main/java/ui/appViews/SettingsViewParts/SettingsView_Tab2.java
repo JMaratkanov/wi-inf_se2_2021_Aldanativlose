@@ -9,8 +9,12 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+import control.LoginControl;
+import control.SettingsControl;
 
 public class SettingsView_Tab2 {
+    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+    private SettingsControl settingsControl = new SettingsControl();
 
     public Div createView(Div page2) {
 

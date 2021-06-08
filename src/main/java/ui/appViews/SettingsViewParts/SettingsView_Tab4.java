@@ -9,8 +9,13 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import control.LoginControl;
+import control.SettingsControl;
 
 public class SettingsView_Tab4 {
+    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+    private SettingsControl settingsControl = new SettingsControl();
+
     public Div createView(Div page4, Button delete) {
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();

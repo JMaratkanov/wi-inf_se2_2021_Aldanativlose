@@ -10,8 +10,13 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
+import control.LoginControl;
+import control.SettingsControl;
 
 public class SettingsView_Tab3 {
+    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+    private SettingsControl settingsControl = new SettingsControl();
+
     public Div createView(Div page3, EmailField email1, EmailField email2, PasswordField password1, PasswordField password2, Button cancel, Button save) {
         //TODO Normalerweise wären hier nur die Felder Altes Passwort, Neues Passwort und Neues Passwort bestätigen notwendig
         // Altes Passwort zur Kontrolle ist ZWINGEND NOTWENDIG!
