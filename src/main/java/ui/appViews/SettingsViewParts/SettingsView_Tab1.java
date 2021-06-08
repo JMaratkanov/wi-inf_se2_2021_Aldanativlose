@@ -17,14 +17,14 @@ import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
+import globals.Globals;
 
 import java.time.LocalDate;
 
 public class SettingsView_Tab1 {
-    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
 
     //TODO ID des eingeloggten Users zu kriegen crasht
-    private int ID = 2;//loginControl.getCurrentUser().getId();
+    private int ID = getCurrentUser().getId();
 
     //Vars um die Daten des aktuellen Users aus der Datenbank zu speichern um sie als Placeholder ins Eingabefeld des Formulars zu setzen
     private String vNameFromDB;
@@ -130,10 +130,13 @@ public class SettingsView_Tab1 {
         UserDTO currentUserValues = null;
 
         try {
-            currentUserValues = settingsControl.getStudentWithJDBC(ID);
-        } catch (DatabaseUserException e) {
-            e.printStackTrace();
-            //Fehlermeldung im Dialog möglich
+            currentUserValues = settingsControl.getStudentWithJDBCByID(ID);
+        } catch (DatabaseUserException databaseException) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( databaseException.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
         }
 
         vNameFromDB = currentUserValues.getFirstName();
@@ -145,6 +148,10 @@ public class SettingsView_Tab1 {
         sGangfromDB = "getthisfromDB";
         semFromDB = "getthisfromDB";
         gebFromDB = "getthisfromDB";
+    }
+
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
 
 }

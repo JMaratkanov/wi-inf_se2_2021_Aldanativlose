@@ -41,6 +41,7 @@ public class UserDTOimplTest {
         assertEquals("", udi.getPassword());
     }
 
+    /*
     @Test
     public void testS_ID(){
         assertEquals(0, udi.getS_ID());
@@ -58,6 +59,7 @@ public class UserDTOimplTest {
         udi.setU_ID(123);
         assertEquals(123, udi.getU_ID());
     }
+     */
 
     @Test
     public void testPasswordResetKey(){

@@ -90,7 +90,6 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 import globals.Globals;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,7 +97,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 
 public class UserDAO {
 
@@ -145,7 +143,6 @@ public class UserDAO {
                 // bisher nicht in der User Tabelle vorhanden ist. Ggf.: muss das hier noch angepasst werden!
                 //user.setFirstname( set.getString(4));
                 //user.setLastname(set.getString(5));
-
 
                 return user;
 
@@ -232,7 +229,6 @@ public class UserDAO {
         }
     }
 
-
     public void setEmployer(String companyName, String country, String street, String hNr, String place, String plz, String email, String password)  throws DatabaseLayerException{
         ResultSet set = null;
         try {
@@ -283,10 +279,16 @@ public class UserDAO {
 
     public void updateUserData(int id, String vorname, String nachname, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseLayerException{
         ResultSet set = null;
+        Date semesterAsDate = null;
+        Date gebTagAsDate = null;
 
         ZoneId defaultZoneId = ZoneId.systemDefault();
-        Date semesterAsDate = Date.from(semester.atStartOfDay(defaultZoneId).toInstant());
-        Date gebTagAsDate = Date.from(gebTag.atStartOfDay(defaultZoneId).toInstant());
+        if (semester != null){
+            semesterAsDate = Date.from(semester.atStartOfDay(defaultZoneId).toInstant());
+        }
+        if (gebTag != null) {
+            gebTagAsDate = Date.from(gebTag.atStartOfDay(defaultZoneId).toInstant());
+        }
 
         try {
             PreparedStatement sql = null;
@@ -332,7 +334,42 @@ public class UserDAO {
         }
     }
 
-    public UserDTO getFullStudentDTO(int id) throws DatabaseLayerException {
+    public int getStudentIdByUserId(int id) throws DatabaseLayerException {
+        ResultSet set = null;
+        int studentProfilId = 0;
+
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            set = statement.executeQuery(
+                    "SELECT student_profil "
+                            + "FROM collhbrs.user "
+                            + "WHERE collhbrs.user.id = \'" + id+ "\'");
+
+            if(set.next()) {
+                studentProfilId = set.getInt(1);
+            }
+
+            } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+        return studentProfilId;
+    }
+
+    public UserDTO getFullStudentDTOByStudentID(int id) throws DatabaseLayerException {
         ResultSet set = null;
 
         try {
@@ -369,7 +406,6 @@ public class UserDAO {
                 user.setId( set.getInt(1));
                 user.setFirstname(set.getString(2));
                 user.setLastname(set.getString(3));
-
 
                 //TODO rest des dtos füllen
                 return user;

@@ -33,11 +33,11 @@ public class SettingsControl {
         }
     }
 
-    public UserDTO getStudentWithJDBC(int ID) throws DatabaseUserException {
+    public UserDTO getStudentWithJDBCByID(int ID) throws DatabaseUserException {
         UserDTO userTmp = null;
         UserDAO dao = new UserDAO();
         try {
-            userDTO = dao.getFullStudentDTO( ID );
+            userDTO = dao.getFullStudentDTOByStudentID( dao.getStudentIdByUserId(ID) );
         }
         catch ( DatabaseLayerException e) {
 

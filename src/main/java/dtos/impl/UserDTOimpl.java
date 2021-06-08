@@ -10,8 +10,6 @@ public class UserDTOimpl implements UserDTO {
     private int id;
     private String email;
     private String password;
-    private int s_ID;
-    private int u_ID;
     private String PasswordResetKey;
     private LocalDate createTime;
     private LocalDate updateTime;
@@ -42,22 +40,6 @@ public class UserDTOimpl implements UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getS_ID() {
-        return s_ID;
-    }
-
-    public void setS_ID(int s_ID) {
-        this.s_ID = s_ID;
-    }
-
-    public int getU_ID() {
-        return u_ID;
-    }
-
-    public void setU_ID(int u_ID) {
-        this.u_ID = u_ID;
     }
 
     public String getPasswordResetKey() {
