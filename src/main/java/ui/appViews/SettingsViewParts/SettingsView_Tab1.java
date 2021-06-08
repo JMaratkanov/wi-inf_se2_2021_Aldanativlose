@@ -25,6 +25,7 @@ public class SettingsView_Tab1 {
 
     public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize){
         Div page1 = new Div();
+
         //TODO get this vals from DB
         //###########################
         String vNameFromDB = "getthisfromDB"; //TextFields
@@ -34,7 +35,8 @@ public class SettingsView_Tab1 {
         String refFromDB = "getthisfromDB";
         String fachfromDB = "getthisfromDB"; //Selects
         String sGangfromDB = "getthisfromDB";
-        //String semFromDB = "getthisfromDB";
+        String semFromDB = "getthisfromDB";
+        String gebFromDB = "getthisfromDB";
         //##########################
 
         //init Placeholders Textfields & Areas
@@ -57,14 +59,14 @@ public class SettingsView_Tab1 {
         });
 
         //Semester Datepicker
-        semesterdatePicker.setLabel("Geburtstag");
+        semesterdatePicker.setLabel("Beginn des Studiums");
         Div value2 = new Div();
         value2.setText("Studienbeginn: ");
-        datePicker.addValueChangeListener(event -> {
-            if (event.getValue() == null) {
+        semesterdatePicker.addValueChangeListener(event2 -> {
+            if (event2.getValue() == null) {
                 value2.setText("No date selected");
             } else {
-                value2.setText("Selected date: " + event.getValue());
+                value2.setText("Selected date: " + event2.getValue());
             }
         });
 
@@ -81,7 +83,7 @@ public class SettingsView_Tab1 {
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value,Fachbereich,Studiengang, value2 /*Semester*/, description,skills,references);
+        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,skills,references);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
