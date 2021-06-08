@@ -90,7 +90,6 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 import globals.Globals;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -98,7 +97,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 
 public class UserDAO {
 
@@ -230,7 +228,6 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
-
 
     public void setEmployer(String companyName, String country, String street, String hNr, String place, String plz, String email, String password)  throws DatabaseLayerException{
         ResultSet set = null;
