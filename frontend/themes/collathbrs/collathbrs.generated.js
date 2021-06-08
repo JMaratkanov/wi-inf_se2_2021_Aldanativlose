@@ -27,7 +27,7 @@ const createLinkReferences = (css, target) => {
     } else {
       target.appendChild(link);
     }
-  }
+  };
   return styleCss;
 };
 

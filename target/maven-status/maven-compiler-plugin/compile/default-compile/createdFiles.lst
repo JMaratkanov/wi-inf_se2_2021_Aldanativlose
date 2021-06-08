@@ -4,6 +4,7 @@ globals\Globals$Roles.class
 control\builder\Builder.class
 control\builder\UserBuilder.class
 daos\RolleDAO.class
+ui\appViews\SettingsViewParts\SettingsView_Tab1.class
 ui\CollatHBRSApplication.class
 dtos\InseratDTO.class
 ui\appViews\SettingsView.class
@@ -12,17 +13,19 @@ control\LoginControl.class
 globals\Globals$Pages.class
 daos\UserDAO.class
 repository\UserRepository.class
+ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
-ui\appViews\MyUploadContext.class
 ui\Login_Registration\RegistrationEmployer.class
 entities\User.class
 dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
+ui\appViews\SettingsViewParts\SettingsView_Tab4.class
 ui\layouts\MainLayout.class
 globals\Globals$Errors.class
 dtos\impl\UserDTOimpl.class
 dtos\UserDTO.class
 control\SettingsControl.class
+ui\appViews\SettingsViewParts\SettingsView_Tab2.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
@@ -31,6 +34,7 @@ ui\appViews\ApplicationView.class
 db\exceptions\DatabaseLayerException.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
+ui\appViews\SettingsViewParts\SettingsView_Tab3.class
 control\RegistrationResult.class
 dtos\RolleDTO.class
 ui\Login_Registration\RegistrationStudent.class
