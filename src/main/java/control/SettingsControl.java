@@ -41,8 +41,6 @@ public class SettingsControl {
         }
         catch ( DatabaseLayerException e) {
 
-            // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
-            // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
             String reason = e.getReason();
 
             if (reason.equals(Globals.Errors.NOUSERFOUND)) {

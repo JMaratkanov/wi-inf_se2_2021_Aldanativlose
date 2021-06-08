@@ -364,15 +364,13 @@ public class UserDAO {
         try {
             if (set.next()) {
                 // Durchführung des Object-Relational-Mapping (ORM)
-
                 //User wird mit diesen Werten in die Session gesetzt
                 user = new UserDTOimpl();
                 user.setId( set.getInt(1));
                 user.setEmail(set.getString(2));
                 user.setRole(set.getInt(5));
 
-
-
+                //TODO rest des dtos füllen
                 return user;
 
             } else {

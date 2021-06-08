@@ -26,31 +26,24 @@ public class SettingsView_Tab1 {
     //TODO ID des eingeloggten Users zu kriegen crasht
     private int ID = 3;//loginControl.getCurrentUser().getId();
 
+    //Vars um die Daten des aktuellen Users aus der Datenbank zu speichern um sie als Placeholder ins Eingabefeld des Formulars zu setzen
+    private String vNameFromDB;
+    private String nNameFromDB;
+    private String desFromDB;  //TextAreas
+    private String skillFromDB;
+    private String refFromDB;
+    private String fachfromDB; //Selects
+    private String sGangfromDB;
+    private String semFromDB;
+    private String gebFromDB;
+
     private SettingsControl settingsControl = new SettingsControl();
 
     public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
         Div page1 = new Div();
-        UserDTO currentUserValues = null;
 
-        //TODO get this vals from DB
-        //###########################
-        try {
-            currentUserValues = settingsControl.getStudentWithJDBC(ID);
-        } catch (DatabaseUserException e) {
-            e.printStackTrace();
-            //Fehlermeldung im Dialog möglich
-        }
-
-        String vNameFromDB = currentUserValues.getEmail();
-        String nNameFromDB = currentUserValues.getLastName();
-        String desFromDB = "getthisfromDB";  //TextAreas
-        String skillFromDB = "getthisfromDB";
-        String refFromDB = "getthisfromDB";
-        String fachfromDB = "getthisfromDB"; //Selects
-        String sGangfromDB = "getthisfromDB";
-        String semFromDB = "getthisfromDB";
-        String gebFromDB = "getthisfromDB";
-        //##########################
+        //Get current Userdata to fill in the placeholders
+        getCurrentUserData();
 
         //init Placeholders Textfields & Areas
         Vorname.setPlaceholder(vNameFromDB);
@@ -90,9 +83,6 @@ public class SettingsView_Tab1 {
         Studiengang.setItems("W.Informatik (B.Sc.)","Informatik (B.Sc.)", "Applied Biology (B.Sc.)", "Elektrotechnik (B.Eng.)", "Maschinenbau (B.Eng.)", sGangfromDB);
         Studiengang.setValue(sGangfromDB);
         Studiengang.setLabel("Studiengang");
-        //Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
-        //Semester.setValue(semFromDB);
-        //Semester.setLabel("Semester");
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
@@ -115,7 +105,6 @@ public class SettingsView_Tab1 {
                 Fachbereich.getValue(),
                 Studiengang.getValue(),
                 semesterdatePicker.getValue()
-                //Semester.getValue()
         ));
 
         page1.add(formLayout, buttonLayout);
@@ -124,7 +113,6 @@ public class SettingsView_Tab1 {
     private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
 
         try {
-            //int id, String vorname, String nachname,  String description, String skills, String references, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag
             settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, description, skills, references,  fachbereich, semester, studiengang, date);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate("setting");
@@ -135,6 +123,28 @@ public class SettingsView_Tab1 {
             dialog.setHeight("150px");
             dialog.open();
         }
+    }
+
+    //TODO get this vals from DB
+    private void getCurrentUserData(){
+        UserDTO currentUserValues = null;
+
+        try {
+            currentUserValues = settingsControl.getStudentWithJDBC(ID);
+        } catch (DatabaseUserException e) {
+            e.printStackTrace();
+            //Fehlermeldung im Dialog möglich
+        }
+
+        vNameFromDB = currentUserValues.getEmail();
+        nNameFromDB = currentUserValues.getLastName();
+        desFromDB = "getthisfromDB";  //TextAreas
+        skillFromDB = "getthisfromDB";
+        refFromDB = "getthisfromDB";
+        fachfromDB = "getthisfromDB"; //Selects
+        sGangfromDB = "getthisfromDB";
+        semFromDB = "getthisfromDB";
+        gebFromDB = "getthisfromDB";
     }
 
 }
