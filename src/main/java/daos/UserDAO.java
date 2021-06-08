@@ -85,21 +85,19 @@ public class UserDAO {
 */
 package daos;
 
-import com.vaadin.flow.component.html.Pre;
-import control.exceptions.DatabaseUserException;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
-import dtos.RolleDTO;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 import globals.Globals;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 
 public class UserDAO {
@@ -137,9 +135,11 @@ public class UserDAO {
             if (set.next()) {
                 // Durchführung des Object-Relational-Mapping (ORM)
 
+                //User wird mit diesen Werten in die Session gesetzt
                 user = new UserDTOimpl();
                 user.setId( set.getInt(1));
                 user.setEmail(set.getString(2));
+                user.setRole(set.getInt(5));
                 //TODO
                 // Haben setFirstname und setLastname für den Zugriff auf unsere Datenbank ausgenommen, da wir Vor- und Nachname
                 // bisher nicht in der User Tabelle vorhanden ist. Ggf.: muss das hier noch angepasst werden!
@@ -272,11 +272,121 @@ public class UserDAO {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
-        }
-        catch (NullPointerException ex) {
+        } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public void updateUserData(int id, String vorname, String nachname, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseLayerException{
+        ResultSet set = null;
+
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        Date semesterAsDate = Date.from(semester.atStartOfDay(defaultZoneId).toInstant());
+        Date gebTagAsDate = Date.from(gebTag.atStartOfDay(defaultZoneId).toInstant());
+
+        try {
+            PreparedStatement sql = null;
+            PreparedStatement sql2 = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.student_profil(vorname, nachname, fachbereich, studiengang, semester) VALUES (?, ?, ?, ?, ?, ?) RETURNING id");
+                sql.setString(1, vorname);
+                sql.setString(2, nachname);
+                sql.setString(3, fachbereich);
+                sql.setString(4, studiengang);
+                sql.setDate(5, (java.sql.Date) semesterAsDate);
+                sql.setDate(6, (java.sql.Date) gebTagAsDate);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            set = sql.executeQuery();
+            int studentProfilId = 0;
+            if(set.next()) {
+                studentProfilId = set.getInt(1);
+            }
+
+            try {
+                sql2 = JDBCConnection.getInstance().getPreparedStatement("UPDATE collhbrs.user(studenten_profil) VALUES (?) WHERE id=(?)");
+                sql2.setInt(1, studentProfilId);
+                sql2.setInt(2, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            sql2.executeUpdate();
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public UserDTO getFullStudentDTO(int id) throws DatabaseLayerException {
+        ResultSet set = null;
+
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            //TODO Select abfrage anpassen sodass alle Daten eines Studenten mit einer bestimmten ID ausgelesen werden
+            set = statement.executeQuery(
+                    "SELECT * "
+                            + "FROM collhbrs.student_profil "
+                            + "WHERE collhbrs.student_profil.id = \'" + id+ "\'");
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        }
+
+        UserDTOimpl user = null;
+
+        try {
+            if (set.next()) {
+                // Durchführung des Object-Relational-Mapping (ORM)
+                //User wird mit diesen Werten in die Session gesetzt
+                user = new UserDTOimpl();
+                user.setId( set.getInt(1));
+                user.setFirstname(set.getString(2));
+                user.setLastname(set.getString(3));
+
+
+                //TODO rest des dtos füllen
+                return user;
+
+            } else {
+                // Error Handling
+                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
+                e.setReason(Globals.Errors.NOUSERFOUND);
+                throw e;
+            }
+        } catch (DatabaseLayerException e) {
+            throw e;
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }

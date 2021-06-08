@@ -34,28 +34,6 @@ public class RegistrationControl {
                 throw new DatabaseUserException("A failure occured while");
             }
         }
-
-        //TODO
-        // Sollten hier noch die auskommentieren Test-Fälle vor dem Try-Catch Block eingefügt werden?
-        // Dann müsste allerdings auch ein UserDTO übergeben werden statt lediglich der E-Mail und dem Passwort
-        //return new RegistrationResult(0);
-
-        /*
-        if(user.getId() == 0) {
-            return new RegistrationResult(1);
-        } else if(user.getFirstName() == null) {
-            return new RegistrationResult(2);
-        } else if(user.getLastName() == null) {
-            return new RegistrationResult(3);
-        } else if(user.getFirstName().length() < 2) {
-            return new RegistrationResult(4);
-        } else if(user.getLastName().length() < 2) {
-            return new RegistrationResult(5);
-        } else {
-            return new RegistrationResult(0);
-        }
-        // Wenn die Tests erfolgreich waren, würde hier dann der User wahrscheinlich in die Datenbank geschrieben werden.
-        */
     }
 
     public void registerEmployerWithJDBC(String companyName, String country, String street, String number, String place, String plz,

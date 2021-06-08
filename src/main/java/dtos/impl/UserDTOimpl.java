@@ -18,9 +18,14 @@ public class UserDTOimpl implements UserDTO {
     private int status;
     private String firstname;
     private String lastname;
+    private int role;
 
-    public void setRoles(List<RolleDTO> rollen) {
-        //TODO
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public int getRole() {
+        return role;
     }
 
     public String getEmail() {

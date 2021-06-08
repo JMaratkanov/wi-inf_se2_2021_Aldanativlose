@@ -102,10 +102,10 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
     }
 
     private static Tab[] getAvailableTabs() {
-        return new Tab[]{createTab("Home", HomeView.class),//wie Tristan sie nennt anpassen statt LoginView
-                         createTab("Stellenanzeigen", AdView.class),//hier auch
-                         createTab("Bewerbungen", ApplicationView.class),//hier auch
-                         createTab("Einstellungen", SettingsView.class)};//hier auch
+        return new Tab[]{createTab("Home", HomeView.class),
+                         createTab("Stellenanzeigen", AdView.class),
+                         createTab("Bewerbungen", ApplicationView.class),
+                         createTab("Einstellungen", SettingsView.class)};
     }
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
