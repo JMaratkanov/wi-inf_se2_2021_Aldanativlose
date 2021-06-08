@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 @Route(value = "application", layout = AppLayout.class)
 @PageTitle("Bewerbungen")
 public class ApplicationView extends Div {
+
     ComboBox<String> filter = new ComboBox<>();
     Grid<String> tabelle = new Grid<>();
 
