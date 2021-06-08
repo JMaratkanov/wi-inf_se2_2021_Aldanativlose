@@ -71,10 +71,10 @@ public class SettingsView_Tab1 {
         });
 
         //Selects
-        Fachbereich.setItems("Fisch", "Apfel", "Kürbis", fachfromDB);
+        Fachbereich.setItems("Informatik", "Angewandte Naturwissenschaften", "Elektrotechnik/Maschinenbau", fachfromDB);
         Fachbereich.setValue(fachfromDB);
         Fachbereich.setLabel("Fachbereich");
-        Studiengang.setItems("Fisch", "Apfel", "Kürbis", sGangfromDB);
+        Studiengang.setItems("W.Informatik (B.Sc.)","Informatik (B.Sc.)", "Applied Biology (B.Sc.)", "Elektrotechnik (B.Eng.)", "Maschinenbau (B.Eng.)", sGangfromDB);
         Studiengang.setValue(sGangfromDB);
         Studiengang.setLabel("Studiengang");
         //Semester.setItems("Fisch", "Apfel", "Kürbis", semFromDB);
