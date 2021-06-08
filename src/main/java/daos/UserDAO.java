@@ -346,8 +346,8 @@ public class UserDAO {
             //TODO Select abfrage anpassen sodass alle Daten eines Studenten mit einer bestimmten ID ausgelesen werden
             set = statement.executeQuery(
                     "SELECT * "
-                            + "FROM collhbrs.user "
-                            + "WHERE collhbrs.user.id = \'" + Integer.toString(id) + "\'");
+                            + "FROM collhbrs.student_profil "
+                            + "WHERE collhbrs.student_profil.id = \'" + id+ "\'");
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
@@ -367,8 +367,9 @@ public class UserDAO {
                 //User wird mit diesen Werten in die Session gesetzt
                 user = new UserDTOimpl();
                 user.setId( set.getInt(1));
-                user.setEmail(set.getString(2));
-                user.setRole(set.getInt(5));
+                user.setFirstname(set.getString(2));
+                user.setLastname(set.getString(3));
+
 
                 //TODO rest des dtos füllen
                 return user;

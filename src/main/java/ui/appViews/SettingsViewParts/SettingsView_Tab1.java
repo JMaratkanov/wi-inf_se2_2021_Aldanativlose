@@ -24,7 +24,7 @@ public class SettingsView_Tab1 {
     private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
 
     //TODO ID des eingeloggten Users zu kriegen crasht
-    private int ID = 3;//loginControl.getCurrentUser().getId();
+    private int ID = 2;//loginControl.getCurrentUser().getId();
 
     //Vars um die Daten des aktuellen Users aus der Datenbank zu speichern um sie als Placeholder ins Eingabefeld des Formulars zu setzen
     private String vNameFromDB;
@@ -136,7 +136,7 @@ public class SettingsView_Tab1 {
             //Fehlermeldung im Dialog möglich
         }
 
-        vNameFromDB = currentUserValues.getEmail();
+        vNameFromDB = currentUserValues.getFirstName();
         nNameFromDB = currentUserValues.getLastName();
         desFromDB = "getthisfromDB";  //TextAreas
         skillFromDB = "getthisfromDB";
