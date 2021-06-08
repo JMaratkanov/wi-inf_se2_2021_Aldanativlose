@@ -200,6 +200,8 @@ public class SettingsView extends Div {
     }
 
     private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
+        //TODO
+        // Schmeißt NullPointer
         int ID = loginControl.getCurrentUser().getId();
 
         try {
