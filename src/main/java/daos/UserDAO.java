@@ -85,16 +85,12 @@ public class UserDAO {
 */
 package daos;
 
-import com.vaadin.flow.component.html.Pre;
-import control.exceptions.DatabaseUserException;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
-import dtos.RolleDTO;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 import globals.Globals;
 
-import javax.xml.crypto.Data;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -102,7 +98,6 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 
 
 public class UserDAO {
@@ -332,6 +327,67 @@ public class UserDAO {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
             e.setReason(Globals.Errors.DATABASE);
             throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public UserDTO getFullStudentDTO(int id) throws DatabaseLayerException {
+        ResultSet set = null;
+
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            //TODO Select abfrage anpassen sodass alle Daten eines Studenten mit einer bestimmten ID ausgelesen werden
+            set = statement.executeQuery(
+                    "SELECT * "
+                            + "FROM collhbrs.user "
+                            + "WHERE collhbrs.user.id = \'" + Integer.toString(id) + "\'");
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        }
+
+        UserDTOimpl user = null;
+
+        try {
+            if (set.next()) {
+                // Durchführung des Object-Relational-Mapping (ORM)
+
+                //User wird mit diesen Werten in die Session gesetzt
+                user = new UserDTOimpl();
+                user.setId( set.getInt(1));
+                user.setEmail(set.getString(2));
+                user.setRole(set.getInt(5));
+
+
+
+                return user;
+
+            } else {
+                // Error Handling
+                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
+                e.setReason(Globals.Errors.NOUSERFOUND);
+                throw e;
+            }
+        } catch (DatabaseLayerException e) {
+            throw e;
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }

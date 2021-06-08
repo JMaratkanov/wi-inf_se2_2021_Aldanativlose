@@ -16,20 +16,33 @@ import com.vaadin.flow.component.textfield.TextField;
 import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
+import dtos.UserDTO;
 
 import java.time.LocalDate;
 
 public class SettingsView_Tab1 {
     private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+
+    //TODO ID des eingeloggten Users zu kriegen crasht
+    private int ID = 3;//loginControl.getCurrentUser().getId();
+
     private SettingsControl settingsControl = new SettingsControl();
 
-    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize){
+    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
         Div page1 = new Div();
+        UserDTO currentUserValues = null;
 
         //TODO get this vals from DB
         //###########################
-        String vNameFromDB = "getthisfromDB"; //TextFields
-        String nNameFromDB = "getthisfromDB";
+        try {
+            currentUserValues = settingsControl.getStudentWithJDBC(ID);
+        } catch (DatabaseUserException e) {
+            e.printStackTrace();
+            //Fehlermeldung im Dialog möglich
+        }
+
+        String vNameFromDB = currentUserValues.getEmail();
+        String nNameFromDB = currentUserValues.getLastName();
         String desFromDB = "getthisfromDB";  //TextAreas
         String skillFromDB = "getthisfromDB";
         String refFromDB = "getthisfromDB";
@@ -109,11 +122,10 @@ public class SettingsView_Tab1 {
         return page1;
     }
     private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
-        int ID = loginControl.getCurrentUser().getId();
 
         try {
             //int id, String vorname, String nachname,  String description, String skills, String references, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag
-            settingsControl.updateStudentWithJDBC(ID, Vorname, Nachname, description, skills, references,  fachbereich, semester, studiengang, date);
+            settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, description, skills, references,  fachbereich, semester, studiengang, date);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate("setting");
         } catch (DatabaseUserException databaseException) {
