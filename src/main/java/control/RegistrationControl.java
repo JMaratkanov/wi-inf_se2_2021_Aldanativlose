@@ -60,7 +60,5 @@ public class RegistrationControl {
                 throw new DatabaseUserException("A failure occured while");
             }
         }
-
-
     }
 }

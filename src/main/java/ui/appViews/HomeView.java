@@ -2,6 +2,8 @@ package ui.appViews;
 
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import ui.layouts.AppLayout;
@@ -32,12 +34,14 @@ public class HomeView extends Div {
 
 
     private Component createLayout() {
+
         FormLayout gridLayout = new FormLayout();
         gridLayout.add(offenebewerbungen(),neueAngebote());
         return gridLayout;
     }
 
     private Component neueAngebote() {
+        add(createTitle2());
         //neue Angebote anbinden
 
         return neueBew;
@@ -45,6 +49,7 @@ public class HomeView extends Div {
 
     private Component offenebewerbungen() {
         //offeneBewerbungen
+
 
 
         return offeneBew;
@@ -71,7 +76,10 @@ public class HomeView extends Div {
     }
 
 
-    private Component createTitle() {
-        return new H3("Guten Tag!");
-    }
+    private Component createTitle() { return new H2("Guten Tag!"); }
+    private Component createTitle2() { return new H4("Neue Stellenangebote");}
+    private Component createTitle3() { return new H4("Deine Bewerbungen");}
+
+
+
 }

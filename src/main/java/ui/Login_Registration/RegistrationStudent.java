@@ -4,6 +4,7 @@ package ui.Login_Registration;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.textfield.TextField;
 import control.LoginControl;
 import control.RegistrationControl;
 import control.exceptions.DatabaseUserException;
@@ -29,7 +30,8 @@ import dtos.impl.UserDTOimpl;
 public class RegistrationStudent extends Div {
 
     private RegistrationControl registrationControl = new RegistrationControl();
-
+    private TextField name = new TextField("Vorname");
+    private TextField surname = new TextField("Nachname");
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
@@ -42,17 +44,19 @@ public class RegistrationStudent extends Div {
 
     public RegistrationStudent() {
         addClassName("registration-view");
-
         add(createTitle());
         add(createFormLayout());
         add(createButtonLayout());
 
         back.addClickListener(e -> UI.getCurrent().navigate("selection"));
         save.addClickListener(e -> register(
+                name.getValue(),
+                surname.getValue(),
                 email1.getValue(),
                 email2.getValue(),
                 password1.getValue(),
                 password2.getValue()
+
         ));
     }
 
@@ -64,7 +68,7 @@ public class RegistrationStudent extends Div {
         FormLayout formLayout = new FormLayout();
         email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
         email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
-        formLayout.add(email1, email2, password1, password2);
+        formLayout.add(name, surname, email1, email2, password1, password2);
         return formLayout;
     }
 
@@ -77,8 +81,12 @@ public class RegistrationStudent extends Div {
         return buttonLayout;
     }
 
-    private void register(String email1, String email2, String password1, String password2) {
-        if (email1.isEmpty()) {
+    private void register(String name, String surname, String email1, String email2, String password1, String password2) {
+        if (name.isEmpty()) {
+            Notification.show("Geben Sie Ihren Vornamen an");
+        } else if (surname.isEmpty()) {
+            Notification.show("Geben Sie Ihren Nachnamen an");
+        } else if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
         } else if (email2.isEmpty()) {
             Notification.show("Bestätigen Sie Ihre E-Mail Adresse");
