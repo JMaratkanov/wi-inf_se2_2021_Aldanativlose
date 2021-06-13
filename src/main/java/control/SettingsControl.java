@@ -1,6 +1,7 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
+import daos.StudentDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
@@ -12,9 +13,9 @@ public class SettingsControl {
     private UserDTO userDTO = null;
 
     public void updateStudentWithJDBC(int id, String vorname, String nachname,  String description, String skills, String references, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseUserException {
-        UserDAO dao = new UserDAO();
+        StudentDAO dao = new StudentDAO();
         try {
-            dao.updateUserData(id, vorname, nachname, fachbereich, semester, studiengang, gebTag);
+            dao.updateStudentData(id, vorname, nachname, fachbereich, semester, studiengang, gebTag);
         }
         catch ( DatabaseLayerException e) {
 
@@ -35,7 +36,7 @@ public class SettingsControl {
 
     public UserDTO getStudentWithJDBCByID(int ID) throws DatabaseUserException {
         UserDTO userTmp = null;
-        UserDAO dao = new UserDAO();
+        StudentDAO dao = new StudentDAO();
         try {
             userDTO = dao.getFullStudentDTOByStudentID( dao.getStudentIdByUserId(ID) );
         }

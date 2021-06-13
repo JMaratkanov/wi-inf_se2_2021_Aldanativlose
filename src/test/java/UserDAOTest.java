@@ -1,5 +1,6 @@
 import control.exceptions.DatabaseUserException;
 import control.factory.Factory;
+import daos.EmployerDAO;
 import daos.StudentDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
@@ -18,15 +19,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserDAOTest {
     private static UserDAO user;
     private static StudentDAO student;
+    private static EmployerDAO employer;
 
     @BeforeClass
     public static void setup(){
         user = new UserDAO();
+        student = new StudentDAO();
+        employer = new EmployerDAO();
     }
 
     @AfterClass
     public static void tearDown(){
         user = null;
+        student = null;
     }
 
     @Test
@@ -70,9 +75,9 @@ public class UserDAOTest {
     @Test
     public void setEmployerTest(){
         assertEquals("sql error", assertThrows(DatabaseLayerException.class,
-                () -> user.setEmployer("Test AG", "germany", "strasse", "5", "Ort", "12345", "Test@ag.com", "password")).getReason());
+                () -> employer.setEmployer("Test AG", "germany", "strasse", "5", "Ort", "12345", "Test@ag.com", "password")).getReason());
         try{
-            user.setEmployer("TestCorrect", "germany", "strasse", "5", "Ort", "12345", "TestCorrect@ag.com", "password");
+            employer.setEmployer("TestCorrect", "germany", "strasse", "5", "Ort", "12345", "TestCorrect@ag.com", "password");
             UserDTO userDTO = user.findUserByUseridAndPassword("TestCorrect@ag.com", "password");
             assertEquals("TestCorrect@ag.com", userDTO.getEmail());
         }

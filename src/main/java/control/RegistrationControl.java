@@ -1,6 +1,7 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
+import daos.EmployerDAO;
 import daos.StudentDAO;
 import daos.UserDAO;
 import db.JDBCConnection;
@@ -40,7 +41,7 @@ public class RegistrationControl {
 
     public void registerEmployerWithJDBC(String companyName, String country, String street, String number, String place, String plz,
                                          String email, String password) throws DatabaseUserException {
-        UserDAO dao = new UserDAO();
+        EmployerDAO dao = new EmployerDAO();
         try {
             dao.checkOnExistingUser(email);
             dao.setEmployer( companyName, country, street, number, place, plz, email , password );
