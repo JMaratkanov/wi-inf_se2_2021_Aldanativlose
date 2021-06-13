@@ -1,6 +1,7 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
+import daos.StudentDAO;
 import daos.UserDAO;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
@@ -12,7 +13,8 @@ import java.sql.Statement;
 
 public class RegistrationControl {
     public void registerStudentWithJDBC(String email, String password) throws DatabaseUserException {
-        UserDAO dao = new UserDAO();
+        StudentDAO dao = new StudentDAO();
+
         try {
             dao.checkOnExistingUser(email);
             dao.setStudentByEmailAndPassword( email , password );
