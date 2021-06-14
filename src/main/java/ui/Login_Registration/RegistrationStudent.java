@@ -5,7 +5,6 @@ import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.textfield.TextField;
-import control.LoginControl;
 import control.RegistrationControl;
 import control.exceptions.DatabaseUserException;
 import ui.layouts.MainLayout;
@@ -30,8 +29,8 @@ import dtos.impl.UserDTOimpl;
 public class RegistrationStudent extends Div {
 
     private RegistrationControl registrationControl = new RegistrationControl();
-    private TextField name = new TextField("Vorname");
-    private TextField surname = new TextField("Nachname");
+    private TextField firstname = new TextField("Vorname");
+    private TextField lastname = new TextField("Nachname");
     private EmailField email1 = new EmailField("Email Adresse");
     private EmailField email2 = new EmailField("Email Adresse bestätigen");
     private PasswordField password1 = new PasswordField("Passwort");
@@ -50,8 +49,8 @@ public class RegistrationStudent extends Div {
 
         back.addClickListener(e -> UI.getCurrent().navigate("selection"));
         save.addClickListener(e -> register(
-                name.getValue(),
-                surname.getValue(),
+                firstname.getValue(),
+                lastname.getValue(),
                 email1.getValue(),
                 email2.getValue(),
                 password1.getValue(),
@@ -68,7 +67,7 @@ public class RegistrationStudent extends Div {
         FormLayout formLayout = new FormLayout();
         email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
         email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
-        formLayout.add(name, surname, email1, email2, password1, password2);
+        formLayout.add(firstname, lastname, email1, email2, password1, password2);
         return formLayout;
     }
 
@@ -81,10 +80,10 @@ public class RegistrationStudent extends Div {
         return buttonLayout;
     }
 
-    private void register(String name, String surname, String email1, String email2, String password1, String password2) {
-        if (name.isEmpty()) {
+    private void register(String firstname, String lastname, String email1, String email2, String password1, String password2) {
+        if (firstname.isEmpty()) {
             Notification.show("Geben Sie Ihren Vornamen an");
-        } else if (surname.isEmpty()) {
+        } else if (lastname.isEmpty()) {
             Notification.show("Geben Sie Ihren Nachnamen an");
         } else if (email1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
@@ -100,7 +99,7 @@ public class RegistrationStudent extends Div {
             Notification.show("Passwörter stimmen nicht überein");
         } else {
             try {
-                registrationControl.registerStudentWithJDBC(email1, password1);
+                registrationControl.registerStudentWithJDBC(firstname, lastname, email1, password1);
                 Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
                 UI.getCurrent().navigate("login");
             } catch (DatabaseUserException databaseException) {

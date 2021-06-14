@@ -14,19 +14,38 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class StudentDAO extends UserDAO{
-    public void setStudentByEmailAndPassword(String email, String password)  throws DatabaseLayerException {
+    public void setStudentByFirstnameLastnameEmailPassword(String firstname, String lastname, String email, String password)  throws DatabaseLayerException {
+        ResultSet set = null;
+        String kurzbeschreibung = "Bitte trage hier eine Kurzbeschreibung ein!";
         try {
             PreparedStatement sql = null;
+            PreparedStatement sql2 = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.user(email, password, rolle) VALUES (?, ?, ?)");
-                sql.setString(1, email);
-                sql.setString(2, password);
-                sql.setInt(3, 1);
+                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.student_profil(vorname, nachname, kurzbeschreibung) VALUES (?, ?, ?) returning id");
+                sql.setString(1, firstname);
+                sql.setString(2, lastname);
+                sql.setString(3, kurzbeschreibung);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
-            sql.executeUpdate();
+            set = sql.executeQuery();
+            int id = 0;
+            if(set.next()) {
+                id = set.getInt(1);
+            }
+
+            try {
+                sql2 = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.user(email, password, rolle, student_profil) VALUES (?, ?, ?, ?)");
+                sql2.setString(1, email);
+                sql2.setString(2, password);
+                sql2.setInt(3, 1);
+                sql2.setInt(4, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            sql2.executeUpdate();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");

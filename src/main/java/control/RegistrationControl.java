@@ -3,22 +3,16 @@ package control;
 import control.exceptions.DatabaseUserException;
 import daos.EmployerDAO;
 import daos.StudentDAO;
-import daos.UserDAO;
-import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
-import dtos.UserDTO;
 import globals.Globals;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class RegistrationControl {
-    public void registerStudentWithJDBC(String email, String password) throws DatabaseUserException {
+    public void registerStudentWithJDBC(String firstname, String lastname, String email, String password) throws DatabaseUserException {
         StudentDAO dao = new StudentDAO();
 
         try {
             dao.checkOnExistingUser(email);
-            dao.setStudentByEmailAndPassword( email , password );
+            dao.setStudentByFirstnameLastnameEmailPassword(firstname, lastname, email , password );
         }
         catch ( DatabaseLayerException e) {
 

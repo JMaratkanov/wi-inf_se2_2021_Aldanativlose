@@ -1,5 +1,3 @@
-import control.exceptions.DatabaseUserException;
-import control.factory.Factory;
 import daos.EmployerDAO;
 import daos.StudentDAO;
 import daos.UserDAO;
@@ -8,10 +6,6 @@ import dtos.UserDTO;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,9 +42,9 @@ public class UserDAOTest {
 
     @Test
     public void setStudentByEmailAndPasswordTest(){
-        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByEmailAndPassword("demo", "demo")).getReason());
+        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "demo", "demo")).getReason());
         try{
-            student.setStudentByEmailAndPassword("TestStudent", "123");
+            student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "TestStudent", "123");
             UserDTO userDTO = user.findUserByUseridAndPassword("TestStudent", "123");
             assertEquals("TestStudent", userDTO.getEmail());
         }
