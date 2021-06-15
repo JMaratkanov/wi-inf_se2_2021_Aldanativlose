@@ -112,11 +112,14 @@ public class SettingsView_Tab1 {
         page1.add(formLayout, buttonLayout);
         return page1;
     }
-    private void update(String Vorname, String Nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester) {
+    private void update(String vorname, String nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester) {
+        if(vorname.isEmpty()){
+            vorname = vNameFromDB;
+        }
         try {
-            settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
+            settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
-            UI.getCurrent().navigate("setting");
+            UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
         } catch (DatabaseUserException databaseException) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( databaseException.getReason()) );

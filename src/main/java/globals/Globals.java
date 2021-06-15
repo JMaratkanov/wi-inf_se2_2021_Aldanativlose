@@ -11,6 +11,7 @@ public class Globals {
 
         public static final String SELECTION_VIEW = "selection";
         public static final String HOME_VIEW = "home";
+        public static final String SETTINGS_VIEW = "settings";
     }
 
     public static class Roles {

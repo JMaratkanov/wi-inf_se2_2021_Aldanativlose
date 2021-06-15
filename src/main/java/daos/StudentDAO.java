@@ -190,7 +190,7 @@ public class StudentDAO extends UserDAO{
                 sql = JDBCConnection.getInstance().getPreparedStatement(
                         "UPDATE collhbrs.student_profil " +
                                 "SET vorname = (?), nachname = (?), referenzen = (?), kenntnisse = (?), kurzbeschreibung = (?), " +
-                                "semester = (?), studiengang = (?), fachbereich = (?), geb_date) = (?)" +
+                                "semester = (?), studiengang = (?), fachbereich = (?), geb_date = (?)" +
                                 "WHERE id=(?)");
                 sql.setString(1, vorname);
                 sql.setString(2, nachname);

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Route(value = "setting", layout = AppLayout.class)
+@Route(value = "settings", layout = AppLayout.class)
 @PageTitle("Settings")
 public class SettingsView extends Div {
 
