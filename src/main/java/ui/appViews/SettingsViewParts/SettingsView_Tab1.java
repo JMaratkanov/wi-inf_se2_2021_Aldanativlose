@@ -20,6 +20,8 @@ import dtos.impl.StudentDTOimpl;
 import globals.Globals;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class SettingsView_Tab1 {
 
@@ -113,9 +115,21 @@ public class SettingsView_Tab1 {
         return page1;
     }
     private void update(String vorname, String nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester) {
-        if(vorname.isEmpty()){
-            vorname = vNameFromDB;
-        }
+        if(vorname.isEmpty()){ vorname = vNameFromDB; }
+        if(nachname.isEmpty()){ nachname = nNameFromDB; }
+        if(kurzbeschreibung.isEmpty()){kurzbeschreibung = desFromDB; }
+        if(kenntnisse.isEmpty()){ kenntnisse = skillFromDB; }
+        if(referenzen.isEmpty()){ referenzen = refFromDB; }
+        if(fachbereich.isEmpty()){ fachbereich = fachfromDB; }
+        if(studiengang.isEmpty()){ studiengang = sGangfromDB; }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        formatter = formatter.withLocale( Locale.US );
+        LocalDate date = LocalDate.parse(gebFromDB, formatter);
+
+        if(gebDate.toString() == "?"){ gebDate = date; }
+        if(semester.toString() == "?"){ semester = LocalDate.parse(semFromDB, formatter); }
+
         try {
             settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
