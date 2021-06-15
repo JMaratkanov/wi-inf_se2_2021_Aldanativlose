@@ -34,8 +34,8 @@ public class SettingsView_Tab1 {
     private String refFromDB;
     private String fachfromDB; //Selects
     private String sGangfromDB;
-    private LocalDate semFromDB;
-    private LocalDate gebFromDB;
+    private String semFromDB;
+    private String gebFromDB;
 
     private SettingsControl settingsControl = new SettingsControl();
 
@@ -51,8 +51,8 @@ public class SettingsView_Tab1 {
         description.setPlaceholder(desFromDB);
         kenntnisse.setPlaceholder(skillFromDB);
         referenzen.setPlaceholder(refFromDB);
-        semesterdatePicker.setPlaceholder("Datum des Studienbeginns ändern");
-        datePicker.setPlaceholder("Geburtstag ändern");
+        semesterdatePicker.setPlaceholder(semFromDB);
+        datePicker.setPlaceholder(semFromDB);
 
         //Datepicker
         datePicker.setLabel("Geburtstag");
@@ -155,4 +155,5 @@ public class SettingsView_Tab1 {
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
+
 }
