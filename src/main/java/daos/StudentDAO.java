@@ -133,8 +133,8 @@ public class StudentDAO extends UserDAO{
                 user.setId( set.getInt(1));
                 user.setFirstname(set.getString(2));
                 user.setLastname(set.getString(3));
-                //user.setRefFromDB(set.getString(4));
-                //user.setSkillFromDB(set.getString(6));
+                user.setRefFromDB(set.getString(4));
+                user.setSkillFromDB(set.getString(6));
                 user.setDesFromDB(set.getString(7));
                 user.setsGangfromDB(set.getString(9));
                 user.setFachfromDB(set.getString(10));
