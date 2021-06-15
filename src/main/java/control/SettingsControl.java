@@ -11,10 +11,10 @@ import java.time.LocalDate;
 public class SettingsControl {
     private UserDTO userDTO = null;
 
-    public void updateStudentWithJDBC(int id, String vorname, String nachname,  String description, String skills, String references, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseUserException {
+    public void updateStudentWithJDBC(int id, String vorname, String nachname,  String referenzen, String kenntnisse, String kurzbeschreibung, LocalDate semester, String studiengang, String fachbereich, LocalDate geb_date) throws DatabaseUserException {
         StudentDAO dao = new StudentDAO();
         try {
-            dao.updateStudentData(id, vorname, nachname, fachbereich, semester, studiengang, gebTag);
+            dao.updateStudentData(id, vorname, nachname, referenzen, kenntnisse, kurzbeschreibung, semester, studiengang, fachbereich, geb_date);
         }
         catch ( DatabaseLayerException e) {
 

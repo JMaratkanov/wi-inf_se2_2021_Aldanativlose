@@ -39,7 +39,7 @@ public class SettingsView_Tab1 {
 
     private SettingsControl settingsControl = new SettingsControl();
 
-    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
+    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea kenntnisse, TextArea referenzen, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
         Div page1 = new Div();
 
         //Get current Userdata to fill in the placeholders
@@ -49,8 +49,8 @@ public class SettingsView_Tab1 {
         Vorname.setPlaceholder(vNameFromDB);
         Nachname.setPlaceholder(nNameFromDB);
         description.setPlaceholder(desFromDB);
-        skills.setPlaceholder(skillFromDB);
-        references.setPlaceholder(refFromDB);
+        kenntnisse.setPlaceholder(skillFromDB);
+        referenzen.setPlaceholder(refFromDB);
         semesterdatePicker.setPlaceholder("Datum des Studienbeginns ändern");
         datePicker.setPlaceholder("Geburtstag ändern");
 
@@ -88,7 +88,7 @@ public class SettingsView_Tab1 {
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,skills,references);
+        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,kenntnisse, referenzen);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -101,8 +101,8 @@ public class SettingsView_Tab1 {
                 Vorname.getValue(),
                 Nachname.getValue(),
                 description.getValue(),
-                skills.getValue(),
-                references.getValue(),
+                kenntnisse.getValue(),
+                referenzen.getValue(),
                 datePicker.getValue(),
                 Fachbereich.getValue(),
                 Studiengang.getValue(),
@@ -112,10 +112,9 @@ public class SettingsView_Tab1 {
         page1.add(formLayout, buttonLayout);
         return page1;
     }
-    private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
-
+    private void update(String Vorname, String Nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
         try {
-            settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, description, skills, references,  fachbereich, semester, studiengang, date);
+            settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate("setting");
         } catch (DatabaseUserException databaseException) {
@@ -156,5 +155,4 @@ public class SettingsView_Tab1 {
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
-
 }

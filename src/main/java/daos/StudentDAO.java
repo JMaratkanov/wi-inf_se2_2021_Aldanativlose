@@ -5,14 +5,13 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StudentDTOimpl;
 import globals.Globals;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 
 public class StudentDAO extends UserDAO{
     public void setStudentByFirstnameLastnameEmailPassword(String firstname, String lastname, String email, String password)  throws DatabaseLayerException {
@@ -163,49 +162,41 @@ public class StudentDAO extends UserDAO{
         }
     }
 
-    public void updateStudentData(int id, String vorname, String nachname, String fachbereich, LocalDate semester, String studiengang, LocalDate gebTag) throws DatabaseLayerException{
-        ResultSet set = null;
+    public void updateStudentData(int id, String vorname, String nachname,  String referenzen, String kenntnisse, String kurzbeschreibung, LocalDate semester, String studiengang, String fachbereich, LocalDate geb_date) throws DatabaseLayerException{
         Date semesterAsDate = null;
         Date gebTagAsDate = null;
+        int student_profil_id = getStudentIdByUserId(id);
 
         ZoneId defaultZoneId = ZoneId.systemDefault();
         if (semester != null){
-            semesterAsDate = Date.from(semester.atStartOfDay(defaultZoneId).toInstant());
+            semesterAsDate = Date.valueOf(semester);
         }
-        if (gebTag != null) {
-            gebTagAsDate = Date.from(gebTag.atStartOfDay(defaultZoneId).toInstant());
+        if (geb_date != null) {
+            gebTagAsDate = Date.valueOf(geb_date);
         }
 
         try {
             PreparedStatement sql = null;
-            PreparedStatement sql2 = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.student_profil(vorname, nachname, fachbereich, studiengang, semester) VALUES (?, ?, ?, ?, ?, ?) RETURNING id");
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "UPDATE collhbrs.student_profil " +
+                                "SET vorname = (?), nachname = (?), referenzen = (?), kenntnisse = (?), kurzbeschreibung = (?), " +
+                                "semester = (?), studiengang = (?), fachbereich = (?), geb_date) = (?)" +
+                                "WHERE id=(?)");
                 sql.setString(1, vorname);
                 sql.setString(2, nachname);
-                sql.setString(3, fachbereich);
-                sql.setString(4, studiengang);
-                sql.setDate(5, (java.sql.Date) semesterAsDate);
-                sql.setDate(6, (java.sql.Date) gebTagAsDate);
+                sql.setString(3, referenzen);
+                sql.setString(4, kenntnisse);
+                sql.setString(5, kurzbeschreibung);
+                sql.setDate(6, semesterAsDate);
+                sql.setString(7, studiengang);
+                sql.setString(8, fachbereich);
+                sql.setDate(9, gebTagAsDate);
+                sql.setInt(10, student_profil_id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
-
-            set = sql.executeQuery();
-            int studentProfilId = 0;
-            if(set.next()) {
-                studentProfilId = set.getInt(1);
-            }
-
-            try {
-                sql2 = JDBCConnection.getInstance().getPreparedStatement("UPDATE collhbrs.user(studenten_profil) VALUES (?) WHERE id=(?)");
-                sql2.setInt(1, studentProfilId);
-                sql2.setInt(2, id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-
-            sql2.executeUpdate();
+            sql.executeUpdate();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
@@ -219,4 +210,5 @@ public class StudentDAO extends UserDAO{
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
 }

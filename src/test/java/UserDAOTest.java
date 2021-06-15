@@ -40,6 +40,9 @@ public class UserDAOTest {
         assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUseridAndPassword("nicht Vorhanden", "123")).getReason());
     }
 
+    /*
+    // Erst wieder aktivieren wenn das TO-DO erledigt ist!
+    // Sonst läuft die Datenbank voll
     @Test
     public void setStudentByEmailAndPasswordTest(){
         assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "demo", "demo")).getReason());
@@ -55,6 +58,7 @@ public class UserDAOTest {
         //Todo
         // Delete TestStudent from Database after each run
     }
+     */
 
     @Test
     public void checkOnExistingUserTest(){
