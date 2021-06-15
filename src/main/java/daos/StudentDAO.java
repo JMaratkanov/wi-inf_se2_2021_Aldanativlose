@@ -30,7 +30,7 @@ public class StudentDAO extends UserDAO{
                 sql.setString(5, "Bitte was eingeben");
                 sql.setString(6, "Bitte was eingeben");
                 sql.setString(7, "Bitte was eingeben");
-                sql.setDate(8,new java.sql.Date(1));
+                sql.setDate(8,new java.sql.Date(1)); //1970 ;D
                 sql.setDate(9, new java.sql.Date(1));
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
