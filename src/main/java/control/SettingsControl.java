@@ -2,7 +2,6 @@ package control;
 
 import control.exceptions.DatabaseUserException;
 import daos.StudentDAO;
-import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import globals.Globals;
@@ -37,6 +36,7 @@ public class SettingsControl {
     public UserDTO getStudentWithJDBCByID(int ID) throws DatabaseUserException {
         UserDTO userTmp = null;
         StudentDAO dao = new StudentDAO();
+
         try {
             userDTO = dao.getFullStudentDTOByStudentID( dao.getStudentIdByUserId(ID) );
         }

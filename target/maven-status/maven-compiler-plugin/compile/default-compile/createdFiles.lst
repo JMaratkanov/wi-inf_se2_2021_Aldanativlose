@@ -6,6 +6,7 @@ daos\RolleDAO.class
 ui\appViewsEmployer\MyUploadContext.class
 ui\Login_Registration\Selection.class
 control\LoginControl.class
+daos\EmployerDAO.class
 globals\Globals$Pages.class
 repository\UserRepository.class
 ui\appViews\SettingsViewParts\MyUploadContext.class
@@ -29,6 +30,7 @@ ui\CollatHBRSApplication.class
 dtos\InseratDTO.class
 ui\appViews\SettingsView.class
 daos\UserDAO.class
+dtos\impl\StudentDTOimpl.class
 entities\User.class
 dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
@@ -38,6 +40,7 @@ globals\Globals$Errors.class
 dtos\impl\UserDTOimpl.class
 dtos\UserDTO.class
 ui\appViews\SettingsViewParts\SettingsView_Tab2.class
+daos\StudentDAO.class
 control\factory\Factory.class
 db\exceptions\DatabaseLayerException.class
 ui\appViews\AdView.class

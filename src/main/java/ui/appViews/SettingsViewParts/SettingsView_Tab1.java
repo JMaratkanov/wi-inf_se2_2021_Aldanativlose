@@ -13,10 +13,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
+import dtos.impl.StudentDTOimpl;
 import globals.Globals;
 
 import java.time.LocalDate;
@@ -34,8 +34,8 @@ public class SettingsView_Tab1 {
     private String refFromDB;
     private String fachfromDB; //Selects
     private String sGangfromDB;
-    private String semFromDB;
-    private String gebFromDB;
+    private LocalDate semFromDB;
+    private LocalDate gebFromDB;
 
     private SettingsControl settingsControl = new SettingsControl();
 
@@ -138,16 +138,17 @@ public class SettingsView_Tab1 {
             dialog.setHeight("150px");
             dialog.open();
         }
+        StudentDTOimpl x = (StudentDTOimpl) currentUserValues;
 
         vNameFromDB = currentUserValues.getFirstName();
         nNameFromDB = currentUserValues.getLastName();
-        desFromDB = "getthisfromDB";  //TextAreas
-        skillFromDB = "getthisfromDB";
-        refFromDB = "getthisfromDB";
-        fachfromDB = "getthisfromDB"; //Selects
-        sGangfromDB = "getthisfromDB";
-        semFromDB = "getthisfromDB";
-        gebFromDB = "getthisfromDB";
+        desFromDB = x.getDesFromDB();
+        skillFromDB = x.getSkillFromDB();
+        refFromDB = x.getRefFromDB();
+        fachfromDB = x.getFachfromDB();
+        sGangfromDB = x.getsGangfromDB();
+        semFromDB = x.getSemFromDB();
+        gebFromDB = x.getGebFromDB();
     }
 
     private UserDTO getCurrentUser() {

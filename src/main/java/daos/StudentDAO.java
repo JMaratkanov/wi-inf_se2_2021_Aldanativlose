@@ -3,8 +3,9 @@ package daos;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
-import dtos.impl.UserDTOimpl;
+import dtos.impl.StudentDTOimpl;
 import globals.Globals;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,16 +123,24 @@ public class StudentDAO extends UserDAO{
             throw e;
         }
 
-        UserDTOimpl user = null;
+        StudentDTOimpl user = null;
 
         try {
             if (set.next()) {
                 // Durchführung des Object-Relational-Mapping (ORM)
                 //User wird mit diesen Werten in die Session gesetzt
-                user = new UserDTOimpl();
+                user = new StudentDTOimpl();
                 user.setId( set.getInt(1));
                 user.setFirstname(set.getString(2));
                 user.setLastname(set.getString(3));
+                //user.setRefFromDB(set.getString(4));
+                //user.setSkillFromDB(set.getString(6));
+                user.setDesFromDB(set.getString(7));
+                user.setsGangfromDB(set.getString(9));
+                user.setFachfromDB(set.getString(10));
+
+                //user.setSemFromDB((LocalDate) set.getDate(8));  cast nicht möglich
+                //user.setGebFromDB((LocalDate) set.getDate(11));
 
                 //TODO rest des dtos füllen
                 return user;
