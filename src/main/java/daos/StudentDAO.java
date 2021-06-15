@@ -21,7 +21,7 @@ public class StudentDAO extends UserDAO{
             PreparedStatement sql = null;
             PreparedStatement sql2 = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.student_profil(vorname, nachname, kurzbeschreibung,referenzen, kenntnisse, studiengang, fachbereich, geb_date, semester) VALUES (?, ?, ?, ?, ?,?,?,?,?) returning id");
+                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.student_profil(vorname, nachname, kurzbeschreibung,referenzen, kenntnisse, studiengang, fachbereich, geb_date, semester) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) returning id");
                 sql.setString(1, firstname);
                 sql.setString(2, lastname);
                 sql.setString(3, kurzbeschreibung);
@@ -29,7 +29,7 @@ public class StudentDAO extends UserDAO{
                 sql.setString(5, "Bitte was eingeben");
                 sql.setString(6, "Bitte was eingeben");
                 sql.setString(7, "Bitte was eingeben");
-                sql.setDate(8,new java.sql.Date(1)); //1970 ;D
+                sql.setDate(8, new java.sql.Date(1)); //1970 ;D
                 sql.setDate(9, new java.sql.Date(1));
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();

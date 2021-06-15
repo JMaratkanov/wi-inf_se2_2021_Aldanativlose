@@ -52,7 +52,7 @@ public class SettingsView_Tab1 {
         kenntnisse.setPlaceholder(skillFromDB);
         referenzen.setPlaceholder(refFromDB);
         semesterdatePicker.setPlaceholder(semFromDB);
-        datePicker.setPlaceholder(semFromDB);
+        datePicker.setPlaceholder(gebFromDB);
 
         //Datepicker
         datePicker.setLabel("Geburtstag");
@@ -112,7 +112,7 @@ public class SettingsView_Tab1 {
         page1.add(formLayout, buttonLayout);
         return page1;
     }
-    private void update(String Vorname, String Nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
+    private void update(String Vorname, String Nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester) {
         try {
             settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
