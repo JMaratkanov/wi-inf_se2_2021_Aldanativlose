@@ -51,6 +51,8 @@ public class SettingsView_Tab1 {
         description.setPlaceholder(desFromDB);
         skills.setPlaceholder(skillFromDB);
         references.setPlaceholder(refFromDB);
+        semesterdatePicker.setPlaceholder("Datum des Studienbeginns ändern");
+        datePicker.setPlaceholder("Geburtstag ändern");
 
         //Datepicker
         datePicker.setLabel("Geburtstag");
