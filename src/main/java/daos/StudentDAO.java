@@ -141,14 +141,10 @@ public class StudentDAO extends UserDAO{
                 user.setRefFromDB(set.getString(4));
                 user.setSkillFromDB(set.getString(6));
                 user.setDesFromDB(set.getString(7));
+                user.setSemester(set.getDate(8));
                 user.setsGangfromDB(set.getString(9));
                 user.setFachfromDB(set.getString(10));
-
-                Date sem = set.getDate(8);
-                Date geb = set.getDate(11);
-
-                user.setSemFromDB(sem.toString());
-                user.setGebFromDB(sem.toString());
+                user.setGeb_date(set.getDate(11));
 
                 //TODO rest des dtos füllen
                 return user;

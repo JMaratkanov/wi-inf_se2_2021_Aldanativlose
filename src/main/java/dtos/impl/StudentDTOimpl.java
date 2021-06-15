@@ -2,6 +2,8 @@ package dtos.impl;
 
 import dtos.UserDTO;
 
+import java.sql.Date;
+
 public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
     private int ID;
     private String desFromDB;
@@ -9,8 +11,8 @@ public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
     private String refFromDB;
     private String fachfromDB;
     private String sGangfromDB;
-    private String semFromDB;
-    private String gebFromDB;
+    private Date semester;
+    private Date geb_date;
 
     public int getID() {
         return ID;
@@ -60,20 +62,20 @@ public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
         this.sGangfromDB = sGangfromDB;
     }
 
-    public String getSemFromDB() {
-        return semFromDB;
+    public Date getSemester() {
+        return semester;
     }
 
-    public void setSemFromDB(String semFromDB) {
-        this.semFromDB = semFromDB;
+    public void setSemester(Date semester) {
+        this.semester = semester;
     }
 
-    public String getGebFromDB() {
-        return gebFromDB;
+    public Date getGeb_date() {
+        return geb_date;
     }
 
-    public void setGebFromDB(String gebFromDB) {
-        this.gebFromDB = gebFromDB;
+    public void setGeb_date(Date geb_date) {
+        this.geb_date = geb_date;
     }
 
 }

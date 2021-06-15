@@ -19,7 +19,9 @@ import dtos.UserDTO;
 import dtos.impl.StudentDTOimpl;
 import globals.Globals;
 
+import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -36,12 +38,12 @@ public class SettingsView_Tab1 {
     private String refFromDB;
     private String fachfromDB; //Selects
     private String sGangfromDB;
-    private String semFromDB;
-    private String gebFromDB;
+    private Date semFromDB;
+    private Date gebFromDB;
 
     private SettingsControl settingsControl = new SettingsControl();
 
-    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea kenntnisse, TextArea referenzen, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
+    public Div createView(TextField Vorname, TextField Nachname, TextArea referenzen, TextArea kenntnisse, TextArea description, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
         Div page1 = new Div();
 
         //Get current Userdata to fill in the placeholders
@@ -53,8 +55,8 @@ public class SettingsView_Tab1 {
         description.setPlaceholder(desFromDB);
         kenntnisse.setPlaceholder(skillFromDB);
         referenzen.setPlaceholder(refFromDB);
-        semesterdatePicker.setPlaceholder(semFromDB);
-        datePicker.setPlaceholder(gebFromDB);
+        semesterdatePicker.setPlaceholder(semFromDB.toString());
+        datePicker.setPlaceholder(gebFromDB.toString());
 
         //Datepicker
         datePicker.setLabel("Geburtstag");
@@ -102,19 +104,19 @@ public class SettingsView_Tab1 {
         actualize.addClickListener(e -> update(
                 Vorname.getValue(),
                 Nachname.getValue(),
-                description.getValue(),
-                kenntnisse.getValue(),
                 referenzen.getValue(),
-                datePicker.getValue(),
-                Fachbereich.getValue(),
+                kenntnisse.getValue(),
+                description.getValue(),
+                semesterdatePicker.getValue(),
                 Studiengang.getValue(),
-                semesterdatePicker.getValue()
+                Fachbereich.getValue(),
+                datePicker.getValue()
         ));
 
         page1.add(formLayout, buttonLayout);
         return page1;
     }
-    private void update(String vorname, String nachname, String kurzbeschreibung, String kenntnisse, String referenzen, LocalDate gebDate, String fachbereich, String studiengang, LocalDate semester) {
+    private void update(String vorname, String nachname, String referenzen, String kenntnisse, String kurzbeschreibung, LocalDate semester, String studiengang, String fachbereich, LocalDate gebDate) {
         if(vorname.isEmpty()){ vorname = vNameFromDB; }
         if(nachname.isEmpty()){ nachname = nNameFromDB; }
         if(kurzbeschreibung.isEmpty()){kurzbeschreibung = desFromDB; }
@@ -122,17 +124,13 @@ public class SettingsView_Tab1 {
         if(referenzen.isEmpty()){ referenzen = refFromDB; }
         if(fachbereich.isEmpty()){ fachbereich = fachfromDB; }
         if(studiengang.isEmpty()){ studiengang = sGangfromDB; }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        formatter = formatter.withLocale( Locale.US );
-        LocalDate date = LocalDate.parse(gebFromDB, formatter);
-
-        if(gebDate.toString() == "?"){ gebDate = date; }
-        if(semester.toString() == "?"){ semester = LocalDate.parse(semFromDB, formatter); }
+        if(gebDate == null) {gebDate = gebFromDB.toLocalDate();}
+        if(semester == null) {semester = semFromDB.toLocalDate();}
 
         try {
             settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
             UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
         } catch (DatabaseUserException databaseException) {
             Dialog dialog = new Dialog();
@@ -165,8 +163,8 @@ public class SettingsView_Tab1 {
         refFromDB = x.getRefFromDB();
         fachfromDB = x.getFachfromDB();
         sGangfromDB = x.getsGangfromDB();
-        semFromDB = x.getSemFromDB();
-        gebFromDB = x.getGebFromDB();
+        semFromDB = x.getSemester();
+        gebFromDB = x.getGeb_date();
     }
 
     private UserDTO getCurrentUser() {
