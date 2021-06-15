@@ -34,8 +34,8 @@ public class SettingsView_Tab1 {
     private String refFromDB;
     private String fachfromDB; //Selects
     private String sGangfromDB;
-    private LocalDate semFromDB;
-    private LocalDate gebFromDB;
+    private String semFromDB;
+    private String gebFromDB;
 
     private SettingsControl settingsControl = new SettingsControl();
 
@@ -51,8 +51,8 @@ public class SettingsView_Tab1 {
         description.setPlaceholder(desFromDB);
         skills.setPlaceholder(skillFromDB);
         references.setPlaceholder(refFromDB);
-        semesterdatePicker.setPlaceholder("Datum des Studienbeginns ändern");
-        datePicker.setPlaceholder("Geburtstag ändern");
+        semesterdatePicker.setPlaceholder(semFromDB);
+        datePicker.setPlaceholder(semFromDB);
 
         //Datepicker
         datePicker.setLabel("Geburtstag");

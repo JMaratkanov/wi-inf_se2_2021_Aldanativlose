@@ -2,8 +2,6 @@ package dtos.impl;
 
 import dtos.UserDTO;
 
-import java.time.LocalDate;
-
 public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
     private int ID;
     private String desFromDB;
@@ -11,8 +9,8 @@ public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
     private String refFromDB;
     private String fachfromDB;
     private String sGangfromDB;
-    private LocalDate semFromDB;
-    private LocalDate gebFromDB;
+    private String semFromDB;
+    private String gebFromDB;
 
     public int getID() {
         return ID;
@@ -62,19 +60,19 @@ public class StudentDTOimpl extends UserDTOimpl implements UserDTO {
         this.sGangfromDB = sGangfromDB;
     }
 
-    public LocalDate getSemFromDB() {
+    public String getSemFromDB() {
         return semFromDB;
     }
 
-    public void setSemFromDB(LocalDate semFromDB) {
+    public void setSemFromDB(String semFromDB) {
         this.semFromDB = semFromDB;
     }
 
-    public LocalDate getGebFromDB() {
+    public String getGebFromDB() {
         return gebFromDB;
     }
 
-    public void setGebFromDB(LocalDate gebFromDB) {
+    public void setGebFromDB(String gebFromDB) {
         this.gebFromDB = gebFromDB;
     }
 
