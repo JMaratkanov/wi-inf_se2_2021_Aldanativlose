@@ -16,7 +16,7 @@ import dtos.UserDTO;
 import globals.Globals;
 
 public class SettingsView_Tab4 {
-    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+    private LoginControl loginControl = new LoginControl();
     private SettingsControl settingsControl = new SettingsControl();
     private int id = getCurrentUser().getId();
 
@@ -58,6 +58,11 @@ public class SettingsView_Tab4 {
         page4.add(dialog);
 
         return page4;
+    }
+
+    private void delete() {
+        // Vor Löschen des Users eventuell erneut das Passwort abfragen
+        //loginControl.authenticate()
     }
 
     private UserDTO getCurrentUser() {

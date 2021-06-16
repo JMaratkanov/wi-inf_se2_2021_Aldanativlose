@@ -216,4 +216,28 @@ public class StudentDAO extends UserDAO{
         }
     }
 
+    public void deleteStudentProfil(int id) throws DatabaseLayerException {
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "DELETE  FROM collhbrs.student_profil WHERE id = (SELECT student_profil FROM collhbrs.user WHERE id = (?))");
+                sql.setInt(1, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            sql.executeQuery();
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
 }

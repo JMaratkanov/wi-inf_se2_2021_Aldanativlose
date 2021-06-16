@@ -18,17 +18,17 @@ public class LoginControl {
 
     private UserDTO userDTO = null;
 
-    public boolean authenticate(String username, String password ) throws DatabaseUserException {
+    public boolean authenticate(String email, String password ) throws DatabaseUserException {
         // Standard: User wird mit Spring JPA ausgelesen (Was sind die Vorteile?)
         // UserDTO tmpUser = this.getUserWithJPA( username , password );
-        username = username.toLowerCase();
+        email = email.toLowerCase();
 
-        if(username.contains(";") || username.contains(",") || username.contains(":")){ //Check for Illegal Chars
+        if(email.contains(";") || email.contains(",") || email.contains(":")){ //Check for Illegal Chars
             DatabaseUserException x = new DatabaseUserException("Illegal Char Detected");
             x.setReason(Globals.Errors.ILLEGALCHAR);
             throw x; }
         // Alternative: Auslesen des Users mit JDBC (Was sind die Vorteile bzw. Nachteile?)
-         UserDTO tmpUser = this.getUserWithJDBC( username , password );
+         UserDTO tmpUser = this.getUserWithJDBC( email , password );
 
         if ( tmpUser == null ) {
             // ggf. hier ein Loggin einfügen
@@ -42,11 +42,11 @@ public class LoginControl {
         return this.userDTO;
     }
 
-    private UserDTO getUserWithJDBC( String username , String password ) throws DatabaseUserException {
+    private UserDTO getUserWithJDBC( String email , String password ) throws DatabaseUserException {
         UserDTO userTmp = null;
         UserDAO dao = new UserDAO();
         try {
-            userDTO = dao.findUserByUserEmailAndPassword( username , password );
+            userDTO = dao.findUserByUserEmailAndPassword( email , password );
         }
         catch ( DatabaseLayerException e) {
 

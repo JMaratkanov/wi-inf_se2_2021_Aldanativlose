@@ -116,8 +116,4 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
-
-    public void deleteUser(int id, int role) throws DatabaseLayerException {
-
-    }
 }
