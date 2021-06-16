@@ -46,7 +46,7 @@ public class LoginControl {
         UserDTO userTmp = null;
         UserDAO dao = new UserDAO();
         try {
-            userDTO = dao.findUserByUseridAndPassword( username , password );
+            userDTO = dao.findUserByUserEmailAndPassword( username , password );
         }
         catch ( DatabaseLayerException e) {
 

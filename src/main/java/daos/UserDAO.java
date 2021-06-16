@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class UserDAO {
 
-    public UserDTO findUserByUseridAndPassword(String id, String password) throws DatabaseLayerException {
+    public UserDTO findUserByUserEmailAndPassword(String email, String password) throws DatabaseLayerException {
         ResultSet set = null;
 
         try {
@@ -29,7 +29,7 @@ public class UserDAO {
             set = statement.executeQuery(
                     "SELECT * "
                             + "FROM collhbrs.user "
-                            + "WHERE collhbrs.user.email = \'" + id + "\'"
+                            + "WHERE collhbrs.user.email = \'" + email + "\'"
                             + " AND collhbrs.user.password = \'" + password + "\'");
 
         } catch (SQLException ex) {
@@ -115,5 +115,9 @@ public class UserDAO {
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
+    }
+
+    public void deleteUser(int id, int role) throws DatabaseLayerException {
+
     }
 }

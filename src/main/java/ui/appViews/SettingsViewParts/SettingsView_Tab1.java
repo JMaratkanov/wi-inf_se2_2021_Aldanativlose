@@ -23,8 +23,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class SettingsView_Tab1 {
-
-    //TODO ID des eingeloggten Users zu kriegen crasht
     private int ID = getCurrentUser().getId();
 
     //Vars um die Daten des aktuellen Users aus der Datenbank zu speichern um sie als Placeholder ins Eingabefeld des Formulars zu setzen
@@ -138,7 +136,6 @@ public class SettingsView_Tab1 {
         }
     }
 
-    //TODO get this vals from DB
     private void getCurrentUserData(){
         UserDTO currentUserValues = null;
 
@@ -167,5 +164,4 @@ public class SettingsView_Tab1 {
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
-
 }

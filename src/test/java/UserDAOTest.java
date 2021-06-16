@@ -31,13 +31,13 @@ public class UserDAOTest {
     @Test
     public void findUserByUseridAndPasswordTest(){
         try{
-            assertEquals("demo", user.findUserByUseridAndPassword("demo", "demo").getEmail());
-            assertEquals(1, user.findUserByUseridAndPassword("demo", "demo").getId());
+            assertEquals("demo", user.findUserByUserEmailAndPassword("demo", "demo").getEmail());
+            assertEquals(1, user.findUserByUserEmailAndPassword("demo", "demo").getId());
         }
         catch(DatabaseLayerException e){
             assertEquals(true, false);
         }
-        assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUseridAndPassword("nicht Vorhanden", "123")).getReason());
+        assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUserEmailAndPassword("nicht Vorhanden", "123")).getReason());
     }
 
     /*
@@ -76,7 +76,7 @@ public class UserDAOTest {
                 () -> employer.setEmployer("Test AG", "germany", "strasse", "5", "Ort", "12345", "Test@ag.com", "password")).getReason());
         try{
             employer.setEmployer("TestCorrect", "germany", "strasse", "5", "Ort", "12345", "TestCorrect@ag.com", "password");
-            UserDTO userDTO = user.findUserByUseridAndPassword("TestCorrect@ag.com", "password");
+            UserDTO userDTO = user.findUserByUserEmailAndPassword("TestCorrect@ag.com", "password");
             assertEquals("TestCorrect@ag.com", userDTO.getEmail());
         }
         catch(DatabaseLayerException e){
