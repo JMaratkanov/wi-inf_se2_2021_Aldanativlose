@@ -9,6 +9,7 @@ import globals.Globals;
 public class RegistrationControl {
     public void registerStudentWithJDBC(String firstname, String lastname, String email, String password) throws DatabaseUserException {
         StudentDAO dao = new StudentDAO();
+        email = email.toLowerCase();
 
         try {
             dao.checkOnExistingUser(email);
@@ -36,6 +37,8 @@ public class RegistrationControl {
     public void registerEmployerWithJDBC(String companyName, String country, String street, String number, String place, String plz,
                                          String email, String password) throws DatabaseUserException {
         EmployerDAO dao = new EmployerDAO();
+        email = email.toLowerCase();
+
         try {
             dao.checkOnExistingUser(email);
             dao.setEmployer( companyName, country, street, number, place, plz, email , password );

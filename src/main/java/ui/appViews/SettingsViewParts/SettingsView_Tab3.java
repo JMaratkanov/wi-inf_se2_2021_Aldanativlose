@@ -41,6 +41,8 @@ public class SettingsView_Tab3 {
 
         Span message = new Span();
 
+        //TODO Email muss lowercase gemacht werden mit <String> = <String>.toLowerCase();
+
         Button confirmButton = new Button("Bestätigen", event -> {
             message.setText("Passwort erfolgreich geändert");
             //TODO Hier Action - Confirm -> Delegation richtung DB

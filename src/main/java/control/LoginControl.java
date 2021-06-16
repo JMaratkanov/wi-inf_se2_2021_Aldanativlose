@@ -21,6 +21,8 @@ public class LoginControl {
     public boolean authenticate(String username, String password ) throws DatabaseUserException {
         // Standard: User wird mit Spring JPA ausgelesen (Was sind die Vorteile?)
         // UserDTO tmpUser = this.getUserWithJPA( username , password );
+        username = username.toLowerCase();
+
         if(username.contains(";") || username.contains(",") || username.contains(":")){ //Check for Illegal Chars
             DatabaseUserException x = new DatabaseUserException("Illegal Char Detected");
             x.setReason(Globals.Errors.ILLEGALCHAR);
@@ -71,6 +73,8 @@ public class LoginControl {
 
     private UserDTO getUserWithJPA( String username , String password ) throws DatabaseUserException {
         UserDTO userTmp;
+        username = username.toLowerCase();
+
         try {
             userTmp = repository.findUserByUseridAndPassword(username, password);
         } catch ( org.springframework.dao.DataAccessResourceFailureException e ) {
