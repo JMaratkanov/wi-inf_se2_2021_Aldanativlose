@@ -1,4 +1,5 @@
 LoginControlTest.class
+RegistrationTest.class
 RegistrationControlTest.class
 UserDAOTest.class
 RegistrationStudentWebPageTest.class
