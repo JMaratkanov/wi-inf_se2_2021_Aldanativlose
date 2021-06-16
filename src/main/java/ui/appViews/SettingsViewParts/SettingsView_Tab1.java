@@ -21,9 +21,6 @@ import globals.Globals;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 public class SettingsView_Tab1 {
 
@@ -128,7 +125,7 @@ public class SettingsView_Tab1 {
         if(semester == null) {semester = semFromDB.toLocalDate();}
 
         try {
-            settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname, kenntnisse, referenzen,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
+            settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname,  referenzen, kenntnisse,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
             UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
             UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
