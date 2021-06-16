@@ -33,6 +33,28 @@ public class SettingsControl {
         }
     }
 
+    public void deleteStudentWithJDBC(int id) throws DatabaseUserException {
+        StudentDAO dao = new StudentDAO();
+        try {
+            dao.deleteStudentProfil(id);
+        }
+        catch ( DatabaseLayerException e) {
+
+            // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
+            // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
+            String reason = e.getReason();
+
+            if ( reason.equals((Globals.Errors.SQLERROR))) {
+                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
+            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
+                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
+                        "Please contact the admin");
+            } else {
+                throw new DatabaseUserException("A failure occured while");
+            }
+        }
+    }
+
     public UserDTO getStudentWithJDBCByID(int ID) throws DatabaseUserException {
         UserDTO userTmp = null;
         StudentDAO dao = new StudentDAO();

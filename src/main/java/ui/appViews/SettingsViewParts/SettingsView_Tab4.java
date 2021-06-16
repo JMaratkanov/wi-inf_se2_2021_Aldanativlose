@@ -9,14 +9,15 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import control.LoginControl;
 import control.SettingsControl;
+import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
 import globals.Globals;
 
 public class SettingsView_Tab4 {
-    private LoginControl loginControl = new LoginControl();
     private SettingsControl settingsControl = new SettingsControl();
     private int id = getCurrentUser().getId();
 
@@ -32,24 +33,18 @@ public class SettingsView_Tab4 {
         Dialog dialog = new Dialog();
         dialog.setWidth("400px");
         dialog.setHeight("150px");
-        dialog.add(new Text("Wollen Sie wirklich Ihr Konto löschen?"));
+        dialog.add(new Text("Wollen Sie Ihr Konto wirklich löschen?"));
         dialog.setCloseOnEsc(false);
         dialog.setCloseOnOutsideClick(false);
-        Span message = new Span();
 
-        Button confirmButton = new Button("Bestätigen", event -> {
-            message.setText("Konto gelöscht!");
-            //TODO Hier Action - Confirm -> Delegation richtung DB
-            dialog.close();
-        });
+        Button confirmButton = new Button("Bestätigen", event -> delete());
+
         Button cancelButton = new Button("Abbrechen", event -> {
-            message.setText("Wir freuen uns dass du geblieben bist :)");
             dialog.close();
         });
 
         // Cancel action on ESC press
         Shortcuts.addShortcutListener(dialog, () -> {
-            message.setText("Cancelled...");
             dialog.close();
         }, Key.ESCAPE);
 
@@ -62,7 +57,20 @@ public class SettingsView_Tab4 {
 
     private void delete() {
         // Vor Löschen des Users eventuell erneut das Passwort abfragen
+        // Dazu wäre noch ein neues Feld notwendig, ab besten in dem Dialog
         //loginControl.authenticate()
+        try {
+            settingsControl.deleteStudentWithJDBC(this.id);
+            Notification.show("Konto erfolgreich gelöscht!");
+            UI.getCurrent().getSession().close();
+            UI.getCurrent().getPage().setLocation("./");
+        } catch (DatabaseUserException databaseException) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( databaseException.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
     }
 
     private UserDTO getCurrentUser() {
