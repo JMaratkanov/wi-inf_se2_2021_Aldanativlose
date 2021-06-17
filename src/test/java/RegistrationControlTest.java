@@ -1,5 +1,6 @@
 import control.RegistrationControl;
 import control.exceptions.DatabaseUserException;
+import daos.EmployerDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
@@ -12,30 +13,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RegistrationControlTest{
     private static RegistrationControl rc;
+    private static EmployerDAO employer;
+    private static UserDAO user;
 
     @BeforeClass
     public static void setup(){
         rc = new RegistrationControl();
+        employer = new EmployerDAO();
+        user = new UserDAO();
     }
 
     @Test
     public void registerStudentWithJDBCTest(){
-        assertEquals("There is already a user with this email!", assertThrows(DatabaseUserException.class,
-                () -> rc.registerStudentWithJDBC("Max", "Mustermann", "demo", "demo")).getReason());
         try {
-            rc.registerStudentWithJDBC("Max", "Mustermann", "TestStudent", "123");
-            UserDAO ud = new UserDAO();
-            UserDTO user = ud.findUserByUserEmailAndPassword("TestStudent", "123");
-            assertEquals("TestStudent", user.getEmail());
+            rc.registerStudentWithJDBC("Max", "Mustermann", "registerstudentwithjdbctest@ag.com", "123");
+            assertEquals("registerstudentwithjdbctest@ag.com", user.findUserByUserEmailAndPassword("registerstudentwithjdbctest@ag.com", "123").getEmail());
         }
         catch(DatabaseUserException e){
             assertEquals(true, false);
         }
         catch(DatabaseLayerException e){
+            System.out.println(e.getReason());
             assertEquals(true, false);
         }
+
+        assertEquals("There is already a user with this email!", assertThrows(DatabaseUserException.class,
+                () -> rc.registerStudentWithJDBC("Max", "Mustermann", "registerstudentwithjdbctest@ag.com", "123")).getReason());
         //Todo
-        // Delete TestStudent from Database after each run
+        // Delete registerstudentwithjdbctest@ag.com from Database after each run
     }
 
     //Todo
@@ -43,27 +48,25 @@ public class RegistrationControlTest{
 
     @Test
     public void registerEmployerWithJDBCTest(){
-        assertEquals("There is already a user with this email!", assertThrows(DatabaseUserException.class,
-                () -> rc.registerEmployerWithJDBC("Test AG", "germany", "strasse", "5", "Ort", "12345", "Test@ag.com", "password")).getReason());
         try {
-            rc.registerEmployerWithJDBC("TestCorrect", "germany", "strasse", "5", "Ort", "12345", "TestCorrect@ag.com", "password");
-            UserDAO ud = new UserDAO();
-            UserDTO user = ud.findUserByUserEmailAndPassword("TestCorrect@ag.com", "password");
-            assertEquals("TestCorrect@ag.com", user.getEmail());
+            rc.registerEmployerWithJDBC("registeremployerwithjdbctest", "germany", "strasse", "5", "Ort", "12345", "registeremployerwithjdbctest@ag.com", "123");
+            assertEquals("registeremployerwithjdbctest@ag.com", employer.findUserByUserEmailAndPassword("registeremployerwithjdbctest@ag.com", "123").getEmail());
+
         } catch (DatabaseUserException e) {
             assertEquals(true, false);
         } catch (DatabaseLayerException e) {
             assertEquals(true, false);
         }
 
+        assertEquals("There is already a user with this email!", assertThrows(DatabaseUserException.class,
+                () -> rc.registerEmployerWithJDBC("registerEmployerWithJDBCTest", "germany", "strasse", "5", "Ort", "12345", "registerEmployerWithJDBCTest@ag.com", "123")).getReason());
         //Todo
-        // Delete TestCorrect@ag.com from Database after each run
-        //Email in unternehmen_profil redundant?
-        //Adresse in unternehmen_profil redundant
+        // Delete registeremployerwithjdbctest@ag.com from Database after each run
     }
 
     @AfterClass
     public static void teardown(){
         rc = null;
+        employer = null;
     }
 }
