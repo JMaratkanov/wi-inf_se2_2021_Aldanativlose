@@ -2,6 +2,7 @@ package control;
 
 import control.exceptions.DatabaseUserException;
 import daos.StudentDAO;
+import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import globals.Globals;
@@ -81,5 +82,30 @@ public class SettingsControl {
             }
         }
         return userDTO;
+    }
+
+    //TODO
+    public boolean checkIfOldPasswordCorrect() {
+        return true;
+    }
+
+    public void updatePassword(int id, String password) throws DatabaseUserException {
+        UserDAO dao = new UserDAO();
+        try {
+            dao.updatePassword(id, password);
+        }
+        catch ( DatabaseLayerException e) {
+            String reason = e.getReason();
+
+            if ( reason.equals((Globals.Errors.SQLERROR))) {
+                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
+            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
+                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
+                        "Please contact the admin");
+            } else {
+                throw new DatabaseUserException("A failure occured while");
+            }
+        }
+
     }
 }

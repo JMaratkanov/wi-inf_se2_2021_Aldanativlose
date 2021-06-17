@@ -5,13 +5,11 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.UserDTOimpl;
 import globals.Globals;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class UserDAO {
 
@@ -104,6 +102,34 @@ public class UserDAO {
 
         } catch (DatabaseLayerException ex) {
             throw ex;
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public void updatePassword(int id, String password) throws DatabaseLayerException {
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "UPDATE collhbrs.user " +
+                                "SET password = (?)" +
+                                "WHERE id=(?)");
+                sql.setString(1, password);
+                sql.setInt(2, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            sql.executeUpdate();
+
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
             e.setReason(Globals.Errors.SQLERROR);
