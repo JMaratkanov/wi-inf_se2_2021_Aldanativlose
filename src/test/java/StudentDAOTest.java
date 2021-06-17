@@ -25,6 +25,7 @@ public class StudentDAOTest {
     @AfterClass
     public static void tearDown(){
         student = null;
+        user = null;
     }
 
 
@@ -35,7 +36,7 @@ public class StudentDAOTest {
         assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "demo", "demo")).getReason());
         try{
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
-            UserDTO userDTO = user.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
+            UserDTO userDTO = student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
             assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
             }
         catch(DatabaseLayerException e){
@@ -63,7 +64,7 @@ public class StudentDAOTest {
     public void getFullStudentDTOByStudentIDTest(){
         try{
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getFullStudentDTOByStudentIDTest", "123");
-            int id = student.getStudentIdByUserId(user.findUserByUserEmailAndPassword("getFullStudentDTOByStudentIDTest", "123").getId());
+            int id = student.getStudentIdByUserId(student.findUserByUserEmailAndPassword("getFullStudentDTOByStudentIDTest", "123").getId());
             UserDTO studentDTO = student.getFullStudentDTOByStudentID(id);
             assertEquals(id, studentDTO.getId());
             assertEquals("Max", studentDTO.getFirstName());
