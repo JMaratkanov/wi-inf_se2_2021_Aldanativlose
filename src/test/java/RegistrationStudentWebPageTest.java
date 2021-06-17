@@ -35,7 +35,7 @@ public class RegistrationStudentWebPageTest {
 
         // Press on Als Student registrieren
         driver.findElement(By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-vertical-layout/vaadin-button[1]")).click();
-
+        /*
         // Enter Email
         driver.findElement(By.xpath("/html/body/vaadin-app-layout/div/vaadin-form-layout/vaadin-email-field[1]//div/div[1]/slot[2]/input")).sendKeys("MaxMuster@hbrs.de");
 
@@ -50,13 +50,13 @@ public class RegistrationStudentWebPageTest {
 
         // Press Registrieren
         //driver.findElement(By.xpath("/html/body/vaadin-app-layout/div/vaadin-horizontal-layout/vaadin-button[1]//button")).click();
-
+        */
         //TODO User Loeschen
     }
 
     @AfterClass
     public static void tearDownClass(){
-        //driver.quit();
+        driver.quit();
     }
 
 }

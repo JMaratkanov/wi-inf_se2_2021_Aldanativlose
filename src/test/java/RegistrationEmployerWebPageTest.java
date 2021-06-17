@@ -32,11 +32,11 @@ public class RegistrationEmployerWebPageTest {
         driver.findElement(By.xpath("/html/body/vaadin-app-layout/vaadin-vertical-layout[2]/vaadin-vertical-layout/vaadin-button[2]")).click();
 
         // Enter Firmenname
-        driver.findElement((By.xpath("/html/body/vaadin-app-layout/div/vaadin-form-layout/vaadin-text-field[1]//div/div[1]/slot[2]/input"))).sendKeys("asdgf");
+        //driver.findElement((By.xpath("/html/body/vaadin-app-layout/div/vaadin-form-layout/vaadin-text-field[1]//div/div[1]/slot[2]/input"))).sendKeys("asdgf");
     }
 
     @AfterClass
     public static void tearDownClass(){
-        //driver.quit();
+        driver.quit();
     }
 }

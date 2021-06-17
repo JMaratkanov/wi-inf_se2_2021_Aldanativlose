@@ -31,7 +31,7 @@ public class UserDAOTest {
     public void findUserByUseridAndPasswordTest(){
         try{
             assertEquals("demo", user.findUserByUseridAndPassword("demo", "demo").getEmail());
-            assertEquals(1, user.findUserByUseridAndPassword("demo", "demo").getId());
+            assertEquals(199, user.findUserByUseridAndPassword("demo", "demo").getId());
         }
         catch(DatabaseLayerException e){
             assertEquals(true, false);
@@ -57,10 +57,15 @@ public class UserDAOTest {
 
     @Test
     public void checkOnExistingUserTest(){
+        //src/main/java/daos/UserDAO.java
+        //33.6%	67	4
+        assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("demo")).getReason());
+
         try {
-            user.checkOnExistingUser("tst");
+            user.checkOnExistingUser("checkOnExistingUserTest");
         }
         catch(DatabaseLayerException e){
+            System.out.println(e.getReason());
             assertEquals(true, false);
         }
     }
