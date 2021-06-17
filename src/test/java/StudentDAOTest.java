@@ -37,13 +37,15 @@ public class StudentDAOTest {
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
             UserDTO userDTO = user.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
             assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
-        }
+            }
         catch(DatabaseLayerException e){
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
+        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
+
         //Todo
-        // Delete TestStudent from Database after each run
+        // Delete setStudentByEmailAndPasswordTest from Database after each run
     }
 
 
@@ -60,8 +62,10 @@ public class StudentDAOTest {
     @Test
     public void getFullStudentDTOByStudentIDTest(){
         try{
-            UserDTO studentDTO = student.getFullStudentDTOByStudentID(34);
-            assertEquals(34, studentDTO.getId());
+            student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getFullStudentDTOByStudentIDTest", "123");
+            int id = student.getStudentIdByUserId(user.findUserByUserEmailAndPassword("getFullStudentDTOByStudentIDTest", "123").getId());
+            UserDTO studentDTO = student.getFullStudentDTOByStudentID(id);
+            assertEquals(id, studentDTO.getId());
             assertEquals("Max", studentDTO.getFirstName());
             assertEquals("Mustermann", studentDTO.getLastName());
         }
@@ -71,6 +75,9 @@ public class StudentDAOTest {
         }
         assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?",
                 assertThrows(DatabaseLayerException.class, ()-> student.getFullStudentDTOByStudentID(0)).getReason());
+
+        //Todo
+        // Delete getFullStudentDTOByStudentIDTest from Database after each run
     }
 
     @Test
@@ -90,6 +97,9 @@ public class StudentDAOTest {
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
+
+        //Todo
+        // Delete updateStudentDataTest from Database after each run
     }
 
     //Todo
