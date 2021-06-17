@@ -1,7 +1,5 @@
-LoginControlTest.class
 RegistrationTest.class
 RegistrationControlTest.class
-UserDAOTest.class
 RegistrationStudentWebPageTest.class
 UserDTOimplTest.class
 LoginWebPageTest.class
