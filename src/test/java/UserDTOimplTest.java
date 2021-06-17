@@ -22,6 +22,12 @@ public class UserDTOimplTest {
     }
 
     @Test
+    public void testRole(){
+        udi.setRole(1);
+        assertEquals(1, udi.getRole());
+    }
+
+    @Test
     public void testEmail(){
         assertEquals(null, udi.getEmail());
         udi.setEmail("MaxMuster@hbrs.de");
@@ -40,26 +46,6 @@ public class UserDTOimplTest {
         udi.setPassword("");
         assertEquals("", udi.getPassword());
     }
-
-    /*
-    @Test
-    public void testS_ID(){
-        assertEquals(0, udi.getS_ID());
-        udi.setS_ID(1);
-        assertEquals(1, udi.getS_ID());
-        udi.setS_ID(123);
-        assertEquals(123, udi.getS_ID());
-    }
-
-    @Test
-    public void testU_ID(){
-        assertEquals(0, udi.getU_ID());
-        udi.setU_ID(1);
-        assertEquals(1, udi.getU_ID());
-        udi.setU_ID(123);
-        assertEquals(123, udi.getU_ID());
-    }
-     */
 
     @Test
     public void testPasswordResetKey(){
