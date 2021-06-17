@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.webjars.bowergithub.vaadin:vaadin-combo-box:5.4.7">
+  <library name="Maven: org.springframework:spring-aop:5.3.3">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-combo-box/5.4.7/vaadin-combo-box-5.4.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.3/spring-aop-5.3.3.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-combo-box/5.4.7/vaadin-combo-box-5.4.7-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.3/spring-aop-5.3.3-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-combo-box/5.4.7/vaadin-combo-box-5.4.7-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/5.3.3/spring-aop-5.3.3-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

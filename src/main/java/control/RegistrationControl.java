@@ -1,21 +1,19 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
-import daos.UserDAO;
-import db.JDBCConnection;
+import daos.EmployerDAO;
+import daos.StudentDAO;
 import db.exceptions.DatabaseLayerException;
-import dtos.UserDTO;
 import globals.Globals;
 
-import java.sql.SQLException;
-import java.sql.Statement;
-
 public class RegistrationControl {
-    public void registerStudentWithJDBC(String email, String password) throws DatabaseUserException {
-        UserDAO dao = new UserDAO();
+    public void registerStudentWithJDBC(String firstname, String lastname, String email, String password) throws DatabaseUserException {
+        StudentDAO dao = new StudentDAO();
+        email = email.toLowerCase();
+
         try {
             dao.checkOnExistingUser(email);
-            dao.setStudentByEmailAndPassword( email , password );
+            dao.setStudentByFirstnameLastnameEmailPassword(firstname, lastname, email , password );
         }
         catch ( DatabaseLayerException e) {
 
@@ -38,7 +36,9 @@ public class RegistrationControl {
 
     public void registerEmployerWithJDBC(String companyName, String country, String street, String number, String place, String plz,
                                          String email, String password) throws DatabaseUserException {
-        UserDAO dao = new UserDAO();
+        EmployerDAO dao = new EmployerDAO();
+        email = email.toLowerCase();
+
         try {
             dao.checkOnExistingUser(email);
             dao.setEmployer( companyName, country, street, number, place, plz, email , password );
@@ -60,7 +60,5 @@ public class RegistrationControl {
                 throw new DatabaseUserException("A failure occured while");
             }
         }
-
-
     }
 }

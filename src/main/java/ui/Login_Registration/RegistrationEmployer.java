@@ -5,6 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.dialog.Dialog;
 import control.RegistrationControl;
 import control.exceptions.DatabaseUserException;
+import globals.Globals;
 import ui.layouts.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -122,7 +123,7 @@ public class RegistrationEmployer extends Div {
             try {
                 registrationControl.registerEmployerWithJDBC(companyName, country, street, number, place, plz, email1, password1);
                 Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
-                UI.getCurrent().navigate("login");
+                UI.getCurrent().navigate(Globals.Pages.LOGIN_VIEW);
             } catch (DatabaseUserException databaseException) {
                 Dialog dialog = new Dialog();
                 dialog.add( new Text( databaseException.getReason()) );

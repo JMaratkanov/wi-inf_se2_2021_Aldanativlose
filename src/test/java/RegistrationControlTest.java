@@ -6,8 +6,6 @@ import dtos.UserDTO;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,11 +21,11 @@ public class RegistrationControlTest{
     @Test
     public void registerStudentWithJDBCTest(){
         assertEquals("There is already a user with this email!", assertThrows(DatabaseUserException.class,
-                () -> rc.registerStudentWithJDBC("demo", "demo")).getReason());
+                () -> rc.registerStudentWithJDBC("Max", "Mustermann", "demo", "demo")).getReason());
         try {
-            rc.registerStudentWithJDBC("TestStudent", "123");
+            rc.registerStudentWithJDBC("Max", "Mustermann", "TestStudent", "123");
             UserDAO ud = new UserDAO();
-            UserDTO user = ud.findUserByUseridAndPassword("TestStudent", "123");
+            UserDTO user = ud.findUserByUserEmailAndPassword("TestStudent", "123");
             assertEquals("TestStudent", user.getEmail());
         }
         catch(DatabaseUserException e){
@@ -50,7 +48,7 @@ public class RegistrationControlTest{
         try {
             rc.registerEmployerWithJDBC("TestCorrect", "germany", "strasse", "5", "Ort", "12345", "TestCorrect@ag.com", "password");
             UserDAO ud = new UserDAO();
-            UserDTO user = ud.findUserByUseridAndPassword("TestCorrect@ag.com", "password");
+            UserDTO user = ud.findUserByUserEmailAndPassword("TestCorrect@ag.com", "password");
             assertEquals("TestCorrect@ag.com", user.getEmail());
         } catch (DatabaseUserException e) {
             assertEquals(true, false);

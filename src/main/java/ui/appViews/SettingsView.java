@@ -8,7 +8,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
-import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Route(value = "setting", layout = AppLayout.class)
+@Route(value = "settings", layout = AppLayout.class)
 @PageTitle("Settings")
 public class SettingsView extends Div {
 
@@ -49,10 +48,9 @@ public class SettingsView extends Div {
     private Button actualize = new Button("Aktualisieren");
 
     //Tab3 Passwort ändern - vars
-    private EmailField email1 = new EmailField("Email Adresse");
-    private EmailField email2 = new EmailField("Email Adresse bestätigen");
-    private PasswordField password1 = new PasswordField("Passwort");
-    private PasswordField password2 = new PasswordField("Passwort bestätigen");
+    private PasswordField passwordOld = new PasswordField("Passwort alt");
+    private PasswordField passwordNew = new PasswordField("Passwort neu");
+    private PasswordField passwordNew2 = new PasswordField("Passwort bestätigen");
     private Button cancel = new Button("Abbrechen");
     private Button save = new Button("Ändern");
 
@@ -79,7 +77,7 @@ public class SettingsView extends Div {
         Tab tab3 = new Tab("Passwort ändern");
         Div page3 = new Div();
         page3.setVisible(false);
-        page3 = buildTab3.createView(page3, email1, email2, password1, password2, cancel, save);
+        page3 = buildTab3.createView(page3, passwordOld, passwordNew, passwordNew2, cancel, save);
 
         //Tab4
         Tab tab4 = new Tab("Konto löschen");

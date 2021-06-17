@@ -13,17 +13,16 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
+import dtos.impl.StudentDTOimpl;
 import globals.Globals;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class SettingsView_Tab1 {
-
-    //TODO ID des eingeloggten Users zu kriegen crasht
     private int ID = getCurrentUser().getId();
 
     //Vars um die Daten des aktuellen Users aus der Datenbank zu speichern um sie als Placeholder ins Eingabefeld des Formulars zu setzen
@@ -34,12 +33,12 @@ public class SettingsView_Tab1 {
     private String refFromDB;
     private String fachfromDB; //Selects
     private String sGangfromDB;
-    private String semFromDB;
-    private String gebFromDB;
+    private Date semFromDB;
+    private Date gebFromDB;
 
     private SettingsControl settingsControl = new SettingsControl();
 
-    public Div createView(TextField Vorname, TextField Nachname, TextArea description, TextArea skills, TextArea references, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
+    public Div createView(TextField Vorname, TextField Nachname, TextArea referenzen, TextArea kenntnisse, TextArea description, DatePicker datePicker, Select<String> Fachbereich, Select<String> Studiengang, DatePicker semesterdatePicker,Button actualize) {
         Div page1 = new Div();
 
         //Get current Userdata to fill in the placeholders
@@ -49,8 +48,10 @@ public class SettingsView_Tab1 {
         Vorname.setPlaceholder(vNameFromDB);
         Nachname.setPlaceholder(nNameFromDB);
         description.setPlaceholder(desFromDB);
-        skills.setPlaceholder(skillFromDB);
-        references.setPlaceholder(refFromDB);
+        kenntnisse.setPlaceholder(skillFromDB);
+        referenzen.setPlaceholder(refFromDB);
+        semesterdatePicker.setPlaceholder(semFromDB.toString());
+        datePicker.setPlaceholder(gebFromDB.toString());
 
         //Datepicker
         datePicker.setLabel("Geburtstag");
@@ -86,36 +87,45 @@ public class SettingsView_Tab1 {
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,skills,references);
+        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,kenntnisse, referenzen);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         actualize.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(actualize);
-        //TODO update vals into DB -> schicke daten richtung DB
 
         actualize.addClickListener(e -> update(
                 Vorname.getValue(),
                 Nachname.getValue(),
+                referenzen.getValue(),
+                kenntnisse.getValue(),
                 description.getValue(),
-                skills.getValue(),
-                references.getValue(),
-                datePicker.getValue(),
-                Fachbereich.getValue(),
+                semesterdatePicker.getValue(),
                 Studiengang.getValue(),
-                semesterdatePicker.getValue()
+                Fachbereich.getValue(),
+                datePicker.getValue()
         ));
 
         page1.add(formLayout, buttonLayout);
         return page1;
     }
-    private void update(String Vorname, String Nachname, String description, String skills, String references, LocalDate date, String fachbereich, String studiengang, LocalDate semester /*String semester*/) {
+    private void update(String vorname, String nachname, String referenzen, String kenntnisse, String kurzbeschreibung, LocalDate semester, String studiengang, String fachbereich, LocalDate gebDate) {
+        if(vorname.isEmpty()){ vorname = vNameFromDB; }
+        if(nachname.isEmpty()){ nachname = nNameFromDB; }
+        if(kurzbeschreibung.isEmpty()){kurzbeschreibung = desFromDB; }
+        if(kenntnisse.isEmpty()){ kenntnisse = skillFromDB; }
+        if(referenzen.isEmpty()){ referenzen = refFromDB; }
+        if(fachbereich.isEmpty()){ fachbereich = fachfromDB; }
+        if(studiengang.isEmpty()){ studiengang = sGangfromDB; }
+        if(gebDate == null) {gebDate = gebFromDB.toLocalDate();}
+        if(semester == null) {semester = semFromDB.toLocalDate();}
 
         try {
-            settingsControl.updateStudentWithJDBC(this.ID, Vorname, Nachname, description, skills, references,  fachbereich, semester, studiengang, date);
+            settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname,  referenzen, kenntnisse,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
             Notification.show("Update erfolgreich!");
-            UI.getCurrent().navigate("setting");
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
         } catch (DatabaseUserException databaseException) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( databaseException.getReason()) );
@@ -125,7 +135,6 @@ public class SettingsView_Tab1 {
         }
     }
 
-    //TODO get this vals from DB
     private void getCurrentUserData(){
         UserDTO currentUserValues = null;
 
@@ -138,20 +147,20 @@ public class SettingsView_Tab1 {
             dialog.setHeight("150px");
             dialog.open();
         }
+        StudentDTOimpl x = (StudentDTOimpl) currentUserValues;
 
         vNameFromDB = currentUserValues.getFirstName();
         nNameFromDB = currentUserValues.getLastName();
-        desFromDB = "getthisfromDB";  //TextAreas
-        skillFromDB = "getthisfromDB";
-        refFromDB = "getthisfromDB";
-        fachfromDB = "getthisfromDB"; //Selects
-        sGangfromDB = "getthisfromDB";
-        semFromDB = "getthisfromDB";
-        gebFromDB = "getthisfromDB";
+        desFromDB = x.getDesFromDB();
+        skillFromDB = x.getSkillFromDB();
+        refFromDB = x.getRefFromDB();
+        fachfromDB = x.getFachfromDB();
+        sGangfromDB = x.getsGangfromDB();
+        semFromDB = x.getSemester();
+        gebFromDB = x.getGeb_date();
     }
 
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
-
 }
