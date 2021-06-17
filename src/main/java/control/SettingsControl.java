@@ -84,9 +84,17 @@ public class SettingsControl {
         return userDTO;
     }
 
-    //TODO
-    public boolean checkIfOldPasswordCorrect() {
-        return true;
+    public boolean checkIfOldPasswordCorrect(int ID, String alt) {
+        UserDAO tmp = new UserDAO();
+        String pwFromDB = "";
+
+        try {
+            pwFromDB = tmp.getUserPasswordById(ID);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
+            //this exception is impossible -> wenn user nicht vorhanden wäre wäre er nicht auf dieser seite
+        }
+        return alt.equals(pwFromDB);
     }
 
     public void updatePassword(int id, String password) throws DatabaseUserException {

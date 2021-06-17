@@ -142,4 +142,40 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
+    public String getUserPasswordById(int id) throws DatabaseLayerException {
+        ResultSet set = null;
+        String userPW = "";
+
+        try {
+            Statement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getStatement();
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            set = statement.executeQuery(
+                    "SELECT password "
+                            + "FROM collhbrs.user "
+                            + "WHERE collhbrs.user.id = \'" + id+ "\'");
+
+            if(set.next()) {
+                userPW = set.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            e.setReason(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+        return userPW;
+    }
+
 }

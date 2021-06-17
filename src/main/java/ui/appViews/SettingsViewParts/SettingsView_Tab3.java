@@ -64,11 +64,13 @@ public class SettingsView_Tab3 {
     }
 
     private void changePassword(String alt , String neu, String neu2){
-        if(settingsControl.checkIfOldPasswordCorrect()) {
+        int ID = getCurrentUser().getId();
+
+        if(settingsControl.checkIfOldPasswordCorrect(ID, alt)) {
             if(checkIfNewPasswordsMatch(neu, neu2)){
 
                 try {
-                    settingsControl.updatePassword(getCurrentUser().getId(), neu);
+                    settingsControl.updatePassword(ID, neu);
                 } catch (DatabaseUserException e) {
                     Dialog dialog = new Dialog();
                     dialog.add( new Text( e.getReason()) );
