@@ -94,7 +94,6 @@ public class SettingsView_Tab1 {
         buttonLayout.addClassName("button-layout");
         actualize.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(actualize);
-        //TODO update vals into DB -> schicke daten richtung DB
 
         actualize.addClickListener(e -> update(
                 Vorname.getValue(),

@@ -33,8 +33,9 @@ public class SettingsView_Tab2 {
         });
         upload.getElement().addEventListener("file-remove", event -> {
             output.removeAll();
-            //TODO PDF irgendwo speichern
+            //TODO PDF irgendwo speichern - Good to have
         });
+
 
         page2.add(upload, output);
         return page2;
