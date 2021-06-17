@@ -40,39 +40,13 @@ public class UserDAOTest {
         assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUserEmailAndPassword("nicht Vorhanden", "123")).getReason());
     }
 
-    /*
-    // Erst wieder aktivieren wenn das TO-DO erledigt ist!
-    // Sonst läuft die Datenbank voll
-    @Test
-    public void setStudentByEmailAndPasswordTest(){
-        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "demo", "demo")).getReason());
-        try{
-            student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "TestStudent", "123");
-            UserDTO userDTO = user.findUserByUseridAndPassword("TestStudent", "123");
-            assertEquals("TestStudent", userDTO.getEmail());
-        }
-        catch(DatabaseLayerException e){
-            System.out.println(e.getReason());
-            assertEquals(true, false);
-        }
-        //Todo
-        // Delete TestStudent from Database after each run
-    }
-     */
+
 
     @Test
     public void checkOnExistingUserTest(){
         assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("demo")).getReason());
 
-        try {
 
-            user.checkOnExistingUser("demo");
-            //user.checkOnExistingUser("tst");
-        }
-        catch(DatabaseLayerException e){
-            System.out.println(e);
-            assertEquals(true, true);
-        }
     }
 
     @Test
