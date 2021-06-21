@@ -81,6 +81,15 @@ public class AdView extends Div {
         grid.addColumn(StellenanzeigeDTOimpl::getContent).setHeader("Inhalt");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort");
 
+        grid.setSelectionMode(Grid.SelectionMode.NONE);
+        grid.addItemClickListener(event -> {
+                Dialog d = new Dialog();
+                d.add( new Text( "Clicked Item: " + event.getItem()) );
+                d.setWidth("800px");
+                d.setHeight("500px");
+                d.open();
+        });
+
         return grid;
     }
 
