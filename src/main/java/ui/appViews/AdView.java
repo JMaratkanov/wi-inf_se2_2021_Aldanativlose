@@ -9,6 +9,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import control.adControl;
@@ -77,9 +78,9 @@ public class AdView extends Div {
         Grid<StellenanzeigeDTOimpl> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung");
-        grid.addColumn(StellenanzeigeDTOimpl::getContent).setHeader("Inhalt");
-        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort");
+        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getContent).setHeader("Inhalt").setFlexGrow(0).setWidth("800px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("100px");;
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
@@ -89,6 +90,13 @@ public class AdView extends Div {
                 d.setHeight("500px");
                 d.open();
         });
+
+        grid.addColumn(
+                new NativeButtonRenderer<>("B-bb-Bewirb dich!",
+                        clickedItem -> {
+                            // tue etwas
+                        })
+        ).setFlexGrow(0).setWidth("250px");
 
         return grid;
     }
