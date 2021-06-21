@@ -12,6 +12,7 @@ repository\UserRepository.class
 ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
 ui\Login_Registration\RegistrationEmployer.class
+dtos\StellenanzeigeDTO.class
 ui\appViewsEmployer\SettingsViewEmployer.class
 ui\appViewsEmployer\ApplicationViewEmployer.class
 control\SettingsControl.class
@@ -19,6 +20,8 @@ ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 ui\appViews\ApplicationView.class
+daos\StellenanzeigeDAO.class
+control\adControl.class
 ui\appViews\SettingsViewParts\SettingsView_Tab3.class
 dtos\RolleDTO.class
 ui\Login_Registration\RegistrationStudent.class
@@ -46,3 +49,4 @@ db\exceptions\DatabaseLayerException.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
 control\RegistrationResult.class
+dtos\impl\StellenanzeigeDTOimpl.class

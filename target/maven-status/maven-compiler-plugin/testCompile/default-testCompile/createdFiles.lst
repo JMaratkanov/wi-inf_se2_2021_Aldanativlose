@@ -1,7 +1,13 @@
-RegistrationTest.class
+StudentDTOimplTest.class
 RegistrationControlTest.class
 RegistrationStudentWebPageTest.class
-UserDTOimplTest.class
+StudentDAOTest.class
+EmployerDAOTest.class
+InseratDTOimplTest.class
 LoginWebPageTest.class
+RolleDTOimplTest.class
+RegistrationTest.class
+SettingsControlTest.class
+UserDTOimplTest.class
 RegistrationEmployerWebPageTest.class
 LogoutWebPageTest.class
