@@ -122,7 +122,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         if ( !checkIfUserIsLoggedIn() ) return;
 
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
-        helloUser.setText("Hallo "  + this.getCurrentEmailOfUser() );
+        helloUser.setText("Hallo "  + this.getCurrentEmailOfUser() + " ");
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
