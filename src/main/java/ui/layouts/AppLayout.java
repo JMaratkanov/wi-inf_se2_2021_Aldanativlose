@@ -26,8 +26,6 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.contextmenu.MenuItem;
-import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.UI;
 
 import java.util.Optional;
@@ -124,7 +122,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         if ( !checkIfUserIsLoggedIn() ) return;
 
         getTabForComponent(getContent()).ifPresent(menu::setSelectedTab);
-        helloUser.setText("Hallo "  + this.getCurrentFirstnameOfUser() );
+        helloUser.setText("Hallo "  + this.getCurrentEmailOfUser() );
     }
 
     private Optional<Tab> getTabForComponent(Component component) {
@@ -142,8 +140,8 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         return true;
     }
 
-    private String getCurrentFirstnameOfUser() {
-        return getCurrentUser().getFirstName();
+    private String getCurrentEmailOfUser() {
+        return getCurrentUser().getEmail();
     }
 
     private UserDTO getCurrentUser() {
