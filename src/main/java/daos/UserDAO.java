@@ -26,6 +26,7 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
+            assert sql != null;
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
@@ -126,6 +127,7 @@ public class UserDAO {
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
+            assert sql != null;
             sql.executeUpdate();
 
         } catch (SQLException ex) {
@@ -154,6 +156,7 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
+            assert sql != null;
             set = sql.executeQuery();
 
             if(set.next()) {

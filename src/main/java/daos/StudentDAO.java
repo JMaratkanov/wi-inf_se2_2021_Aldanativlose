@@ -35,6 +35,7 @@ public class StudentDAO extends UserDAO{
                 e.printStackTrace();
             }
 
+            assert sql != null;
             set = sql.executeQuery();
             int id = 0;
             if(set.next()) {
@@ -51,6 +52,7 @@ public class StudentDAO extends UserDAO{
                 e.printStackTrace();
             }
 
+            assert sql2 != null;
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
@@ -79,6 +81,7 @@ public class StudentDAO extends UserDAO{
                 e.printStackTrace();
             }
 
+            assert statement != null;
             set = statement.executeQuery();
 
             if(set.next()) {
@@ -103,18 +106,17 @@ public class StudentDAO extends UserDAO{
         ResultSet set = null;
 
         try {
-            Statement statement = null;
+            PreparedStatement sql = null;
             try {
-                statement = JDBCConnection.getInstance().getStatement();
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT * FROM collhbrs.student_profil WHERE collhbrs.student_profil.id = ?");
+                sql.setInt(1, id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
             //TODO Select abfrage anpassen sodass alle Daten eines Studenten mit einer bestimmten ID ausgelesen werden
-            set = statement.executeQuery(
-                    "SELECT * "
-                            + "FROM collhbrs.student_profil "
-                            + "WHERE collhbrs.student_profil.id = \'" + id+ "\'");
+            assert sql != null;
+            set = sql.executeQuery();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
@@ -199,6 +201,7 @@ public class StudentDAO extends UserDAO{
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
+            assert sql != null;
             sql.executeUpdate();
 
         } catch (SQLException ex) {
@@ -225,6 +228,7 @@ public class StudentDAO extends UserDAO{
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
+            assert sql != null;
             sql.executeUpdate();
 
         } catch (SQLException ex) {

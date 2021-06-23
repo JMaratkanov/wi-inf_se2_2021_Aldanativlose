@@ -26,6 +26,7 @@ public class EmployerDAO extends UserDAO{
                 e.printStackTrace();
             }
 
+            assert sql != null;
             set = sql.executeQuery();
             int id = 0;
             if(set.next()) {
@@ -42,6 +43,7 @@ public class EmployerDAO extends UserDAO{
                 e.printStackTrace();
             }
 
+            assert sql2 != null;
             sql2.executeUpdate();
 
         } catch (SQLException ex) {

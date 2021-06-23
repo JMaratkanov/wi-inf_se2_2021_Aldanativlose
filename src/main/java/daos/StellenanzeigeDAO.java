@@ -5,6 +5,7 @@ import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,14 +20,15 @@ public class StellenanzeigeDAO {
         ResultSet set = null;
 
         try {
-            Statement statement = null;
+            PreparedStatement sql = null;
             try {
-                statement = JDBCConnection.getInstance().getStatement();
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
-            set = statement.executeQuery("SELECT title, content, standort " + "FROM collhbrs.inserat ");
+            assert sql != null;
+            set = sql.executeQuery();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
