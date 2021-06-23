@@ -14,21 +14,19 @@ import java.sql.Statement;
 public class UserDAO {
 
     public UserDTO findUserByUserEmailAndPassword(String email, String password) throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
 
         try {
-            Statement statement = null;
+            PreparedStatement sql = null;
             try {
-                statement = JDBCConnection.getInstance().getStatement();
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT * FROM collhbrs.user WHERE collhbrs.user.email = ? AND collhbrs.user.password = ?");
+                sql.setString(1, email);
+                sql.setString(2, password);
             } catch (DatabaseLayerException | NullPointerException e) {
                 e.printStackTrace();
             }
 
-            set = statement.executeQuery(
-                    "SELECT * "
-                            + "FROM collhbrs.user "
-                            + "WHERE collhbrs.user.email = \'" + email + "\'"
-                            + " AND collhbrs.user.password = \'" + password + "\'");
+            set = sql.executeQuery();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
@@ -40,7 +38,7 @@ public class UserDAO {
             throw e;
         }
 
-        UserDTOimpl user = null;
+        UserDTOimpl user;
 
         try {
             if (set.next()) {
@@ -144,21 +142,19 @@ public class UserDAO {
     }
 
     public String getUserPasswordById(int id) throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
         String userPW = "";
 
         try {
-            Statement statement = null;
+            PreparedStatement sql = null;
             try {
-                statement = JDBCConnection.getInstance().getStatement();
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT password FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                sql.setInt(1, id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
-            set = statement.executeQuery(
-                    "SELECT password "
-                            + "FROM collhbrs.user "
-                            + "WHERE collhbrs.user.id = \'" + id+ "\'");
+            set = sql.executeQuery();
 
             if(set.next()) {
                 userPW = set.getString(1);
