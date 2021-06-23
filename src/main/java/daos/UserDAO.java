@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UserDAO {
+public class UserDAO extends MainDAO{
 
     public UserDTO findUserByUserEmailAndPassword(String email, String password) throws DatabaseLayerException {
         ResultSet set;
