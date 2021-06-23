@@ -32,6 +32,7 @@ ui\appViews\SettingsViewParts\SettingsView_Tab1.class
 ui\CollatHBRSApplication.class
 dtos\InseratDTO.class
 ui\appViews\SettingsView.class
+control\MainControl.class
 daos\UserDAO.class
 dtos\impl\StudentDTOimpl.class
 entities\User.class

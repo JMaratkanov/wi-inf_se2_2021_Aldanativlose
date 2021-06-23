@@ -71,17 +71,15 @@ public class StudentDAO extends UserDAO{
         int studentProfilId = 0;
 
         try {
-            Statement statement = null;
+            PreparedStatement statement = null;
             try {
-                statement = JDBCConnection.getInstance().getStatement();
+                statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                statement.setInt(1, id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
-            set = statement.executeQuery(
-                    "SELECT student_profil "
-                            + "FROM collhbrs.user "
-                            + "WHERE collhbrs.user.id = \'" + id+ "\'");
+            set = statement.executeQuery();
 
             if(set.next()) {
                 studentProfilId = set.getInt(1);

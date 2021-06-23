@@ -1,19 +1,16 @@
 import control.LoginControl;
-import control.exceptions.DatabaseUserException;
 import control.factory.Factory;
 import dtos.UserDTO;
-import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginControlTest {
     private String emailCorrect;
     private String emailWrong;
-    private String passwordCorrect;
-    private String passwordWrong;
+    private String pwCorrect;
+    private String pwWrong;
     private UserDTO user;
     private LoginControl lc;
 
@@ -21,8 +18,8 @@ public class LoginControlTest {
     void setup(){
         emailCorrect = "maxmuster@hbrs.de";
         emailWrong = "MaxMusr@hbrs.de";
-        passwordCorrect = "123456";
-        passwordWrong = "1234";
+        pwCorrect = "123456";
+        pwWrong = "1234";
         lc = new LoginControl();
         user = Factory.createUser(1, "Max", "Mustermann");
     }
@@ -31,8 +28,8 @@ public class LoginControlTest {
     void teardown() {
         emailCorrect = "";
         emailWrong = "";
-        passwordCorrect = "";
-        passwordWrong = "";
+        pwCorrect = "";
+        pwWrong = "";
         user = null;
         lc = null;
     }
