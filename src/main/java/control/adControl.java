@@ -5,6 +5,7 @@ import daos.StellenanzeigeDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,10 +19,10 @@ public class adControl extends MainControl{
         return liste;
     }
 
-    public void insertnewad(String bezeichnung, String inhalt, String standort) throws DatabaseUserException {
+    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         try {
-            dao.newadtodao(bezeichnung, inhalt, standort);
+            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, inhalt);
         }
         catch (DatabaseLayerException e){
             checkReasonAndThrowEx(e.getReason());

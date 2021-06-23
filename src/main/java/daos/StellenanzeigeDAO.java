@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,11 +67,11 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public void newadtodao(String title, String content, String standort) throws DatabaseLayerException {
+    public void newadtodao(String title, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String content) throws DatabaseLayerException {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.inserat(title, content, standort, status, unternehmen_profil_id) VALUES (?, ?, ?, ?, ?)");
+                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.inserat(title, content, standort, status, unternehmen_profil_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 sql.setString(1, title);
                 sql.setString(2, content);
                 sql.setString(3, standort);
