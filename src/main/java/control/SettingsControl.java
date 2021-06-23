@@ -6,7 +6,6 @@ import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import globals.Globals;
-
 import java.time.LocalDate;
 
 public class SettingsControl {
@@ -18,19 +17,7 @@ public class SettingsControl {
             dao.updateStudentData(id, vorname, nachname, referenzen, kenntnisse, kurzbeschreibung, semester, studiengang, fachbereich, geb_date);
         }
         catch ( DatabaseLayerException e) {
-
-            // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
-            // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
-            String reason = e.getReason();
-
-            if ( reason.equals((Globals.Errors.SQLERROR))) {
-                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
-            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
-                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
-                        "Please contact the admin");
-            } else {
-                throw new DatabaseUserException("A failure occured while");
-            }
+            checkReasonAndThrowEx(e.getReason());
         }
     }
 
@@ -38,48 +25,17 @@ public class SettingsControl {
         StudentDAO dao = new StudentDAO();
         try {
             dao.deleteStudentProfil(id);
-        }
-        catch ( DatabaseLayerException e) {
-
-            // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
-            // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
-            String reason = e.getReason();
-
-            if ( reason.equals((Globals.Errors.SQLERROR))) {
-                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
-            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
-                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
-                        "Please contact the admin");
-            } else {
-                throw new DatabaseUserException("A failure occured while");
-            }
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
         }
     }
 
     public UserDTO getStudentWithJDBCByID(int ID) throws DatabaseUserException {
-        UserDTO userTmp = null;
         StudentDAO dao = new StudentDAO();
-
         try {
-            userDTO = dao.getFullStudentDTOByStudentID( dao.getStudentIdByUserId(ID) );
-        }
-        catch ( DatabaseLayerException e) {
-
-            String reason = e.getReason();
-
-            if (reason.equals(Globals.Errors.NOUSERFOUND)) {
-                throw new DatabaseUserException("No User could be found! Please check your credentials!");
-            }
-            else if ( reason.equals((Globals.Errors.SQLERROR))) {
-                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
-            }
-            else if ( reason.equals((Globals.Errors.DATABASE ) )) {
-                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC. " +
-                        "Please contact the admin");
-            }
-            else {
-                throw new DatabaseUserException("A failure occured while");
-            }
+            userDTO = dao.getFullStudentDTOByStudentID(dao.getStudentIdByUserId(ID));
+        } catch ( DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
         }
         return userDTO;
     }
@@ -87,7 +43,6 @@ public class SettingsControl {
     public boolean checkIfOldPasswordCorrect(int ID, String alt) {
         UserDAO tmp = new UserDAO();
         String pwFromDB = "";
-
         try {
             pwFromDB = tmp.getUserPasswordById(ID);
         } catch (DatabaseLayerException e) {
@@ -103,17 +58,23 @@ public class SettingsControl {
             dao.updatePassword(id, password);
         }
         catch ( DatabaseLayerException e) {
-            String reason = e.getReason();
-
-            if ( reason.equals((Globals.Errors.SQLERROR))) {
-                throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
-            } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
-                throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC." +
-                        "Please contact the admin");
-            } else {
-                throw new DatabaseUserException("A failure occured while");
-            }
+            checkReasonAndThrowEx(e.getReason());
         }
-
     }
+
+    public void checkReasonAndThrowEx(String reason) throws DatabaseUserException{
+        // Analyse und Umwandlung der technischen Errors in 'lesbaren' Darstellungen
+        // Durchreichung und Behandlung der Fehler (Chain Of Responsibility Pattern (SE-1))
+        if (reason.equals(Globals.Errors.NOUSERFOUND)) {
+            throw new DatabaseUserException("No User could be found! Please check your credentials!");
+        } else if ( reason.equals((Globals.Errors.SQLERROR))) {
+            throw new DatabaseUserException("There were problems with the SQL code. Please contact the developer!");
+        } else if ( reason.equals((Globals.Errors.DATABASE ) )) {
+            throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC. " +
+                    "Please contact the admin");
+        } else {
+            throw new DatabaseUserException("A failure occured while");
+        }
+    }
+
 }
