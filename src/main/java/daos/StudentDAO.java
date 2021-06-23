@@ -220,13 +220,14 @@ public class StudentDAO extends UserDAO{
         try {
             PreparedStatement sql = null;
             try {
+                int studentID = getStudentIdByUserId(id);
                 sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "DELETE  FROM collhbrs.student_profil WHERE id = (SELECT student_profil FROM collhbrs.user WHERE id = (?))");
-                sql.setInt(1, id);
+                        "DELETE FROM collhbrs.student_profil WHERE collhbrs.student_profil.id = ?");
+                sql.setInt(1, studentID);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
-            sql.executeQuery();
+            sql.executeUpdate();
 
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
