@@ -149,6 +149,7 @@ public class SettingsView_Tab1 {
         }
         StudentDTOimpl x = (StudentDTOimpl) currentUserValues;
 
+        assert x != null;
         vNameFromDB = x.getFirstName();
         nNameFromDB = x.getLastName();
         desFromDB = x.getDesFromDB();
