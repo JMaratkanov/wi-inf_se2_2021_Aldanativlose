@@ -16,6 +16,7 @@ import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
 import globals.Globals;
+import ui.layouts.AppLayout;
 
 public class SettingsView_Tab4 {
     private SettingsControl settingsControl = new SettingsControl();
