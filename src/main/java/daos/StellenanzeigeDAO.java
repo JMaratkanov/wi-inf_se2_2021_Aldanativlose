@@ -81,7 +81,10 @@ public class StellenanzeigeDAO {
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
+
+            assert sql != null;
             sql.executeUpdate();
+
         } catch (SQLException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
             e.setReason(Globals.Errors.SQLERROR);
