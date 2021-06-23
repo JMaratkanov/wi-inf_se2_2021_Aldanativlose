@@ -149,8 +149,8 @@ public class SettingsView_Tab1 {
         }
         StudentDTOimpl x = (StudentDTOimpl) currentUserValues;
 
-        vNameFromDB = currentUserValues.getFirstName();
-        nNameFromDB = currentUserValues.getLastName();
+        vNameFromDB = x.getFirstName();
+        nNameFromDB = x.getLastName();
         desFromDB = x.getDesFromDB();
         skillFromDB = x.getSkillFromDB();
         refFromDB = x.getRefFromDB();

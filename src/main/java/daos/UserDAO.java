@@ -88,6 +88,7 @@ public class UserDAO {
                 e.printStackTrace();
             }
 
+            assert sql != null;
             set = sql.executeQuery();
             int erg = 0;
             if(set.next()) {
