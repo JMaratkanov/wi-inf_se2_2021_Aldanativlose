@@ -20,7 +20,7 @@ public class UserDAO {
             Statement statement = null;
             try {
                 statement = JDBCConnection.getInstance().getStatement();
-            } catch (DatabaseLayerException e) {
+            } catch (DatabaseLayerException | NullPointerException e) {
                 e.printStackTrace();
             }
 
