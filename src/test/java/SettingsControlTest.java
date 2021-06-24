@@ -91,14 +91,12 @@ public class SettingsControlTest {
             assertEquals(true, sc.checkIfOldPasswordCorrect(id,"123"));
             assertEquals(false, sc.checkIfOldPasswordCorrect(id,"1234"));
 
+            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("checkIfOldPasswordCorrectTest@ag.com", "123").getId());
         }
         catch (DatabaseLayerException e){
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
-
-        //Todo
-        // Delete checkIfOldPasswordCorrectTest@ag.com from Database after each run
     }
 
     @Test
@@ -110,6 +108,7 @@ public class SettingsControlTest {
             sc.updatePassword(id, "1234");
             assertEquals("1234", user.getUserPasswordById(id));
 
+            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("updatePasswordSCTest@ag.com", "1234").getId());
         }
         catch (DatabaseLayerException e){
             System.out.println(e.getReason());
@@ -119,8 +118,5 @@ public class SettingsControlTest {
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
-
-        //Todo
-        // Delete updatePasswordSCTest@ag.com from Database after each run
     }
 }
