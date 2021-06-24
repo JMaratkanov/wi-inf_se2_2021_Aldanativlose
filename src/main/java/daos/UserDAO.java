@@ -93,8 +93,7 @@ public class UserDAO extends MainDAO{
                 erg = set.getInt(1);
             }
             if (erg == 1) {
-                DatabaseLayerException e = new DatabaseLayerException("User bereits vorhanden!");
-                e.setReason(Globals.Errors.EXISTINGUSER);
+                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.EXISTINGUSER);
                 throw e;
             }
 
