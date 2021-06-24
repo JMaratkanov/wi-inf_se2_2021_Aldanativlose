@@ -105,6 +105,18 @@ public class StudentDAOTest {
         // Delete updateStudentDataTest from Database after each run
     }
 
-    //Todo
-    // public void deleteStudentProfilTest()
+    @Test
+    public void deleteStudentProfilTest(){
+        try{
+            student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "deleteStudentProfilTest", "123");
+            int id = user.findUserByUserEmailAndPassword("deleteStudentProfilTest", "123").getId();
+
+            student.deleteStudentProfil(id);
+        }
+        catch (DatabaseLayerException e){
+            System.out.println(e.getReason());
+            assertEquals(true, false);
+        }
+    }
+
 }
