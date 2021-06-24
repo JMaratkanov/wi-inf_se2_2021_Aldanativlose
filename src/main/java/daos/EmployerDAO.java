@@ -52,8 +52,7 @@ public class EmployerDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -84,8 +83,7 @@ public class EmployerDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -111,8 +109,7 @@ public class EmployerDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();

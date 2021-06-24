@@ -62,8 +62,7 @@ public class StudentDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -94,8 +93,7 @@ public class StudentDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -123,8 +121,7 @@ public class StudentDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         }
 
@@ -151,15 +148,13 @@ public class StudentDAO extends UserDAO{
 
             } else {
                 // Error Handling
-                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
-                e.setReason(Globals.Errors.NOUSERFOUND);
+                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
                 throw e;
             }
         } catch (DatabaseLayerException e) {
             throw e;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
 
         } finally {
@@ -207,8 +202,7 @@ public class StudentDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -233,8 +227,7 @@ public class StudentDAO extends UserDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();

@@ -17,12 +17,10 @@ public class MainDAO {
             set = sql.executeQuery();
             return set;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();

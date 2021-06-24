@@ -15,7 +15,7 @@ public class MainControl {
             throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC. " +
                     "Please contact the admin");
         } else if (reason.equals(Globals.Errors.EXISTINGUSER)) {
-            throw new DatabaseUserException("Es existiert bereis ein Nutzer mit dieser E-Mail Adresse!");
+            throw new DatabaseUserException("There is already a user with this email address!");
         } else {
             throw new DatabaseUserException("A unknown failure occured");
         }

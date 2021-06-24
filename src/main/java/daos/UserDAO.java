@@ -32,8 +32,7 @@ public class UserDAO extends MainDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         }
 
@@ -65,8 +64,7 @@ public class UserDAO extends MainDAO{
         } catch (DatabaseLayerException e) {
             throw e;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
 
         } finally {
@@ -103,8 +101,7 @@ public class UserDAO extends MainDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -131,8 +128,7 @@ public class UserDAO extends MainDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
@@ -163,8 +159,7 @@ public class UserDAO extends MainDAO{
             DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();

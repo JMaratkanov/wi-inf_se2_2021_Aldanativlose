@@ -32,12 +32,10 @@ public class StellenanzeigeDAO {
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         }
 
@@ -56,8 +54,7 @@ public class StellenanzeigeDAO {
                     }
                 }while(flipflop);
             } catch (SQLException ex) {
-                DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
-                e.setReason(Globals.Errors.DATABASE);
+                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
                 throw e;
 
             } finally {
@@ -99,12 +96,10 @@ public class StellenanzeigeDAO {
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
             throw e;
         } finally {
             JDBCConnection.getInstance().closeConnection();
