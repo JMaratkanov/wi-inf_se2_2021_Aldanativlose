@@ -44,6 +44,9 @@ public class SettingsControlTest {
             assertEquals(student.getStudentIdByUserId(id), studentDTO.getId());
             assertEquals("test", studentDTO.getFirstName());
             assertEquals("test", studentDTO.getLastName());
+
+            student.deleteStudentProfil(student.findUserByUserEmailAndPassword("updateStudentWithJDBCTest", "123").getId());
+
         }
         catch (DatabaseLayerException e) {
             System.out.println(e.getReason());
@@ -53,13 +56,7 @@ public class SettingsControlTest {
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
-
-        //Todo
-        // Delete updateStudentWithJDBCTest from Database after each run
     }
-
-    //TODO
-    // deleteStudentWithJDBCTest
 
     @Test
     public void getStudentWithJDBCByIDTest(){
@@ -70,6 +67,8 @@ public class SettingsControlTest {
             assertEquals(student.getStudentIdByUserId(id), studentDTO.getId());
             assertEquals("Max", studentDTO.getFirstName());
             assertEquals("Mustermann", studentDTO.getLastName());
+
+            student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getStudentWithJDBCByIDTest", "123").getId());
         }
         catch (DatabaseLayerException e){
             System.out.println(e.getReason());
@@ -82,9 +81,6 @@ public class SettingsControlTest {
 
         assertEquals("No User could be found! Please check your credentials!",
                 assertThrows(DatabaseUserException.class, ()-> sc.getStudentWithJDBCByID(0)).getReason());
-
-        //Todo
-        // Delete getFullStudentDTOByStudentIDTest from Database after each run
     }
 
     @Test
