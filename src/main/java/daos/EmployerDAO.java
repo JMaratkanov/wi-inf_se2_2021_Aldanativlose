@@ -12,6 +12,8 @@ public class EmployerDAO extends UserDAO{
     public void setEmployer(String companyName, String country, String street, String hNr, String place, String plz, String email, String password)  throws DatabaseLayerException {
         ResultSet set = null;
         try {
+            checkOnExistingUser(email);
+
             PreparedStatement sql = null;
             PreparedStatement sql2 = null;
             try {
@@ -47,8 +49,7 @@ public class EmployerDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(reason);
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -80,8 +81,7 @@ public class EmployerDAO extends UserDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(reason);
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -108,8 +108,7 @@ public class EmployerDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(reason);
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");

@@ -15,7 +15,7 @@ public class MainControl {
             throw new DatabaseUserException("A failure occured while trying to connect to database with JDBC. " +
                     "Please contact the admin");
         } else {
-            throw new DatabaseUserException("A failure occured while");
+            throw new DatabaseUserException("A unknown failure occured");
         }
     }
 }
