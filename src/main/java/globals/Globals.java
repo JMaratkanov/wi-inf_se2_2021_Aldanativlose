@@ -23,7 +23,7 @@ public class Globals {
 
     public static class Errors {
         public static final String NOUSERFOUND = "Nutzer konnte nicht gefunden werden, sind sie bereits registriert?";
-        public static final String EXISTINGUSER = "Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein";
+        public static final String EXISTINGUSER = "User existiert bereits!";
         public static final String SQLERROR = "Fehler im SQL-Befehl!";
         public static final String DATABASE = "database error";
         public static final String ILLEGALCHAR = "Sie versuchen ein nicht erlaubtes Zeichen zu verwenden. " +  "\n" + " Nicht erlaubt sind: '!'  ','  ':'";

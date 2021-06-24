@@ -20,6 +20,7 @@ ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 ui\appViews\ApplicationView.class
+daos\MainDAO.class
 daos\StellenanzeigeDAO.class
 control\adControl.class
 ui\appViews\SettingsViewParts\SettingsView_Tab3.class

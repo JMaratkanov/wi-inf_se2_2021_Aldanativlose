@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.hibernate:hibernate-core:5.4.27.Final">
+  <library name="Maven: org.apache.httpcomponents:httpclient:4.5.13">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.27.Final/hibernate-core-5.4.27.Final.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.27.Final/hibernate-core-5.4.27.Final-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/5.4.27.Final/hibernate-core-5.4.27.Final-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

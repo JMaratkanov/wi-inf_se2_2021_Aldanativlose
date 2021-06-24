@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 public class StudentDAO extends UserDAO{
     public void setStudentByFirstnameLastnameEmailPassword(String firstname, String lastname, String email, String password)  throws DatabaseLayerException {
@@ -173,7 +172,6 @@ public class StudentDAO extends UserDAO{
         Date gebTagAsDate = null;
         int student_profil_id = getStudentIdByUserId(id);
 
-        ZoneId defaultZoneId = ZoneId.systemDefault();
         if (semester != null){
             semesterAsDate = Date.valueOf(semester);
         }

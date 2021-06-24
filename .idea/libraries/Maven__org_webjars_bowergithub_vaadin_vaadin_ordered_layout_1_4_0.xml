@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.webjars.bowergithub.vaadin:vaadin-ordered-layout:1.4.0">
+  <library name="Maven: org.webjars.bowergithub.vaadin:vaadin-menu-bar:1.2.2">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-ordered-layout/1.4.0/vaadin-ordered-layout-1.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-menu-bar/1.2.2/vaadin-menu-bar-1.2.2.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-ordered-layout/1.4.0/vaadin-ordered-layout-1.4.0-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-menu-bar/1.2.2/vaadin-menu-bar-1.2.2-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-ordered-layout/1.4.0/vaadin-ordered-layout-1.4.0-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/webjars/bowergithub/vaadin/vaadin-menu-bar/1.2.2/vaadin-menu-bar-1.2.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
