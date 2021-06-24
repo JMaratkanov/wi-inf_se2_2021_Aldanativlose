@@ -30,6 +30,7 @@ import ui.layouts.AppLayout;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Route(value = "ads", layout = AppLayout.class)
 @PageTitle("Stellenanzeigen")
@@ -42,6 +43,7 @@ public class AdView extends Div {
     Select<String> umkreisSelect = new Select<>();
     private Button newAd = new Button("Neue Stellenanzeige Aufgeben");
     private Button newAdFinal = new Button("Stellenanzeige Aufgeben");
+
     //Inhalt der Stellenanzeige
     private TextField Bezeichnung = new TextField("Bezeichnung");
     Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
@@ -60,19 +62,26 @@ public class AdView extends Div {
 
     public AdView() {
         formLayout.add(Bezeichnung, Inhalt, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche);
+
+        //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         newAd.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(newAd);
-        Dialog dialog = new Dialog();
+
+        AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
+
         newAd.addClickListener(e -> {
-                    dialog.add(new Text("Hallo"));
-                    dialog.add(new Div(formLayout, newAdFinal));
-                    dialog.setWidth("1000px");
-                    dialog.setHeight("10000px");
-                    dialog.open();
+                    dialog.set(new Dialog());
+                    //dialog.add(new Text("Hallo"));
+                    dialog.get().add(new Div(formLayout, newAdFinal));
+                    dialog.get().setWidth("1000px");
+                    dialog.get().setHeight("10000px");
+                    dialog.get().open();
                 });
-        newAdFinal.addClickListener(e -> {createNewAd(
+
+        newAdFinal.addClickListener(e -> {
+            createNewAd(
                 Bezeichnung.getValue(),
                 Standort.getValue(),
                 DateVon.getValue(),
@@ -82,8 +91,15 @@ public class AdView extends Div {
                 InseratTyp.getValue(),
                 Ansprechpartner.getValue(),
                 Branche.getValue(),
-                Inhalt.getValue());
-                dialog.close();});
+                Inhalt.getValue()
+            );
+                dialog.get().close();
+               /* Notification.show(Bezeichnung.getValue() +
+                        Standort.getValue() +
+                        DateVon.getValue() +DateBis.getValue() + StundenProWoche.getValue()
+                        + VerguetungProStunde.getValue() + InseratTyp.getValue() + Ansprechpartner.getValue()
+                        + Branche.getValue() + Inhalt.getValue());*/
+        });
 
         add(newAd);
         setId("ad-view");
