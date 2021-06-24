@@ -35,20 +35,21 @@ public class StudentDAOTest {
     // Sonst läuft die Datenbank voll
     @Test
     public void setStudentByEmailAndPasswordTest(){
-        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "demo", "demo")).getReason());
+        //erstellt student_profil auch bei error
+
+        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
         try{
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
             UserDTO userDTO = student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
             assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
-            }
+            assertEquals("sql error", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
+
+            student.deleteStudentProfil(student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123").getId());
+        }
         catch(DatabaseLayerException e){
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
-        assertEquals("sql error", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
-
-        //Todo
-        // Delete setStudentByEmailAndPasswordTest from Database after each run
     }
 
 
@@ -71,6 +72,7 @@ public class StudentDAOTest {
             assertEquals(id, studentDTO.getId());
             assertEquals("Max", studentDTO.getFirstName());
             assertEquals("Mustermann", studentDTO.getLastName());
+            student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getFullStudentDTOByStudentIDTest", "123").getId());
         }
         catch (DatabaseLayerException e){
             System.out.println(e.getReason());
@@ -78,9 +80,6 @@ public class StudentDAOTest {
         }
         assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?",
                 assertThrows(DatabaseLayerException.class, ()-> student.getFullStudentDTOByStudentID(0)).getReason());
-
-        //Todo
-        // Delete getFullStudentDTOByStudentIDTest from Database after each run
     }
 
     @Test
@@ -95,28 +94,20 @@ public class StudentDAOTest {
             assertEquals(student.getStudentIdByUserId(id), studentDTO.getId());
             assertEquals("test", studentDTO.getFirstName());
             assertEquals("test", studentDTO.getLastName());
+            student.deleteStudentProfil(student.findUserByUserEmailAndPassword("updateStudentDataTest", "123").getId());
         }
         catch (DatabaseLayerException e) {
             System.out.println(e.getReason());
             assertEquals(true, false);
         }
-
-        //Todo
-        // Delete updateStudentDataTest from Database after each run
     }
 
     @Test
-    public void deleteStudentProfilTest(){
-        try{
-            student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "deleteStudentProfilTest", "123");
-            int id = user.findUserByUserEmailAndPassword("deleteStudentProfilTest", "123").getId();
+    public void deleteStudentProfilTest() throws DatabaseLayerException {
+        student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "deleteStudentProfilTest", "123");
+        int id = user.findUserByUserEmailAndPassword("deleteStudentProfilTest", "123").getId();
 
-            student.deleteStudentProfil(id);
-        }
-        catch (DatabaseLayerException e){
-            System.out.println(e.getReason());
-            assertEquals(true, false);
-        }
+        student.deleteStudentProfil(id);
     }
 
 }
