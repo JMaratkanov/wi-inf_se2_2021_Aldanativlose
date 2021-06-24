@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDAO extends MainDAO{
+    final String reason = "Fehler im SQL-Befehl!";
 
     public UserDTO findUserByUserEmailAndPassword(String email, String password) throws DatabaseLayerException {
         ResultSet set;

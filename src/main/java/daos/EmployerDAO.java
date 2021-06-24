@@ -47,7 +47,7 @@ public class EmployerDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            DatabaseLayerException e = new DatabaseLayerException(reason);
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
@@ -80,7 +80,7 @@ public class EmployerDAO extends UserDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            DatabaseLayerException e = new DatabaseLayerException(reason);
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
@@ -108,7 +108,7 @@ public class EmployerDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
+            DatabaseLayerException e = new DatabaseLayerException(reason);
             e.setReason(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
