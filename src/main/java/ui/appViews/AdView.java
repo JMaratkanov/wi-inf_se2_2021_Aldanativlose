@@ -27,8 +27,8 @@ import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
 import ui.layouts.AppLayout;
 
+
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Route(value = "ads", layout = AppLayout.class)
@@ -42,8 +42,10 @@ public class AdView extends Div {
     Select<String> umkreisSelect = new Select<>();
     private Button newAd = new Button("Neue Stellenanzeige Aufgeben");
     private Button newAdFinal = new Button("Stellenanzeige Aufgeben");
+    //Inhalt der Stellenanzeige
     private TextField Bezeichnung = new TextField("Bezeichnung");
-    private Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
+    Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
+    //Standort.setItems("option one", "option 2");
     private TextArea Inhalt = new TextArea("Inhalt");
     private DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
     private DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
