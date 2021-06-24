@@ -52,15 +52,14 @@ public class RegistrationControlTest{
             rc.registerEmployerWithJDBC("registeremployerwithjdbctest", "germany", "strasse", "5", "Ort", "12345", "registeremployerwithjdbctest@ag.com", "123");
             assertEquals("registeremployerwithjdbctest@ag.com", employer.findUserByUserEmailAndPassword("registeremployerwithjdbctest@ag.com", "123").getEmail());
 
+            assertThrows(DatabaseUserException.class, () -> rc.registerEmployerWithJDBC("registerEmployerWithJDBCTest", "germany", "strasse", "5", "Ort", "12345", "registerEmployerWithJDBCTest@ag.com", "123"));
+
+            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("registeremployerwithjdbctest@ag.com", "123").getId());
         } catch (DatabaseUserException e) {
             assertEquals(true, false);
         } catch (DatabaseLayerException e) {
             assertEquals(true, false);
         }
-
-        assertThrows(DatabaseUserException.class, () -> rc.registerEmployerWithJDBC("registerEmployerWithJDBCTest", "germany", "strasse", "5", "Ort", "12345", "registerEmployerWithJDBCTest@ag.com", "123"));
-        //Todo
-        // Delete registeremployerwithjdbctest@ag.com from Database after each run
     }
 
     @AfterClass

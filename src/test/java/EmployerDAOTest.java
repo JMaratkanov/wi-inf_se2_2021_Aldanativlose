@@ -32,14 +32,31 @@ public class EmployerDAOTest {
             employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123");
             UserDTO userDTO = user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
             assertEquals("setEmployerTest@ag.com", userDTO.getEmail());
+
+            assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class,
+                    () -> employer.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
+
+            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());
         }
         catch(DatabaseLayerException e){
             assertEquals(true, false);
         }
 
-        assertEquals("sql error", assertThrows(DatabaseLayerException.class,
-                () -> employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
-        //Todo
+       //Todo
         // Delete setEmployerTest@ag.com from Database after each run
+    }
+
+    @Test
+    public void deleteEmployerProfilTest(){
+        try {
+            employer.setEmployer("deleteEmployerProfil", "germany", "strasse", "5", "Ort", "12345", "deleteEmployerProfilTest@ag.com", "123");
+            int id = user.findUserByUserEmailAndPassword("deleteEmployerProfilTest@ag.com", "123").getId();
+
+            employer.deleteEmployerProfil(id);
+        }
+        catch (DatabaseLayerException e){
+            System.out.println(e.getReason());
+            assertEquals(true, false);
+        }
     }
 }
