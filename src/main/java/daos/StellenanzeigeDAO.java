@@ -1,14 +1,13 @@
 package daos;
 
+import com.vaadin.flow.component.datepicker.DatePicker;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,16 +65,24 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public void newadtodao(String title, String content, String standort) throws DatabaseLayerException {
+    public void newadtodao(String title, String standort, LocalDate date_von, LocalDate date_bis, String stunden_pro_woche, int verguetung_pro_stunde, String inserat_typ, String ansprechpartner, String branche_id, String content) throws DatabaseLayerException {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.inserat(title, content, standort, status, unternehmen_profil_id) VALUES (?, ?, ?, ?, ?)");
+                sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.inserat(title, content, standort, date_von, date_bis, status, stunden_pro_woche, verguetung_pro_stunde, unternehmen_profil_id, inserat_typ, ansprechpartner, branche_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); //date_von, date_bis,
                 sql.setString(1, title);
                 sql.setString(2, content);
                 sql.setString(3, standort);
-                sql.setInt(4, 1);
-                sql.setInt(5, 95);
+                sql.setDate(4, new java.sql.Date(1));
+                sql.setDate(5, new java.sql.Date(1));
+                sql.setInt(6, 1);
+                sql.setString(7, stunden_pro_woche);
+                sql.setInt(8, verguetung_pro_stunde);
+                sql.setInt(9, 95);
+                sql.setString(10, inserat_typ);
+                sql.setString(11, ansprechpartner);
+                sql.setString(12, branche_id);
+
 
 
             } catch (DatabaseLayerException e) {
