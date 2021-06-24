@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO extends MainDAO{
+public class UserDAO {
 
     public UserDTO findUserByUserEmailAndPassword(String email, String password) throws DatabaseLayerException {
         ResultSet set;
@@ -29,11 +29,9 @@ public class UserDAO extends MainDAO{
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         }
 
         UserDTOimpl user;
@@ -57,16 +55,10 @@ public class UserDAO extends MainDAO{
 
             } else {
                 // Error Handling
-                DatabaseLayerException e = new DatabaseLayerException("No User Could be found");
-                e.setReason(Globals.Errors.NOUSERFOUND);
-                throw e;
+                throw new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
             }
-        } catch (DatabaseLayerException e) {
-            throw e;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
-
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -74,7 +66,7 @@ public class UserDAO extends MainDAO{
 
     // Prüft anhand einer E-Mail ob ein User mit dieser E-Mail schon existiert
     public void checkOnExistingUser(String email) throws DatabaseLayerException{
-        ResultSet set = null;
+        ResultSet set;
         try {
             PreparedStatement sql = null;
             try {
@@ -91,18 +83,13 @@ public class UserDAO extends MainDAO{
                 erg = set.getInt(1);
             }
             if (erg == 1) {
-                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.EXISTINGUSER);
-                throw e;
+                throw new DatabaseLayerException(Globals.Errors.EXISTINGUSER);
             }
 
-        } catch (DatabaseLayerException ex) {
-            throw ex;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -125,11 +112,9 @@ public class UserDAO extends MainDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -156,15 +141,12 @@ public class UserDAO extends MainDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
         return userPW;
     }
-
 }

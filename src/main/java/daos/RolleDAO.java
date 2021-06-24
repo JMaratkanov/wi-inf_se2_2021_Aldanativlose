@@ -9,6 +9,4 @@ public class RolleDAO {
     public List<RolleDTO> getRolesOfUser(UserDTOimpl user) {
         return null;
     }
-
-
 }
