@@ -12,6 +12,8 @@ public class EmployerDAO extends UserDAO{
     public void setEmployer(String companyName, String country, String street, String hNr, String place, String plz, String email, String password)  throws DatabaseLayerException {
         ResultSet set = null;
         try {
+            checkOnExistingUser(email);
+
             PreparedStatement sql = null;
             PreparedStatement sql2 = null;
             try {
@@ -47,8 +49,66 @@ public class EmployerDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public int getEmployerIdByUserId(int id) throws DatabaseLayerException {
+        ResultSet set = null;
+        int studentProfilId = 0;
+
+        try {
+            PreparedStatement statement = null;
+            try {
+                statement = JDBCConnection.getInstance().getPreparedStatement("SELECT unternehmen_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                statement.setInt(1, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert statement != null;
+            set = statement.executeQuery();
+
+            if(set.next()) {
+                studentProfilId = set.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
+            throw e;
+        } catch (NullPointerException ex) {
+            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
+            e.setReason(Globals.Errors.DATABASE);
+            throw e;
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+        return studentProfilId;
+    }
+
+    public void deleteEmployerProfil(int id) throws DatabaseLayerException {
+        try {
+            PreparedStatement sql = null;
+            try {
+                int studentID = getEmployerIdByUserId(id);
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "DELETE FROM collhbrs.unternehmen_profil WHERE collhbrs.unternehmen_profil.id = ?");
+                sql.setInt(1, studentID);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            assert sql != null;
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");

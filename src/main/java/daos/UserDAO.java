@@ -9,7 +9,6 @@ import globals.Globals;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class UserDAO extends MainDAO{
 
@@ -30,8 +29,7 @@ public class UserDAO extends MainDAO{
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -103,8 +101,7 @@ public class UserDAO extends MainDAO{
         } catch (DatabaseLayerException ex) {
             throw ex;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -132,8 +129,7 @@ public class UserDAO extends MainDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -165,8 +161,7 @@ public class UserDAO extends MainDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");

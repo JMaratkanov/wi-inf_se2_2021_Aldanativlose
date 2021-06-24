@@ -38,7 +38,7 @@ public class EmployerDAOTest {
         }
 
         assertEquals("sql error", assertThrows(DatabaseLayerException.class,
-                () -> employer.setEmployer("Test AG", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
+                () -> employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
         //Todo
         // Delete setEmployerTest@ag.com from Database after each run
     }

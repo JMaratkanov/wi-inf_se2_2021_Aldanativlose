@@ -15,8 +15,12 @@ import java.time.LocalDate;
 public class StudentDAO extends UserDAO{
     public void setStudentByFirstnameLastnameEmailPassword(String firstname, String lastname, String email, String password)  throws DatabaseLayerException {
         ResultSet set = null;
+        String bwe = "Bitte etwas eingeben";
         String kurzbeschreibung = "Bitte trage hier eine Kurzbeschreibung ein!";
+
         try {
+            checkOnExistingUser(email);
+
             PreparedStatement sql = null;
             PreparedStatement sql2 = null;
             try {
@@ -24,10 +28,10 @@ public class StudentDAO extends UserDAO{
                 sql.setString(1, firstname);
                 sql.setString(2, lastname);
                 sql.setString(3, kurzbeschreibung);
-                sql.setString(4, "Bitte was eingeben");
-                sql.setString(5, "Bitte was eingeben");
-                sql.setString(6, "Bitte was eingeben");
-                sql.setString(7, "Bitte was eingeben");
+                sql.setString(4, bwe);
+                sql.setString(5, bwe);
+                sql.setString(6, bwe);
+                sql.setString(7, bwe);
                 sql.setDate(8, new java.sql.Date(1)); //1970 ;D
                 sql.setDate(9, new java.sql.Date(1));
             } catch (DatabaseLayerException e) {
@@ -55,8 +59,7 @@ public class StudentDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -88,8 +91,7 @@ public class StudentDAO extends UserDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -118,8 +120,7 @@ public class StudentDAO extends UserDAO{
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -203,8 +204,7 @@ public class StudentDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
@@ -230,8 +230,7 @@ public class StudentDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl!");
-            e.setReason(Globals.Errors.SQLERROR);
+            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
             throw e;
         } catch (NullPointerException ex) {
             DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");

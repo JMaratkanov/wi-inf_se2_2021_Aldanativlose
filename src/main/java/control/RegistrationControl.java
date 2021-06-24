@@ -12,7 +12,6 @@ public class RegistrationControl extends MainControl{
         email = email.toLowerCase();
 
         try {
-            dao.checkOnExistingUser(email);
             dao.setStudentByFirstnameLastnameEmailPassword(firstname, lastname, email , password );
         }
         catch ( DatabaseLayerException e) {
