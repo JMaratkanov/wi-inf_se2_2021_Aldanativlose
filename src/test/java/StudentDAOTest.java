@@ -37,12 +37,12 @@ public class StudentDAOTest {
     public void setStudentByEmailAndPasswordTest(){
         //erstellt student_profil auch bei error
 
-        assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
+        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
         try{
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
             UserDTO userDTO = student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
             assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
-            assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
+            assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
 
             student.deleteStudentProfil(student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123").getId());
         }

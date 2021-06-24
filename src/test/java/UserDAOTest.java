@@ -46,7 +46,7 @@ public class UserDAOTest {
 
     @Test
     public void checkOnExistingUserTest(){
-        assertEquals("Dieser Nutzer existiert bereits, loggen sie sich mit ihrer Email und Passwort ein", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("demo")).getReason());
+        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("demo")).getReason());
     }
 
     @Test
