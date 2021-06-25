@@ -45,8 +45,12 @@ public class BewerbungDTOimpl implements BewerbungDTO {
         this.unternehmen = unternehmen;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(int arg) {
+        switch(arg){
+            case 0:this.status = "abgelehnt";break;
+            case 1:this.status = "Stelle noch verfügbar";break;
+            case 2:this.status = "Ausschreibung beendet";break;
+        }
     }
 
     public void setMehr(String mehr) {
@@ -55,6 +59,7 @@ public class BewerbungDTOimpl implements BewerbungDTO {
 
     public void setStatusFromDB(int x) {
         this.statusFromDB = x;
+        setStatus(x);
     }
 
     public void setInseratID(int x) {
