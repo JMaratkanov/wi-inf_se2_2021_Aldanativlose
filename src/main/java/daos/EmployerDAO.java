@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class EmployerDAO extends UserDAO{
     public void setEmployer(String companyName, String country, String street, String hNr, String place, String plz, String email, String password)  throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
         try {
             checkOnExistingUser(email);
 
@@ -49,19 +49,16 @@ public class EmployerDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
     }
 
     public int getEmployerIdByUserId(int id) throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
         int studentProfilId = 0;
 
         try {
@@ -81,12 +78,9 @@ public class EmployerDAO extends UserDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -108,12 +102,9 @@ public class EmployerDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
