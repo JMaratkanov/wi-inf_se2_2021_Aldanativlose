@@ -65,6 +65,7 @@ public class BewerbungDTOimpl implements BewerbungDTO {
         return this.inseratID;
     }
 
+    //Comment
     public int getUnternehmenID() {
         return unternehmenID;
     }
