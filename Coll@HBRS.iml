@@ -218,8 +218,6 @@
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-time-picker-flow:14.6.1" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-dialog-flow:14.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-dialog:2.5.2" level="project" />
-    <orderEntry type="library" name="Maven: com.vaadin:vaadin-form-layout-flow:14.6.1" level="project" />
-    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-form-layout:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin:vaadin-grid-flow:14.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-grid:5.7.13" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.11" level="project" />
@@ -362,5 +360,7 @@
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-list-mixin:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:iron-resizable-behavior:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.webjars.bowergithub.polymerelements:iron-media-query:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: com.vaadin:vaadin-form-layout-flow:14.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.webjars.bowergithub.vaadin:vaadin-form-layout:2.3.0" level="project" />
   </component>
 </module>

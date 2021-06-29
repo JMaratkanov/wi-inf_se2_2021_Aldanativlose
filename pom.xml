@@ -123,6 +123,11 @@
             <artifactId>vaadin-select-flow</artifactId>
             <version>14.6.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-form-layout-flow</artifactId>
+            <version>14.6.1</version>
+        </dependency>
 
     </dependencies>
 
