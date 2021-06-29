@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 public class StudentDAO extends UserDAO{
     public void setStudentByFirstnameLastnameEmailPassword(String firstname, String lastname, String email, String password)  throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
         String bwe = "Bitte etwas eingeben";
         String kurzbeschreibung = "Bitte trage hier eine Kurzbeschreibung ein!";
 
@@ -59,18 +59,16 @@ public class StudentDAO extends UserDAO{
             sql2.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
     }
 
     public int getStudentIdByUserId(int id) throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
         int studentProfilId = 0;
 
         try {
@@ -90,11 +88,9 @@ public class StudentDAO extends UserDAO{
             }
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -102,7 +98,7 @@ public class StudentDAO extends UserDAO{
     }
 
     public UserDTO getFullStudentDTOByStudentID(int id) throws DatabaseLayerException {
-        ResultSet set = null;
+        ResultSet set;
 
         try {
             PreparedStatement sql = null;
@@ -118,14 +114,12 @@ public class StudentDAO extends UserDAO{
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         }
 
-        StudentDTOimpl user = null;
+        StudentDTOimpl user;
 
         try {
             if (set.next()) {
@@ -147,16 +141,10 @@ public class StudentDAO extends UserDAO{
                 return user;
 
             } else {
-                // Error Handling
-                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
-                throw e;
+                throw new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
             }
-        } catch (DatabaseLayerException e) {
-            throw e;
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
-
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -199,11 +187,9 @@ public class StudentDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -224,11 +210,9 @@ public class StudentDAO extends UserDAO{
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }

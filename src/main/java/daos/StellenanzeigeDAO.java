@@ -18,7 +18,7 @@ public class StellenanzeigeDAO {
     public List<StellenanzeigeDTOimpl> getAll() throws DatabaseLayerException {
         ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
 
-        ResultSet set = null;
+        ResultSet set;
 
         try {
             PreparedStatement sql = null;
@@ -32,14 +32,12 @@ public class StellenanzeigeDAO {
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         }
 
-        StellenanzeigeDTOimpl result = null;
+        StellenanzeigeDTOimpl result;
 
         boolean flipflop;
             try {
@@ -54,9 +52,7 @@ public class StellenanzeigeDAO {
                     }
                 }while(flipflop);
             } catch (SQLException ex) {
-                DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-                throw e;
-
+                throw new DatabaseLayerException(Globals.Errors.DATABASE);
             } finally {
                 JDBCConnection.getInstance().closeConnection();
             }
@@ -67,7 +63,6 @@ public class StellenanzeigeDAO {
     public void newadtodao(String title, String standort, LocalDate date_von, LocalDate date_bis, String stunden_pro_woche, int verguetung_pro_stunde, String inserat_typ, String ansprechpartner, String branche_id, String content) throws DatabaseLayerException {
         Date von = Date.valueOf(date_von);
         Date bis = Date.valueOf(date_bis);
-
 
         try {
             PreparedStatement sql = null;
@@ -96,11 +91,9 @@ public class StellenanzeigeDAO {
             sql.executeUpdate();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }

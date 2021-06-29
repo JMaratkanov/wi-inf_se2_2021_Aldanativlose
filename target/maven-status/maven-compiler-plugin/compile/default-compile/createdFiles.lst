@@ -6,6 +6,7 @@ daos\RolleDAO.class
 ui\appViewsEmployer\MyUploadContext.class
 ui\Login_Registration\Selection.class
 control\LoginControl.class
+daos\BewerbungDAO.class
 daos\EmployerDAO.class
 globals\Globals$Pages.class
 repository\UserRepository.class
@@ -20,7 +21,6 @@ ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
 ui\appViews\ApplicationView.class
-daos\MainDAO.class
 daos\StellenanzeigeDAO.class
 control\adControl.class
 ui\appViews\SettingsViewParts\SettingsView_Tab3.class
@@ -31,8 +31,10 @@ control\builder\Builder.class
 control\builder\UserBuilder.class
 ui\appViews\SettingsViewParts\SettingsView_Tab1.class
 ui\CollatHBRSApplication.class
+control\applicationControl.class
 dtos\InseratDTO.class
 ui\appViews\SettingsView.class
+dtos\BewerbungDTO.class
 control\MainControl.class
 daos\UserDAO.class
 dtos\impl\StudentDTOimpl.class
@@ -48,6 +50,7 @@ ui\appViews\SettingsViewParts\SettingsView_Tab2.class
 daos\StudentDAO.class
 control\factory\Factory.class
 db\exceptions\DatabaseLayerException.class
+dtos\impl\BewerbungDTOimpl.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
 control\RegistrationResult.class

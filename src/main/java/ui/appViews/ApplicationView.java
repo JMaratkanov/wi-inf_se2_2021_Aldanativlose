@@ -1,22 +1,32 @@
 package ui.appViews;
 
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.grid.Grid;
-import dtos.InseratDTO;
-import ui.layouts.AppLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import control.applicationControl;
+import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
+import dtos.impl.BewerbungDTOimpl;
+import globals.Globals;
+import ui.layouts.AppLayout;
+
+import java.util.List;
 
 @Route(value = "application", layout = AppLayout.class)
 @PageTitle("Bewerbungen")
 public class ApplicationView extends Div {
+    private applicationControl control = new applicationControl();
+    private int ID = getCurrentUser().getId();
 
     ComboBox<String> filter = new ComboBox<>();
-    Grid<String> tabelle = new Grid<>();
 
     public ApplicationView() {
         setId("application-view");
@@ -35,17 +45,52 @@ public class ApplicationView extends Div {
         return filter;
     }
     private Component creatgrid(){
+        List<BewerbungDTOimpl> anzeigen = null;
 
-        //tabelle.setItems();  Hier die Inserate anbinden
-       // tabelle.addColumn(::getName).setHeader("Jobtitel"); // Hier die Insterat Namen ansprechen
-       // tabelle.addColumn(::getUnternehmen).setHeader("Unternehmen"); //Hier die Firma der Stelle holen
-       // tabelle.addColumn(::getStatus).setHeader("Status"); //Hier der Status
-       // tabelle.addColumn(::getmehr).setHeader("mehr");  //hier die sachen in "mehr"
-        return tabelle;
+        try {
+            anzeigen = control.getAllApplicationsForUserWithID(ID);
+        } catch (DatabaseLayerException e) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( e.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+
+        Grid<BewerbungDTOimpl> grid = new Grid<>();
+
+        grid.setItems(anzeigen);
+        grid.addColumn(BewerbungDTOimpl::getName).setHeader("Jobtitel").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(BewerbungDTOimpl::getUnternehmen).setHeader("Unternehmen").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(BewerbungDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(BewerbungDTOimpl::getMehr).setHeader("mehr").setFlexGrow(0).setWidth("100px");
+
+        //Notification.show(Integer.toString(anzeigen.get(0).getID()));
+
+        grid.setSelectionMode(Grid.SelectionMode.NONE);
+        grid.addItemClickListener(event -> {
+            Dialog d = new Dialog();
+            d.add( new Text( "Clicked Item: " + event.getItem()) );
+            d.setWidth("800px");
+            d.setHeight("500px");
+            d.open();
+        });
+
+        grid.addColumn(
+                new NativeButtonRenderer<>("Button",
+                        clickedItem -> {
+                            // mach was
+                        })
+        ).setFlexGrow(0).setWidth("250px");
+
+        return grid;
     }
-
 
     private Component createTitle() {
         return new H3("Meine Bewerbungen");
+    }
+
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
     }
 }
