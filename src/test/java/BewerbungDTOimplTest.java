@@ -48,6 +48,12 @@ public class BewerbungDTOimplTest {
         assertEquals("Stelle noch verfügbar", bewerbung.getStatus());
         bewerbung.setStatus(2);
         assertEquals("Ausschreibung beendet", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(0);
+        assertEquals("abgelehnt", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(1);
+        assertEquals("Stelle noch verfügbar", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(2);
+        assertEquals("Ausschreibung beendet", bewerbung.getStatus());
     }
 
     @Test
