@@ -65,19 +65,30 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public void newadtodao(String title, String standort, LocalDate date_von, LocalDate date_bis, String stunden_pro_woche, int verguetung_pro_stunde, String inserat_typ, String ansprechpartner, String branche_id, String content) throws DatabaseLayerException {
+    public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, String stunden_pro_woche, double verguetung_pro_stunde, String inserat_typ, String ansprechpartner, String branche_id, String content) throws DatabaseLayerException {
+        Date date_von = null; //java.sql.Date.valueOf(dateVon);
+        Date date_bis = null; //java.sql.Date.valueOf(dateBis);
+        if (dateVon != null){
+            date_von = Date.valueOf(dateVon);
+        }
+        if (dateBis != null) {
+            date_bis = Date.valueOf(dateBis);
+        }
         try {
             PreparedStatement sql = null;
+
             try {
+
+
                 sql = JDBCConnection.getInstance().getPreparedStatement("INSERT INTO collhbrs.inserat(title, content, standort, date_von, date_bis, status, stunden_pro_woche, verguetung_pro_stunde, unternehmen_profil_id, inserat_typ, ansprechpartner, branche_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"); //date_von, date_bis,
                 sql.setString(1, title);
                 sql.setString(2, content);
                 sql.setString(3, standort);
-                sql.setDate(4, new java.sql.Date(1));
-                sql.setDate(5, new java.sql.Date(1));
+                sql.setDate(4, date_von);
+                sql.setDate(5, date_bis);
                 sql.setInt(6, 1);
                 sql.setString(7, stunden_pro_woche);
-                sql.setInt(8, verguetung_pro_stunde);
+                sql.setDouble(8, verguetung_pro_stunde);
                 sql.setInt(9, 95);
                 sql.setString(10, inserat_typ);
                 sql.setString(11, ansprechpartner);

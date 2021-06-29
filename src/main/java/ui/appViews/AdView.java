@@ -15,6 +15,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
@@ -42,15 +43,15 @@ public class AdView extends Div {
     Select<String> umkreisSelect = new Select<>();
     private Button newAd = new Button("Neue Stellenanzeige Aufgeben");
     private Button newAdFinal = new Button("Stellenanzeige Aufgeben");
+
     //Inhalt der Stellenanzeige
     private TextField Bezeichnung = new TextField("Bezeichnung");
     Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
-    //Standort.setItems("option one", "option 2");
     private TextArea Inhalt = new TextArea("Inhalt");
     private DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
     private DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
     Select<String> StundenProWoche = new Select<>("Unter 5", "Unter 10", "Unter 20", "Unter 30", "Über 30");
-    private IntegerField VerguetungProStunde = new IntegerField("Vergütung");
+    private NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
     Select<String> InseratTyp = new Select<>("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
     private TextField Ansprechpartner = new TextField("Ansprechpartner");
     Select<String> Branche = new Select<>("It", "Automobil", "Sonstige");
@@ -93,7 +94,7 @@ public class AdView extends Div {
         add(creategrid());
     }
 
-    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
+    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
         try {
             //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
             control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche,  Inhalt);

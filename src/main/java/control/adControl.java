@@ -21,7 +21,7 @@ public class adControl extends MainControl{
         return liste;
     }
 
-    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
+    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         try {
             dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, inhalt);
