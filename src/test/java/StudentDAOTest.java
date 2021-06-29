@@ -10,6 +10,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.management.Notification;
+import javax.xml.crypto.Data;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -84,12 +88,11 @@ public class StudentDAOTest {
 
     @Test
     public void updateStudentDataTest(){
-        //keine Fehlermeldung, wenn student nicht gefunden wird
-        //assertEquals("", assertThrows(DatabaseLayerException.class, ()-> student.updateStudentData(999, "", "", "", "", "" ,null ,"" ,"" ,null)));
         try{
             student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "updateStudentDataTest", "123");
             int id = user.findUserByUserEmailAndPassword("updateStudentDataTest", "123").getId();
-            student.updateStudentData(id, "test", "test", "test", "test", "test", null, "test", "test", null);
+            LocalDate testDate = LocalDate.of(1,1,1);
+            student.updateStudentData(id, "test", "test", "test", "test", "test", testDate, "test", "test", testDate);
             UserDTO studentDTO = student.getFullStudentDTOByStudentID(student.getStudentIdByUserId(id));
             assertEquals(student.getStudentIdByUserId(id), studentDTO.getId());
             assertEquals("test", studentDTO.getFirstName());
