@@ -134,7 +134,7 @@ public class BewerbungDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("select student_profil.vorname, student_profil.nachname, inserat.title, student_profil.id from collhbrs.student_profil join collhbrs.bewerbung on bewerbung.student_profil = student_profil.id join collhbrs.inserat on inserat.id = bewerbung.inserat_id where inserat.unternehmen_profil_id = " + employerID + "order by inserat.title");
+                sql = JDBCConnection.getInstance().getPreparedStatement("select student_profil.vorname, student_profil.nachname, inserat.title, inserat.status, student_profil.id from collhbrs.student_profil join collhbrs.bewerbung on bewerbung.student_profil = student_profil.id join collhbrs.inserat on inserat.id = bewerbung.inserat_id where inserat.unternehmen_profil_id = " + employerID + "order by inserat.title");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -163,7 +163,8 @@ public class BewerbungDAO {
                     result.setStudent_vorname(set.getString(1));
                     result.setStudentname(set.getString(2));
                     result.setStelle(set.getString(3));
-                    result.setStudID(set.getInt(4));
+                    result.setStatus(set.getInt(4));
+                    result.setStudID(set.getInt(5));
                     liste.add(result);
                 }
             }while(flipflop);

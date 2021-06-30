@@ -23,7 +23,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ FROM collhbrs.inserat ORDER BY standort ASC");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ, status FROM collhbrs.inserat ORDER BY standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -51,6 +51,7 @@ public class StellenanzeigeDAO {
                         result.setDateVon(set.getDate(4));
                         result.setStundenProWoche(set.getInt(5));
                         result.setInseratTyp(getInseratTypByID(set.getInt(6)));
+                        result.setStatus(set.getInt(7));
                         liste.add(result);
                     }
                 }while(flipflop);
@@ -126,6 +127,36 @@ public class StellenanzeigeDAO {
             case 4: return "Bachelorarbeit";
             case 5: return "Masterarbeit";
             default: return "FEHLER IN StellenanzeigeDAO/getInseratTypByID";
+        }
+    }
+
+    public void cancelAd(int inseratID) throws DatabaseLayerException {
+        PreparedStatement sql = null;
+        PreparedStatement sql2 = null;
+        try {
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "UPDATE collhbrs.inserat SET status = 0 WHERE id = ?");
+                sql.setInt(1, inseratID);
+
+                sql2 = JDBCConnection.getInstance().getPreparedStatement(
+                        "UPDATE collhbrs.bewerbung SET status = 0 WHERE inserat_id = ?");
+                sql2.setInt(1, inseratID);
+
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            assert sql != null;
+            sql.executeUpdate();
+            assert sql2 != null;
+            sql2.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
         }
     }
 }

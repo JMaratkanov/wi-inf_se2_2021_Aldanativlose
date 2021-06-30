@@ -44,7 +44,6 @@ public class adControl extends MainControl{
             default:            BrancheID = 0; break;
         }
 
-
         try {
             dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt);
         }
@@ -58,6 +57,15 @@ public class adControl extends MainControl{
         try {
             dao.bewerbungDurchführen(stellenanzeigeID, userID);
         } catch ( DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+    }
+
+    public void ausschreibungBeenden(int inseratID) throws DatabaseUserException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        try {
+            dao.cancelAd(inseratID);
+        } catch (DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());
         }
     }

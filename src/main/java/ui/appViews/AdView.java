@@ -214,11 +214,12 @@ public class AdView extends Div {
         Grid<StellenanzeigeDTOimpl> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("350px");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("100px");
+        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setFlexGrow(0).setWidth("160px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setFlexGrow(0).setWidth("100px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("170px");
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
@@ -231,11 +232,18 @@ public class AdView extends Div {
 
         if(!isEmployer) {
             grid.addColumn(
-                    new NativeButtonRenderer<>("Bewirb dich jetzt!",
+                    new NativeButtonRenderer<>("Jetzt bewerben!",
                             clickedItem -> {
                                 submitApplication(clickedItem.getID());
                             })
-            ).setFlexGrow(0).setWidth("250px");
+            ).setFlexGrow(0).setWidth("200px");
+        } else {
+            grid.addColumn(
+                    new NativeButtonRenderer<>("Ausschreibung beenden!",
+                            clickedItem -> {
+                                ausschreibungBeenden(clickedItem.getID());
+                            })
+            ).setFlexGrow(0).setWidth("200px");
         }
 
         return grid;
@@ -257,6 +265,21 @@ public class AdView extends Div {
         try {
             adControl.bewerben(inseratID, getCurrentUser().getId());
             Notification.show("Vielen Dank für Ihre Bewerbung!");
+        } catch (DatabaseUserException e) {
+            Dialog dialog = new Dialog();
+            dialog.add(new Text(e.getReason()));
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+    }
+
+    private void ausschreibungBeenden(int inseratID) {
+        try {
+            adControl.ausschreibungBeenden(inseratID);
+            Notification.show("Ausschreibung wurde beendet!");
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
         } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add(new Text(e.getReason()));

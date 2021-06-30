@@ -14,7 +14,7 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
    String standort;
    Date DateVon;
    LocalTime bis;
-   int status;
+   String status;
    int stundenProWoche; //fließkomma rly?:D
    double stundenlohn;
    String inseratTyp;
@@ -80,12 +80,17 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
         this.bis = bis;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStatus(int statusID) {
+        switch(statusID){
+            case 0:this.status = "Ausschreibung beendet";
+                break;
+            case 1:this.status = "Offen";
+                break;
+        }
     }
 
     public int getStundenProWoche() {

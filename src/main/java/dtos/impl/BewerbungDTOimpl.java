@@ -47,9 +47,14 @@ public class BewerbungDTOimpl implements BewerbungDTO {
 
     public void setStatus(int arg) {
         switch(arg){
-            case 0:this.status = "abgelehnt";break;
-            case 1:this.status = "Stelle noch verfügbar";break;
-            case 2:this.status = "Ausschreibung beendet";break;
+            case 0:this.status = "Ausschreibung beendet";
+            break;
+            case 1:this.status = "Ausschreibung läuft noch";
+            break;
+            case 2:this.status = "Bewerbung abgelehnt";
+            break;
+            case 3:this.status = "Zum Vorstellungsgespräch eingeladen";
+            break;
         }
     }
 

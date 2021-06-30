@@ -37,13 +37,13 @@ public class ApplicationView extends Div {
         add(createcombobox());
 
         if(isEmployer){
-            add(creatgridEmployer());
+            add(creatGridEmployer());
         }else {
             add(creatgrid());
         }
     }
 
-    private Component creatgridEmployer() {
+    private Component creatGridEmployer() {
         List<ApplSetForEmployerDTO> anzeigen = null;
 
         try {
@@ -62,9 +62,9 @@ public class ApplicationView extends Div {
         grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setWidth("200px");
         grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setWidth("200px");
         grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
+        //grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("100px");
 
-        //Notification.show(Integer.toString(anzeigen.get(0).getID()));
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
@@ -76,14 +76,14 @@ public class ApplicationView extends Div {
         });
 
         grid.addColumn(
-                new NativeButtonRenderer<>("Absage",
+                new NativeButtonRenderer<>("Bewerbung ablehnen",
                         clickedItem -> {
                             // mach was
                         })
-        ).setFlexGrow(0).setWidth("250px");
+        ).setFlexGrow(0).setWidth("200px");
 
         grid.addColumn(
-                new NativeButtonRenderer<>("Zusage",
+                new NativeButtonRenderer<>("Zum Vorstellungsgespräch einladen",
                         clickedItem -> {
                             // mach was
                         })
@@ -118,8 +118,8 @@ public class ApplicationView extends Div {
         grid.setItems(anzeigen);
         grid.addColumn(BewerbungDTOimpl::getName).setHeader("Jobtitel").setFlexGrow(0).setWidth("200px");
         grid.addColumn(BewerbungDTOimpl::getUnternehmen).setHeader("Unternehmen").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(BewerbungDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(BewerbungDTOimpl::getMehr).setHeader("mehr").setFlexGrow(0).setWidth("100px");
+        grid.addColumn(BewerbungDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
+        grid.addColumn(BewerbungDTOimpl::getMehr).setHeader("mehr").setFlexGrow(0).setWidth("250px");
 
         //Notification.show(Integer.toString(anzeigen.get(0).getID()));
 
@@ -131,13 +131,6 @@ public class ApplicationView extends Div {
             d.setHeight("500px");
             d.open();
         });
-
-        grid.addColumn(
-                new NativeButtonRenderer<>("Button",
-                        clickedItem -> {
-                            // mach was
-                        })
-        ).setFlexGrow(0).setWidth("250px");
 
         return grid;
     }

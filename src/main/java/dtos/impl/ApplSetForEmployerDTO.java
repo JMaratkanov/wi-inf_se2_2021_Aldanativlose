@@ -4,6 +4,7 @@ public class ApplSetForEmployerDTO {
     public String stelle;
     public String student_vorname;
     public String student_name;
+    public String status;
     public int StudID;
     //Lebenslauf
 
@@ -36,5 +37,18 @@ public class ApplSetForEmployerDTO {
 
     public void setStudID(int x) {
         this.StudID = x;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(int statusID) {
+        switch(statusID){
+            case 0:this.status = "Ausschreibung beendet";
+                break;
+            case 1:this.status = "Offen";
+                break;
+        }
     }
 }

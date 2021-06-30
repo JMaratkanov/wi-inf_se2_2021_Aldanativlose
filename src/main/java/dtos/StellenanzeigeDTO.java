@@ -9,4 +9,5 @@ public interface StellenanzeigeDTO {
     public int getStundenProWoche();
     public Date getDateVon();
     public String getInseratTyp();
+    public String getStatus();
 }
