@@ -215,8 +215,10 @@ public class AdView extends Div {
 
         grid.setItems(anzeigen);
         grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getContent).setHeader("Inhalt").setFlexGrow(0).setWidth("800px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("100px");;
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Ab").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("100px");
+        grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setFlexGrow(0).setWidth("200px");
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {

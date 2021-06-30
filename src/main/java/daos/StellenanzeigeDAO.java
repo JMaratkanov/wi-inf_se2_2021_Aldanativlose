@@ -1,6 +1,5 @@
 package daos;
 
-import com.vaadin.flow.component.datepicker.DatePicker;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
@@ -24,7 +23,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ORDER BY standort ASC");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, standort, date_von, stunden_pro_woche, inserat_typ FROM collhbrs.inserat ORDER BY standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -47,8 +46,10 @@ public class StellenanzeigeDAO {
                     if (flipflop) {
                         result = new StellenanzeigeDTOimpl();
                         result.setTitle(set.getString(1));
-                        result.setContent(set.getString(2));
-                        result.setStandort(set.getString(3));
+                        result.setStandort(set.getString(2));
+                        result.setDateVon(set.getDate(3));
+                        result.setStundenProWoche(set.getInt(4));
+                        result.setInseratTyp(getInseratTypByID(set.getInt(5)));
                         liste.add(result);
                     }
                 }while(flipflop);
@@ -112,6 +113,18 @@ public class StellenanzeigeDAO {
             throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public String getInseratTypByID(int ID) {
+        switch (ID){
+            case 0: return "keine Angabe";
+            case 1: return "Teilzeit";
+            case 2: return "Vollzeit";
+            case 3: return "Praktikum";
+            case 4: return "Bachelorarbeit";
+            case 5: return "Masterarbeit";
+            default: return "FEHLER IN StellenanzeigeDAO/getInseratTypByID";
         }
     }
 }

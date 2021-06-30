@@ -1,7 +1,9 @@
 package dtos.impl;
 
 import dtos.StellenanzeigeDTO;
+
 import java.time.LocalTime;
+import java.util.Date;
 
 public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
    int ID;
@@ -12,12 +14,12 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
    LocalTime created;
    LocalTime updated;
    String standort;
-   LocalTime von;
+   Date DateVon;
    LocalTime bis;
    int status;
-   double stunden_p_monat; //fließkomma rly?:D
+   int stundenProWoche; //fließkomma rly?:D
    double stundenlohn;
-   int inseratTyp;
+   String inseratTyp;
    int kenntnisse; //int []?
 
 
@@ -80,12 +82,12 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
         this.standort = standort;
     }
 
-    public LocalTime getVon() {
-        return von;
+    public Date getDateVon() {
+        return DateVon;
     }
 
-    public void setVon(LocalTime von) {
-        this.von = von;
+    public void setDateVon(Date dateVon) {
+        this.DateVon = dateVon;
     }
 
     public LocalTime getBis() {
@@ -104,12 +106,12 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
         this.status = status;
     }
 
-    public double getStunden_p_monat() {
-        return stunden_p_monat;
+    public int getStundenProWoche() {
+        return stundenProWoche;
     }
 
-    public void setStunden_p_monat(double stunden_p_monat) {
-        this.stunden_p_monat = stunden_p_monat;
+    public void setStundenProWoche(int stundenProWoche) {
+        this.stundenProWoche = stundenProWoche;
     }
 
     public double getStundenlohn() {
@@ -120,11 +122,11 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
         this.stundenlohn = stundenlohn;
     }
 
-    public int getInseratTyp() {
+    public String getInseratTyp() {
         return inseratTyp;
     }
 
-    public void setInseratTyp(int inseratTyp) {
+    public void setInseratTyp(String inseratTyp) {
         this.inseratTyp = inseratTyp;
     }
 
