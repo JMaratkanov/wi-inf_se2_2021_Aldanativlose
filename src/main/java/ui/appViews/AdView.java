@@ -14,7 +14,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -27,9 +26,7 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
-import org.springframework.data.relational.core.sql.In;
 import ui.layouts.AppLayout;
-
 
 import java.time.LocalDate;
 import java.util.List;
@@ -208,14 +205,14 @@ public class AdView extends Div {
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
-                d.add( new Text( "Clicked Item: " + event.getItem()) );
+                d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
                 d.setWidth("800px");
                 d.setHeight("500px");
                 d.open();
         });
 
         grid.addColumn(
-                new NativeButtonRenderer<>("B-bb-Bewirb dich!",
+                new NativeButtonRenderer<>("Bewirb dich!",
                         clickedItem -> {
                             // tue etwas
                         })

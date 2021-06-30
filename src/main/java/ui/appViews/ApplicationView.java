@@ -81,7 +81,7 @@ public class ApplicationView extends Div {
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
             Dialog d = new Dialog();
-            d.add( new Text( "Clicked Item: " + event.getItem()) );
+            d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
             d.setWidth("800px");
             d.setHeight("500px");
             d.open();
