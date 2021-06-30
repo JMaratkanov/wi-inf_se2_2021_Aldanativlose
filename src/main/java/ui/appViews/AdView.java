@@ -110,6 +110,9 @@ public class AdView extends Div {
     }
 
     private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
+
+
+
         try {
             //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
             control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche,  Inhalt);

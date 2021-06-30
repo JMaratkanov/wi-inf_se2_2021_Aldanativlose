@@ -40,8 +40,6 @@ public class RegistrationStudent extends Div {
     private Button back = new Button("Zurück");
     private Button save = new Button("Registrieren");
 
-
-
     private Binder<UserDTO> binder = new Binder(UserDTOimpl.class);
 
     public RegistrationStudent() {
