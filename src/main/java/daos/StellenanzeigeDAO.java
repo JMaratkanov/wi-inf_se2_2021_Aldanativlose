@@ -61,7 +61,7 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, String stunden_pro_woche, double verguetung_pro_stunde, String inserat_typ, String ansprechpartner, String branche_id, String content) throws DatabaseLayerException {
+    public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, String stunden_pro_woche, double verguetung_pro_stunde, int inserat_typ, String ansprechpartner, int branche_id, String content) throws DatabaseLayerException {
         Date date_von = null; //java.sql.Date.valueOf(dateVon);
         Date date_bis = null; //java.sql.Date.valueOf(dateBis);
         if (dateVon != null){
@@ -85,9 +85,9 @@ public class StellenanzeigeDAO {
                 sql.setString(7, stunden_pro_woche);
                 sql.setDouble(8, verguetung_pro_stunde);
                 sql.setInt(9, 95);
-                sql.setString(10, inserat_typ);
+                sql.setInt(10, inserat_typ);
                 sql.setString(11, ansprechpartner);
-                sql.setString(12, branche_id);
+                sql.setInt(12, branche_id);
 
                 //TODO Hardcoded vals richtig übergeben
                 /*

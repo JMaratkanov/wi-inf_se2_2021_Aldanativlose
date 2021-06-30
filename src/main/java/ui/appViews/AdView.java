@@ -134,6 +134,14 @@ public class AdView extends Div {
         wasSelect.setMaxWidth("100px");
         plztext.setMaxWidth("100px");
         umkreisSelect.setMaxWidth("100px");
+        ///Branche.setLabel("Branchenauswahl");
+        //Branche.setItems("It", "Automobil", "Sonstige");
+        //InseratTyp.setLabel("Typ des Inserats");
+        //InseratTyp.setItems("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
+        //StundenProWoche.setLabel("Wochenstunden");
+        //StundenProWoche.setItems("Bis 5", "Bis 10", "Bis 15", "bis 20", "bis 30", "bis 40", "über 40");
+        //Standort.setLabel("Standort");
+        //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
         FormLayout formLayout = new FormLayout();
         formLayout.add(suche,wasSelect,plztext,umkreisSelect);
         formLayout.setResponsiveSteps(
