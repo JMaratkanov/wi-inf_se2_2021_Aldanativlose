@@ -80,7 +80,6 @@ public class StellenanzeigeDTOimplTest {
         stellenanzeige.setDateVon(lt);
         assertEquals(lt, stellenanzeige.getDateVon());
     }
-
      */
 
     @Test
@@ -112,16 +111,12 @@ public class StellenanzeigeDTOimplTest {
         assertEquals(1.0, stellenanzeige.getStundenlohn(), 0.001);
     }
 
-    /*
-    TODO Muss überarbeitet werden da wir den Datentyp ändern mussten
     @Test
     public void inseratTypTest(){
-        assertEquals(0, stellenanzeige.getInseratTyp());
-        stellenanzeige.setInseratTyp(1);
-        assertEquals(1, stellenanzeige.getInseratTyp());
+        assertEquals(null, stellenanzeige.getInseratTyp());
+        stellenanzeige.setInseratTyp("Masterarbeit");
+        assertEquals("Masterarbeit", stellenanzeige.getInseratTyp());
     }
-
-     */
 
     @Test
     public void kenntnisseTest(){

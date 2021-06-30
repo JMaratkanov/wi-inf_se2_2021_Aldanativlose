@@ -214,8 +214,8 @@ public class AdView extends Div {
         Grid<StellenanzeigeDTOimpl> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Ab").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("350px");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setFlexGrow(0).setWidth("200px");
         grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setFlexGrow(0).setWidth("200px");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("100px");
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setFlexGrow(0).setWidth("200px");
