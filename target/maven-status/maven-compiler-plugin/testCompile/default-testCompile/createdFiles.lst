@@ -1,6 +1,6 @@
 StudentDTOimplTest.class
 RegistrationControlTest.class
-RegistrationStudentWebPageTest.class
+SettingsView_Tab1Test.class
 StudentDAOTest.class
 EmployerDAOTest.class
 InseratDTOimplTest.class
@@ -10,5 +10,4 @@ RegistrationTest.class
 SettingsControlTest.class
 BewerbungDTOimplTest.class
 UserDTOimplTest.class
-RegistrationEmployerWebPageTest.class
 LogoutWebPageTest.class
