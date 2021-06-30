@@ -248,6 +248,6 @@ public class AdView extends Div {
 
     private boolean getTrueIfSessionIsEmployer(){
         int rolle = getCurrentUser().getRole();
-        return (rolle==2)?true:false;
+        return rolle == 2;
     }
 }
