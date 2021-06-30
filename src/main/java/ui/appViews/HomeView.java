@@ -32,9 +32,7 @@ public class HomeView extends Div {
         add(filter());
     }
 
-
     private Component createLayout() {
-
         FormLayout gridLayout = new FormLayout();
         gridLayout.add(offenebewerbungen(),neueAngebote());
         return gridLayout;
@@ -43,15 +41,11 @@ public class HomeView extends Div {
     private Component neueAngebote() {
         add(createTitle2());
         //neue Angebote anbinden
-
         return neueBew;
     }
 
     private Component offenebewerbungen() {
         //offeneBewerbungen
-
-
-
         return offeneBew;
     }
 

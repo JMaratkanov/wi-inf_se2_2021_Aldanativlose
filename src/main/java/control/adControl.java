@@ -21,10 +21,33 @@ public class adControl extends MainControl{
         return liste;
     }
 
-    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
+    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        int InseratTypInt = 6;
+        int BrancheID = 2;
+
+        if(DateVon.isAfter(DateBis)){throw new DatabaseUserException("Das eingegebene Datum des Beginns liegt zu einem späteren Zeitpunkt, als das Datum des Endes");}
+
+        switch (InseratTyp){
+            case "Teilzeit":        InseratTypInt = 1; break;
+            case "Vollzeit":        InseratTypInt = 2; break;
+            case "Praktikum":       InseratTypInt = 3; break;
+            case "Bachelorarbeit":  InseratTypInt = 4; break;
+            case "Masterarbeit":    InseratTypInt = 5; break;
+            //case "keine Angabe":    InseratTypInt = 6; break;//SQL FEHLER
+            default:                InseratTypInt = 0; break;
+        }
+
+        switch (Branche){
+            case "It":          BrancheID = 1; break;
+            case "Automobil":   BrancheID = 2; break;
+            //case "Sonstige":    BrancheID = 3; break;
+            default:            BrancheID = 0; break;
+        }
+
+
         try {
-            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, inhalt);
+            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt);
         }
         catch (DatabaseLayerException e){
             checkReasonAndThrowEx(e.getReason());

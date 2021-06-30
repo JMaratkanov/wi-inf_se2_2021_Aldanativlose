@@ -15,6 +15,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
@@ -26,6 +27,7 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
+import org.springframework.data.relational.core.sql.In;
 import ui.layouts.AppLayout;
 
 
@@ -49,12 +51,11 @@ public class AdView extends Div {
     //Inhalt der Stellenanzeige
     private TextField Bezeichnung = new TextField("Bezeichnung");
     Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
-    //Standort.setItems("option one", "option 2");
     private TextArea Inhalt = new TextArea("Inhalt");
     private DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
     private DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
     Select<String> StundenProWoche = new Select<>("Unter 5", "Unter 10", "Unter 20", "Unter 30", "Über 30");
-    private IntegerField VerguetungProStunde = new IntegerField("Vergütung");
+    private NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
     Select<String> InseratTyp = new Select<>("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
     private TextField Ansprechpartner = new TextField("Ansprechpartner");
     Select<String> Branche = new Select<>("It", "Automobil", "Sonstige");
@@ -114,19 +115,44 @@ public class AdView extends Div {
         add(creategrid());
     }
 
-    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche, int VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
-        try {
-            //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
-            control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche,  Inhalt);
-            Notification.show("Stellenanzeige erfolgreich aufgegeben!");
-            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
-            UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
-        } catch (DatabaseUserException e) {
-            Dialog dialog = new Dialog();
-            dialog.add( new Text(e.getReason()) );
-            dialog.setWidth("400px");
-            dialog.setHeight("150px");
-            dialog.open();
+    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
+        if (DateBis == null) {
+            DateBis = LocalDate.of(3000, 1, 1);
+        }
+
+        if (Bezeichnung.isEmpty()) {
+            Notification.show("Geben Sie eine Bezeichnung an!");
+        } else if (Standort.isEmpty()) {
+            Notification.show("Geben Sie einen Standort an!");
+        } else if (DateVon == null) {
+            Notification.show("Geben Sie ein Anfangsdatum an!");
+        } else if (DateVon.isAfter(DateBis)) {
+            Notification.show("Das eingegebene Datum des Beginns liegt zu einem späteren Zeitpunkt, als das Datum des Endes");
+        } else if (StundenProWoche.isEmpty()) {
+            Notification.show("Bitte geben Sie die Stunden pro Woche an!");
+        } else if (VerguetungProStunde == 0) {
+            Notification.show("Bitte geben SIe die Vergütung pro Stunde an!");
+        } else if (InseratTyp.isEmpty()) {
+            Notification.show("Bitte geben Sie einen Inserat Typ an!");
+        } else if (Ansprechpartner.isEmpty()) {
+            Notification.show("Bitte geben Sie einen Ansprechpartner an!");
+        } else if (Branche.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Branche an!");
+        } else if (Inhalt.isEmpty()) {
+            Notification.show("Bitte geben Sie den Inhalt an!");
+        } else {
+            try {
+                control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
+                Notification.show("Stellenanzeige erfolgreich aufgegeben!");
+                UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+                UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
+            } catch (DatabaseUserException e) {
+                Dialog dialog = new Dialog();
+                dialog.add(new Text(e.getReason()));
+                dialog.setWidth("400px");
+                dialog.setHeight("150px");
+                dialog.open();
+            }
         }
     }
 
@@ -139,6 +165,14 @@ public class AdView extends Div {
         wasSelect.setMaxWidth("100px");
         plztext.setMaxWidth("100px");
         umkreisSelect.setMaxWidth("100px");
+        ///Branche.setLabel("Branchenauswahl");
+        //Branche.setItems("It", "Automobil", "Sonstige");
+        //InseratTyp.setLabel("Typ des Inserats");
+        //InseratTyp.setItems("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
+        //StundenProWoche.setLabel("Wochenstunden");
+        //StundenProWoche.setItems("Bis 5", "Bis 10", "Bis 15", "bis 20", "bis 30", "bis 40", "über 40");
+        //Standort.setLabel("Standort");
+        //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
         FormLayout formLayout = new FormLayout();
         formLayout.add(suche,wasSelect,plztext,umkreisSelect);
         formLayout.setResponsiveSteps(

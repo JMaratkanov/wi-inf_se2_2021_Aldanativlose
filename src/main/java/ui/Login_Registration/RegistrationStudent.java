@@ -66,6 +66,12 @@ public class RegistrationStudent extends Div {
 
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
+        firstname.setRequired(true);
+        lastname.setRequired(true);
+        email1.setRequiredIndicatorVisible(true);
+        email2.setRequiredIndicatorVisible(true);
+        password1.setRequired(true);
+        password2.setRequired(true);
         email1.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
         email2.setErrorMessage("Bitte geben Sie eine gültige E-Mail Adresse an");
         formLayout.add(firstname, lastname, email1, email2, password1, password2);
