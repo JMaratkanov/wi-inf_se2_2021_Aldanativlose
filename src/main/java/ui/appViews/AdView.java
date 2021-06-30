@@ -14,6 +14,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -238,5 +239,13 @@ public class AdView extends Div {
 
     private Component createTitle() {
         return new H3("Stellenanzeigen");
+    }
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
+    }
+
+    private boolean getTrueIfSessionIsEmployer(){
+        int rolle = getCurrentUser().getRole();
+        return (rolle==2)?true:false;
     }
 }
