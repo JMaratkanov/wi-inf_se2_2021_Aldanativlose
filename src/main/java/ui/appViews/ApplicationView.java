@@ -25,6 +25,7 @@ import java.util.List;
 public class ApplicationView extends Div {
     private applicationControl control = new applicationControl();
     private int ID = getCurrentUser().getId();
+    private boolean isEmployer = getTrueIfSessionIsEmployer();
 
     ComboBox<String> filter = new ComboBox<>();
 
@@ -33,7 +34,17 @@ public class ApplicationView extends Div {
         addClassName("wrapper");
         add(createTitle());
         add(createcombobox());
-        add(creatgrid());
+
+        if(isEmployer){
+            add(creatgridEmployer());
+        }else {
+            add(creatgrid());
+        }
+    }
+
+    private Component creatgridEmployer() {
+        //Hier wird die Tabelle erzeugt in der Unternehmen sehen welche Studenten sich für die Stelle beworben haben
+        return  new Grid<>();
     }
 
     private Component createcombobox() {
@@ -87,10 +98,18 @@ public class ApplicationView extends Div {
     }
 
     private Component createTitle() {
+        if(isEmployer)
+            return new H3("Eingegangene Bewerbungen");
+
         return new H3("Meine Bewerbungen");
     }
 
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
+    }
+
+    private boolean getTrueIfSessionIsEmployer(){
+        int rolle = getCurrentUser().getRole();
+        return (rolle==2)?true:false;
     }
 }

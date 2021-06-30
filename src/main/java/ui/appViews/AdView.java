@@ -23,6 +23,7 @@ import com.vaadin.flow.router.Route;
 import control.adControl;
 import control.exceptions.DatabaseUserException;
 import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
 import ui.layouts.AppLayout;
@@ -35,6 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Route(value = "ads", layout = AppLayout.class)
 @PageTitle("Stellenanzeigen")
 public class AdView extends Div {
+    private boolean isEmployer = getTrueIfSessionIsEmployer();
 
     private adControl control = new adControl();
     private TextField suche = new TextField("Suche");
@@ -71,37 +73,40 @@ public class AdView extends Div {
 
         AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
 
-        newAd.addClickListener(e -> {
-                    dialog.set(new Dialog());
-                    //dialog.add(new Text("Hallo"));
-                    dialog.get().add(new Div(formLayout, newAdFinal));
-                    dialog.get().setWidth("1000px");
-                    dialog.get().setHeight("10000px");
-                    dialog.get().open();
-                });
+        if(isEmployer) {
+            newAd.addClickListener(e -> {
+                dialog.set(new Dialog());
+                //dialog.add(new Text("Hallo"));
+                dialog.get().add(new Div(formLayout, newAdFinal));
+                dialog.get().setWidth("1000px");
+                dialog.get().setHeight("10000px");
+                dialog.get().open();
+            });
 
-        newAdFinal.addClickListener(e -> {
-            createNewAd(
-                Bezeichnung.getValue(),
-                Standort.getValue(),
-                DateVon.getValue(),
-                DateBis.getValue(),
-                StundenProWoche.getValue(),
-                VerguetungProStunde.getValue(),
-                InseratTyp.getValue(),
-                Ansprechpartner.getValue(),
-                Branche.getValue(),
-                Inhalt.getValue()
-            );
+            newAdFinal.addClickListener(e -> {
+                createNewAd(
+                        Bezeichnung.getValue(),
+                        Standort.getValue(),
+                        DateVon.getValue(),
+                        DateBis.getValue(),
+                        StundenProWoche.getValue(),
+                        VerguetungProStunde.getValue(),
+                        InseratTyp.getValue(),
+                        Ansprechpartner.getValue(),
+                        Branche.getValue(),
+                        Inhalt.getValue()
+                );
                 dialog.get().close();
                /* Notification.show(Bezeichnung.getValue() +
                         Standort.getValue() +
                         DateVon.getValue() +DateBis.getValue() + StundenProWoche.getValue()
                         + VerguetungProStunde.getValue() + InseratTyp.getValue() + Ansprechpartner.getValue()
                         + Branche.getValue() + Inhalt.getValue());*/
-        });
+            });
 
-        add(newAd);
+            add(newAd);
+
+        }
         setId("ad-view");
         addClassName("wrapper");
         add(createTitle());
@@ -187,5 +192,14 @@ public class AdView extends Div {
 
     private Component createTitle() {
         return new H3("Stellenanzeigen");
+    }
+
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
+    }
+
+    private boolean getTrueIfSessionIsEmployer(){
+        int rolle = getCurrentUser().getRole();
+        return (rolle==2)?true:false;
     }
 }
