@@ -24,7 +24,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ORDER BY standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -61,7 +61,7 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, String stunden_pro_woche, double verguetung_pro_stunde, int inserat_typ, String ansprechpartner, int branche_id, String content) throws DatabaseLayerException {
+    public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, int stunden_pro_woche, double verguetung_pro_stunde, int inserat_typ, String ansprechpartner, int branche_id, String content) throws DatabaseLayerException {
         Date date_von = null; //java.sql.Date.valueOf(dateVon);
         Date date_bis = null; //java.sql.Date.valueOf(dateBis);
         if (dateVon != null){
@@ -82,7 +82,7 @@ public class StellenanzeigeDAO {
                 sql.setDate(4, date_von);
                 sql.setDate(5, date_bis);
                 sql.setInt(6, 1);
-                sql.setString(7, stunden_pro_woche);
+                sql.setInt(7, stunden_pro_woche);
                 sql.setDouble(8, verguetung_pro_stunde);
                 sql.setInt(9, 95);
                 sql.setInt(10, inserat_typ);

@@ -56,7 +56,7 @@ public class SettingsView_Tab1 {
         //Datepicker
         datePicker.setLabel("Geburtstag");
         Div value = new Div();
-        value.setText("Setze deinen Geburtstag");
+        //value.setText("Setze deinen Geburtstag");
         datePicker.addValueChangeListener(event -> {
             if (event.getValue() == null) {
                 value.setText("No date selected");
@@ -68,7 +68,7 @@ public class SettingsView_Tab1 {
         //Semester Datepicker
         semesterdatePicker.setLabel("Beginn des Studiums");
         Div value2 = new Div();
-        value2.setText("Studienbeginn: ");
+        //value2.setText("Studienbeginn: ");
         semesterdatePicker.addValueChangeListener(event2 -> {
             if (event2.getValue() == null) {
                 value2.setText("No date selected");
@@ -87,7 +87,7 @@ public class SettingsView_Tab1 {
 
         //Zsmkleben
         FormLayout formLayout = new FormLayout();
-        formLayout.add(Vorname,Nachname, datePicker, value, semesterdatePicker, value2, Fachbereich,Studiengang /*Semester*/, description,kenntnisse, referenzen);
+        formLayout.add(Vorname,Nachname, datePicker, semesterdatePicker, Fachbereich,Studiengang /*Semester*/, description,kenntnisse, referenzen);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();

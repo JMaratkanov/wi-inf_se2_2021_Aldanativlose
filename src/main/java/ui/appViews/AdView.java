@@ -37,7 +37,9 @@ import java.util.concurrent.atomic.AtomicReference;
 @Route(value = "ads", layout = AppLayout.class)
 @PageTitle("Stellenanzeigen")
 public class AdView extends Div {
-
+    private AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
+    private double verguetung = 0.0;
+    private int stunden = 0;
     private adControl control = new adControl();
     private TextField suche = new TextField("Suche");
     Select<String> wasSelect = new Select<>();
@@ -48,11 +50,12 @@ public class AdView extends Div {
 
     //Inhalt der Stellenanzeige
     private TextField Bezeichnung = new TextField("Bezeichnung");
-    Select<String> Standort = new Select<>("Bonn","St. Augustin", "Köln", "Koblenz"); //Lieber außerhalb eine Liste angeben
+    private TextField Standort = new TextField("Standort"); //Lieber außerhalb eine Liste angeben
     private TextArea Inhalt = new TextArea("Inhalt");
     private DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
     private DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
-    Select<String> StundenProWoche = new Select<>("Unter 5", "Unter 10", "Unter 20", "Unter 30", "Über 30");
+    //Select<String> StundenProWoche = new Select<>("Unter 5", "Unter 10", "Unter 20", "Unter 30", "Über 30");
+    private IntegerField StundenProWoche = new IntegerField("Stunden pro Woche");
     private NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
     Select<String> InseratTyp = new Select<>("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
     private TextField Ansprechpartner = new TextField("Ansprechpartner");
@@ -62,7 +65,7 @@ public class AdView extends Div {
     FormLayout formLayout = new FormLayout();
 
     public AdView() {
-        formLayout.add(Bezeichnung, Inhalt, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche);
+        formLayout.add(Bezeichnung, Inhalt, Standort, DateVon,  StundenProWoche, DateBis, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche);
 
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -70,11 +73,10 @@ public class AdView extends Div {
         newAd.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(newAd);
 
-        AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
+
 
         newAd.addClickListener(e -> {
                     dialog.set(new Dialog());
-                    //dialog.add(new Text("Hallo"));
                     dialog.get().add(new Div(formLayout, newAdFinal));
                     dialog.get().setWidth("1000px");
                     dialog.get().setHeight("10000px");
@@ -82,19 +84,21 @@ public class AdView extends Div {
                 });
 
         newAdFinal.addClickListener(e -> {
+            if (!VerguetungProStunde.isEmpty()){ verguetung = VerguetungProStunde.getValue();}
+            if (!StundenProWoche.isEmpty()){ stunden = StundenProWoche.getValue();}
             createNewAd(
                 Bezeichnung.getValue(),
                 Standort.getValue(),
                 DateVon.getValue(),
                 DateBis.getValue(),
-                StundenProWoche.getValue(),
-                VerguetungProStunde.getValue(),
+                stunden,
+                verguetung,
                 InseratTyp.getValue(),
                 Ansprechpartner.getValue(),
                 Branche.getValue(),
                 Inhalt.getValue()
             );
-                dialog.get().close();
+                //dialog.get().close();
                /* Notification.show(Bezeichnung.getValue() +
                         Standort.getValue() +
                         DateVon.getValue() +DateBis.getValue() + StundenProWoche.getValue()
@@ -110,7 +114,7 @@ public class AdView extends Div {
         add(creategrid());
     }
 
-    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
+    private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
         if (DateBis == null) {
             DateBis = LocalDate.of(3000, 1, 1);
         }
@@ -123,9 +127,9 @@ public class AdView extends Div {
             Notification.show("Geben Sie ein Anfangsdatum an!");
         } else if (DateVon.isAfter(DateBis)) {
             Notification.show("Das eingegebene Datum des Beginns liegt zu einem späteren Zeitpunkt, als das Datum des Endes");
-        } else if (StundenProWoche.isEmpty()) {
+        } else if (StundenProWoche == 0) {
             Notification.show("Bitte geben Sie die Stunden pro Woche an!");
-        } else if (VerguetungProStunde == 0) {
+        } else if (VerguetungProStunde == 0.0) {
             Notification.show("Bitte geben SIe die Vergütung pro Stunde an!");
         } else if (InseratTyp.isEmpty()) {
             Notification.show("Bitte geben Sie einen Inserat Typ an!");
@@ -139,6 +143,7 @@ public class AdView extends Div {
             try {
                 control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
                 Notification.show("Stellenanzeige erfolgreich aufgegeben!");
+                dialog.get().close();
                 UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
                 UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
             } catch (DatabaseUserException e) {
@@ -151,23 +156,31 @@ public class AdView extends Div {
         }
     }
 
-    private  Component filter(){
+    private  Component filter() {
         wasSelect.setItems("Option one", "Option two");
         wasSelect.setLabel("Was?");
-        umkreisSelect.setItems("5km","10km","20km","50km","+50km");
+        umkreisSelect.setItems("5km", "10km", "20km", "50km", "+50km");
         umkreisSelect.setLabel("Umkreis");
         suche.setMaxWidth("1000px");
         wasSelect.setMaxWidth("100px");
         plztext.setMaxWidth("100px");
         umkreisSelect.setMaxWidth("100px");
-        ///Branche.setLabel("Branchenauswahl");
-        //Branche.setItems("It", "Automobil", "Sonstige");
-        //InseratTyp.setLabel("Typ des Inserats");
-        //InseratTyp.setItems("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
+
+        Branche.setLabel("Branchenauswahl");
+        Branche.setItems("It", "Automobil", "Sonstige");
+        Branche.setValue("Sonstige");
+        InseratTyp.setLabel("Typ des Inserats");
+        InseratTyp.setItems("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
+        InseratTyp.setValue("keine Angabe");
         //StundenProWoche.setLabel("Wochenstunden");
         //StundenProWoche.setItems("Bis 5", "Bis 10", "Bis 15", "bis 20", "bis 30", "bis 40", "über 40");
-        //Standort.setLabel("Standort");
-        //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
+        Bezeichnung.setRequired(true);
+        Inhalt.setRequired(true);
+        DateVon.setRequired(true);
+        DateBis.setRequired(true);
+        Ansprechpartner.setRequired(true);
+
+        //Standort.setRequired(true);
         FormLayout formLayout = new FormLayout();
         formLayout.add(suche,wasSelect,plztext,umkreisSelect);
         formLayout.setResponsiveSteps(
