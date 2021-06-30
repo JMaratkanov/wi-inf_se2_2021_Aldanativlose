@@ -1,11 +1,12 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
+import daos.EmployerDAO;
 import daos.StudentDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
-import globals.Globals;
+
 import java.time.LocalDate;
 
 public class SettingsControl extends MainControl{
@@ -58,6 +59,15 @@ public class SettingsControl extends MainControl{
             dao.updatePassword(id, password);
         }
         catch ( DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+    }
+
+    public void deleteEmployerWithJDBC(int id) throws DatabaseUserException {
+        EmployerDAO dao = new EmployerDAO();
+        try {
+            dao.deleteEmployerProfil(id);
+        } catch (DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());
         }
     }

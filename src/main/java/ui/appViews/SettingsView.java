@@ -1,6 +1,7 @@
 package ui.appViews;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.html.Div;
@@ -13,6 +14,8 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import dtos.UserDTO;
+import globals.Globals;
 import ui.appViews.SettingsViewParts.SettingsView_Tab1;
 import ui.appViews.SettingsViewParts.SettingsView_Tab2;
 import ui.appViews.SettingsViewParts.SettingsView_Tab3;
@@ -26,6 +29,7 @@ import java.util.Map;
 @Route(value = "settings", layout = AppLayout.class)
 @PageTitle("Settings")
 public class SettingsView extends Div {
+    private boolean isEmployer = getTrueIfSessionIsEmployer();
 
     //Die 4 Tabs werden in diesen Klassen jeweils einzeln gebaut und dann als Div zurück hierhin geschickt.
     //Idealerweise sollte der Zugriff auf die DB in den jeweiligen _Tabx Klassen passieren um die Logik voneinander zu trennen
@@ -65,7 +69,10 @@ public class SettingsView extends Div {
 
         //Tab 1
         Tab tab1 = new Tab("Allgemeine Daten");
-        Div page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
+        Div page1 = new Div();
+        if(!isEmployer) {
+            page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
+        }
 
         //Tab2
         Tab tab2 = new Tab("Lebenslauf anpassen");
@@ -84,7 +91,8 @@ public class SettingsView extends Div {
         Div page4 = new Div();
         page4.setText("Wollen Sie Ihr Konto löschen?");
         page4.setVisible(false);
-        page4 = buildTab4.createView(page4, delete);
+        page4 = buildTab4.createView(isEmployer, page4, delete);
+
 
         //allgemein Tab management
         Map<Tab, Component> tabsToPages = new HashMap<>();
@@ -105,6 +113,15 @@ public class SettingsView extends Div {
         });
 
         add(tabs, pages);
+    }
+
+    private UserDTO getCurrentUser() {
+        return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
+    }
+
+    private boolean getTrueIfSessionIsEmployer(){
+        int rolle = getCurrentUser().getRole();
+        return (rolle==2)?true:false;
     }
 
     private Component createTitle() {

@@ -8,21 +8,18 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import control.LoginControl;
 import control.SettingsControl;
 import control.exceptions.DatabaseUserException;
 import dtos.UserDTO;
 import globals.Globals;
-import ui.layouts.AppLayout;
 
 public class SettingsView_Tab4 {
     private SettingsControl settingsControl = new SettingsControl();
     private int id = getCurrentUser().getId();
 
-    public Div createView(Div page4, Button delete) {
+    public Div createView(boolean isEmployer, Div page4, Button delete) {
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
@@ -38,7 +35,12 @@ public class SettingsView_Tab4 {
         dialog.setCloseOnEsc(false);
         dialog.setCloseOnOutsideClick(false);
 
-        Button confirmButton = new Button("Bestätigen", event -> delete());
+        Button confirmButton;
+        if(!isEmployer) {
+            confirmButton = new Button("Bestätigen", event -> delete());
+        }else{
+            confirmButton = new Button("Bestätigen", event -> deleteEmployer());
+        }
 
         Button cancelButton = new Button("Abbrechen", event -> {
             dialog.close();
@@ -54,6 +56,21 @@ public class SettingsView_Tab4 {
         page4.add(dialog);
 
         return page4;
+    }
+
+    private void deleteEmployer() {
+        try {
+            settingsControl.deleteEmployerWithJDBC(this.id);
+            Notification.show("Konto erfolgreich gelöscht!");
+            UI.getCurrent().getSession().close();
+            UI.getCurrent().getPage().setLocation("./");
+        } catch (DatabaseUserException databaseException) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( databaseException.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
     }
 
     private void delete() {

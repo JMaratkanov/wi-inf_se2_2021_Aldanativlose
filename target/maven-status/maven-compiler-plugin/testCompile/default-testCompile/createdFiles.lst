@@ -1,9 +1,9 @@
 StudentDTOimplTest.class
 RegistrationControlTest.class
-SettingsView_Tab1Test.class
 StudentDAOTest.class
 EmployerDAOTest.class
 InseratDTOimplTest.class
+StellenanzeigeDTOimplTest.class
 LoginWebPageTest.class
 RolleDTOimplTest.class
 RegistrationTest.class
