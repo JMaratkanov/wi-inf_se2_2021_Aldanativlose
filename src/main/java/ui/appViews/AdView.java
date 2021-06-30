@@ -14,7 +14,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
-import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -24,9 +23,9 @@ import com.vaadin.flow.router.Route;
 import control.adControl;
 import control.exceptions.DatabaseUserException;
 import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
-import org.springframework.data.relational.core.sql.In;
 import ui.layouts.AppLayout;
 
 
@@ -37,6 +36,8 @@ import java.util.concurrent.atomic.AtomicReference;
 @Route(value = "ads", layout = AppLayout.class)
 @PageTitle("Stellenanzeigen")
 public class AdView extends Div {
+    private boolean isEmployer = getTrueIfSessionIsEmployer();
+
     private AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
     private double verguetung = 0.0;
     private int stunden = 0;
@@ -75,6 +76,7 @@ public class AdView extends Div {
 
 
 
+        if(isEmployer) {
         newAd.addClickListener(e -> {
                     dialog.set(new Dialog());
                     dialog.get().add(new Div(formLayout, newAdFinal));
@@ -104,9 +106,11 @@ public class AdView extends Div {
                         DateVon.getValue() +DateBis.getValue() + StundenProWoche.getValue()
                         + VerguetungProStunde.getValue() + InseratTyp.getValue() + Ansprechpartner.getValue()
                         + Branche.getValue() + Inhalt.getValue());*/
-        });
+            });
 
-        add(newAd);
+            add(newAd);
+
+        }
         setId("ad-view");
         addClassName("wrapper");
         add(createTitle());
@@ -216,14 +220,14 @@ public class AdView extends Div {
         grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
-                d.add( new Text( "Clicked Item: " + event.getItem()) );
+                d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
                 d.setWidth("800px");
                 d.setHeight("500px");
                 d.open();
         });
 
         grid.addColumn(
-                new NativeButtonRenderer<>("B-bb-Bewirb dich!",
+                new NativeButtonRenderer<>("Bewirb dich jetzt!",
                         clickedItem -> {
                             // tue etwas
                         })

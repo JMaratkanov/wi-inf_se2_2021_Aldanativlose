@@ -88,13 +88,14 @@ public class EmployerDAO extends UserDAO{
     }
 
     public void deleteEmployerProfil(int id) throws DatabaseLayerException {
+
         try {
             PreparedStatement sql = null;
             try {
-                int studentID = getEmployerIdByUserId(id);
+                int employerID = getEmployerIdByUserId(id);
                 sql = JDBCConnection.getInstance().getPreparedStatement(
                         "DELETE FROM collhbrs.unternehmen_profil WHERE collhbrs.unternehmen_profil.id = ?");
-                sql.setInt(1, studentID);
+                sql.setInt(1, employerID);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }

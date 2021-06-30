@@ -17,7 +17,8 @@ public class LoginWebPageTest {
     public LoginWebPageTest(){
 
     }
-
+    //Auskommentiert für jenkins, funktioniert aber :)
+    /*
     @BeforeClass
     public static void setUpClass(){
         // Muss jeder für sich selber setzten!!!
@@ -112,4 +113,5 @@ public class LoginWebPageTest {
     public static void tearDownClass(){
         driver.quit();
     }
+     */
 }

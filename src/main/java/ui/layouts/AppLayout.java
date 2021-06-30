@@ -42,9 +42,16 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
 
     public AppLayout() {
         HorizontalLayout header = createHeader();
+       /* if(getTrueIfSessionIsEmployer()){
+            menu = createMenuTabsEmployer();
+        }
+        else {
+            menu = createMenuTabs();
+        }*/
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
     }
+
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
@@ -100,11 +107,13 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
     }
 
     private static Tab[] getAvailableTabs() {
+
         return new Tab[]{createTab("Home", HomeView.class),
-                         createTab("Stellenanzeigen", AdView.class),
-                         createTab("Bewerbungen", ApplicationView.class),
-                         createTab("Einstellungen", SettingsView.class)};
+                createTab("Stellenanzeigen", AdView.class),
+                createTab("Bewerbungen", ApplicationView.class),
+                createTab("Einstellungen", SettingsView.class)};
     }
+
 
     private static Tab createTab(String text, Class<? extends Component> navigationTarget) {
         final Tab tab = new Tab();

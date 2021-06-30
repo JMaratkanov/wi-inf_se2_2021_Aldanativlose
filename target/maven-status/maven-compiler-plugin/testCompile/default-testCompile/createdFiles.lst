@@ -1,14 +1,13 @@
 StudentDTOimplTest.class
 RegistrationControlTest.class
-RegistrationStudentWebPageTest.class
 StudentDAOTest.class
 EmployerDAOTest.class
 InseratDTOimplTest.class
+StellenanzeigeDTOimplTest.class
 LoginWebPageTest.class
 RolleDTOimplTest.class
 RegistrationTest.class
 SettingsControlTest.class
 BewerbungDTOimplTest.class
 UserDTOimplTest.class
-RegistrationEmployerWebPageTest.class
 LogoutWebPageTest.class
