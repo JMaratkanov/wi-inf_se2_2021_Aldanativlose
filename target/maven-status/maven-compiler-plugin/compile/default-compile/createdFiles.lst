@@ -37,6 +37,7 @@ ui\appViews\SettingsView.class
 dtos\BewerbungDTO.class
 control\MainControl.class
 daos\UserDAO.class
+dtos\impl\ApplSetForEmployerDTO.class
 dtos\impl\StudentDTOimpl.class
 entities\User.class
 dtos\impl\InseratDTOimpl.class

@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 import control.applicationControl;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
+import dtos.impl.ApplSetForEmployerDTO;
 import dtos.impl.BewerbungDTOimpl;
 import globals.Globals;
 import ui.layouts.AppLayout;
@@ -43,8 +44,52 @@ public class ApplicationView extends Div {
     }
 
     private Component creatgridEmployer() {
-        //Hier wird die Tabelle erzeugt in der Unternehmen sehen welche Studenten sich für die Stelle beworben haben
-        return  new Grid<>();
+        List<ApplSetForEmployerDTO> anzeigen = null;
+
+        try {
+            anzeigen = control.getAllApllicantsByEmployerID(ID);
+        } catch (DatabaseLayerException e) {
+            Dialog dialog = new Dialog();
+            dialog.add( new Text( e.getReason()) );
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+
+        Grid<ApplSetForEmployerDTO> grid = new Grid<>();
+
+        grid.setItems(anzeigen);
+        grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("200px");
+
+        //Notification.show(Integer.toString(anzeigen.get(0).getID()));
+
+        grid.setSelectionMode(Grid.SelectionMode.NONE);
+        grid.addItemClickListener(event -> {
+            Dialog d = new Dialog();
+            d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
+            d.setWidth("800px");
+            d.setHeight("500px");
+            d.open();
+        });
+
+        grid.addColumn(
+                new NativeButtonRenderer<>("Absage",
+                        clickedItem -> {
+                            // mach was
+                        })
+        ).setFlexGrow(0).setWidth("250px");
+
+        grid.addColumn(
+                new NativeButtonRenderer<>("Zusage",
+                        clickedItem -> {
+                            // mach was
+                        })
+        ).setFlexGrow(0).setWidth("250px");
+
+        return grid;
     }
 
     private Component createcombobox() {
