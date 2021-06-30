@@ -26,6 +26,7 @@ import control.exceptions.DatabaseUserException;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
+import org.springframework.data.relational.core.sql.In;
 import ui.layouts.AppLayout;
 
 
@@ -110,21 +111,43 @@ public class AdView extends Div {
     }
 
     private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, String StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
+        if (DateBis == null) {
+            DateBis = LocalDate.of(3000, 1, 1);
+        }
 
-
-
-        try {
-            //Standort.setItems("Bonn","St. Augustin", "Köln", "Koblenz");
-            control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche,  Inhalt);
-            Notification.show("Stellenanzeige erfolgreich aufgegeben!");
-            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
-            UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
-        } catch (DatabaseUserException e) {
-            Dialog dialog = new Dialog();
-            dialog.add( new Text(e.getReason()) );
-            dialog.setWidth("400px");
-            dialog.setHeight("150px");
-            dialog.open();
+        if (Bezeichnung.isEmpty()) {
+            Notification.show("Geben Sie eine Bezeichnung an!");
+        } else if (Standort.isEmpty()) {
+            Notification.show("Geben Sie einen Standort an!");
+        } else if (DateVon == null) {
+            Notification.show("Geben Sie ein Anfangsdatum an!");
+        } else if (DateVon.isAfter(DateBis)) {
+            Notification.show("Das eingegebene Datum des Beginns liegt zu einem späteren Zeitpunkt, als das Datum des Endes");
+        } else if (StundenProWoche.isEmpty()) {
+            Notification.show("Bitte geben Sie die Stunden pro Woche an!");
+        } else if (VerguetungProStunde == 0) {
+            Notification.show("Bitte geben SIe die Vergütung pro Stunde an!");
+        } else if (InseratTyp.isEmpty()) {
+            Notification.show("Bitte geben Sie einen Inserat Typ an!");
+        } else if (Ansprechpartner.isEmpty()) {
+            Notification.show("Bitte geben Sie einen Ansprechpartner an!");
+        } else if (Branche.isEmpty()) {
+            Notification.show("Bitte geben Sie eine Branche an!");
+        } else if (Inhalt.isEmpty()) {
+            Notification.show("Bitte geben Sie den Inhalt an!");
+        } else {
+            try {
+                control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
+                Notification.show("Stellenanzeige erfolgreich aufgegeben!");
+                UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+                UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
+            } catch (DatabaseUserException e) {
+                Dialog dialog = new Dialog();
+                dialog.add(new Text(e.getReason()));
+                dialog.setWidth("400px");
+                dialog.setHeight("150px");
+                dialog.open();
+            }
         }
     }
 
