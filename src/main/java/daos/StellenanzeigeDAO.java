@@ -23,7 +23,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, standort, date_von, stunden_pro_woche, inserat_typ FROM collhbrs.inserat ORDER BY standort ASC");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ FROM collhbrs.inserat ORDER BY standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -45,11 +45,12 @@ public class StellenanzeigeDAO {
                     flipflop = set.next();
                     if (flipflop) {
                         result = new StellenanzeigeDTOimpl();
-                        result.setTitle(set.getString(1));
-                        result.setStandort(set.getString(2));
-                        result.setDateVon(set.getDate(3));
-                        result.setStundenProWoche(set.getInt(4));
-                        result.setInseratTyp(getInseratTypByID(set.getInt(5)));
+                        result.setID(set.getInt(1));
+                        result.setTitle(set.getString(2));
+                        result.setStandort(set.getString(3));
+                        result.setDateVon(set.getDate(4));
+                        result.setStundenProWoche(set.getInt(5));
+                        result.setInseratTyp(getInseratTypByID(set.getInt(6)));
                         liste.add(result);
                     }
                 }while(flipflop);

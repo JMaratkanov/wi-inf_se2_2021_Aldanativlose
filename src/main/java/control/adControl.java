@@ -2,7 +2,9 @@ package control;
 
 import com.vaadin.flow.component.datepicker.DatePicker;
 import control.exceptions.DatabaseUserException;
+import daos.BewerbungDAO;
 import daos.StellenanzeigeDAO;
+import daos.StudentDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.StellenanzeigeDTOimpl;
 
@@ -49,6 +51,14 @@ public class adControl extends MainControl{
         catch (DatabaseLayerException e){
             checkReasonAndThrowEx(e.getReason());
         }
+    }
 
+    public void bewerben(int stellenanzeigeID, int userID) throws DatabaseUserException {
+        StudentDAO dao = new StudentDAO();
+        try {
+            dao.bewerbungDurchführen(stellenanzeigeID, userID);
+        } catch ( DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
     }
 }

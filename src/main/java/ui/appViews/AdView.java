@@ -42,7 +42,7 @@ public class AdView extends Div {
     private AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
     private double verguetung = 0.0;
     private int stunden = 0;
-    private adControl control = new adControl();
+    private adControl adControl = new adControl();
     private TextField suche = new TextField("Suche");
     Select<String> wasSelect = new Select<>();
     private TextField plztext = new TextField("PLZ");
@@ -146,7 +146,7 @@ public class AdView extends Div {
             Notification.show("Bitte geben Sie den Inhalt an!");
         } else {
             try {
-                control.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
+                adControl.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
                 Notification.show("Stellenanzeige erfolgreich aufgegeben!");
                 dialog.get().close();
                 UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
@@ -201,7 +201,7 @@ public class AdView extends Div {
         List<StellenanzeigeDTOimpl> anzeigen = null;
 
         try {
-            anzeigen = control.getAlleStellenanzeigen();
+            anzeigen = adControl.getAlleStellenanzeigen();
         } catch (DatabaseLayerException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
@@ -253,7 +253,16 @@ public class AdView extends Div {
         return rolle == 2;
     }
 
-    private void submitApplication(int InseratID) {
-
+    private void submitApplication(int inseratID) {
+        try {
+            adControl.bewerben(inseratID, getCurrentUser().getId());
+            Notification.show("Vielen Dank für Ihre Bewerbung!");
+        } catch (DatabaseUserException e) {
+            Dialog dialog = new Dialog();
+            dialog.add(new Text(e.getReason()));
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
     }
 }

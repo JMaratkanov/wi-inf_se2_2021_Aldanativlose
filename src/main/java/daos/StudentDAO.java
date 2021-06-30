@@ -217,4 +217,29 @@ public class StudentDAO extends UserDAO{
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
+    public void bewerbungDurchführen(int inseratID, int userID) throws DatabaseLayerException {
+        int student_profil_id = getStudentIdByUserId(userID);
+
+        PreparedStatement sql = null;
+        try {
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "INSERT INTO collhbrs.bewerbung(inserat_id, student_profil) VALUES (?, ?)");
+                sql.setInt(1, inseratID);
+                sql.setInt(2, student_profil_id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            assert sql != null;
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
 }
