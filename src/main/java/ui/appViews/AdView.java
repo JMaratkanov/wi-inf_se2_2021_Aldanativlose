@@ -229,12 +229,14 @@ public class AdView extends Div {
                 d.open();
         });
 
-        grid.addColumn(
-                new NativeButtonRenderer<>("Bewirb dich jetzt!",
-                        clickedItem -> {
-                            // tue etwas
-                        })
-        ).setFlexGrow(0).setWidth("250px");
+        if(!isEmployer) {
+            grid.addColumn(
+                    new NativeButtonRenderer<>("Bewirb dich jetzt!",
+                            clickedItem -> {
+                                submitApplication(clickedItem.getID());
+                            })
+            ).setFlexGrow(0).setWidth("250px");
+        }
 
         return grid;
     }
@@ -249,5 +251,9 @@ public class AdView extends Div {
     private boolean getTrueIfSessionIsEmployer(){
         int rolle = getCurrentUser().getRole();
         return rolle == 2;
+    }
+
+    private void submitApplication(int InseratID) {
+
     }
 }
