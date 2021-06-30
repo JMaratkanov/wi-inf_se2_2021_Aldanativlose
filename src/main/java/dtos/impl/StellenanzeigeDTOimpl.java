@@ -11,8 +11,6 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
 
    String title;
    String content;
-   LocalTime created;
-   LocalTime updated;
    String standort;
    Date DateVon;
    LocalTime bis;
@@ -56,22 +54,6 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
 
     public void setUnternehmen_ID(int unternehmen_ID) {
         this.unternehmen_ID = unternehmen_ID;
-    }
-
-    public LocalTime getCreated() {
-        return created;
-    }
-
-    public void setCreated(LocalTime created) {
-        this.created = created;
-    }
-
-    public LocalTime getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(LocalTime updated) {
-        this.updated = updated;
     }
 
     public String getStandort() {

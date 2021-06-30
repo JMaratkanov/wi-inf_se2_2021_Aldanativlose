@@ -48,21 +48,6 @@ public class StellenanzeigeDTOimplTest {
         assertEquals(1, stellenanzeige.getUnternehmen_ID());
     }
 
-    @Test
-    public void createdTest(){
-        assertEquals(null, stellenanzeige.getCreated());
-        LocalTime lt = LocalTime.now();
-        stellenanzeige.setCreated(lt);
-        assertEquals(lt, stellenanzeige.getCreated());
-    }
-
-    @Test
-    public void updatedTest(){
-        assertEquals(null, stellenanzeige.getUpdated());
-        LocalTime lt = LocalTime.now();
-        stellenanzeige.setUpdated(lt);
-        assertEquals(lt, stellenanzeige.getUpdated());
-    }
 
     @Test
     public void standortTest(){

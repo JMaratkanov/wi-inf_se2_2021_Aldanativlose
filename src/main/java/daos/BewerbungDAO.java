@@ -117,9 +117,6 @@ public class BewerbungDAO {
 
             } while (iter.hasNext());
         }
-
-
-
         //sql3 = JDBCConnection.getInstance().getPreparedStatement("SELECT firmenname FROM collhbrs.unternehmen_profil WHERE id = " + get.getUnternehmenID());
 
         return completeDTOliste;

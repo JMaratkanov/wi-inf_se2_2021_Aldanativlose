@@ -32,7 +32,6 @@ control\builder\UserBuilder.class
 ui\appViews\SettingsViewParts\SettingsView_Tab1.class
 ui\CollatHBRSApplication.class
 control\applicationControl.class
-dtos\InseratDTO.class
 ui\appViews\SettingsView.class
 dtos\BewerbungDTO.class
 control\MainControl.class
@@ -40,7 +39,6 @@ daos\UserDAO.class
 dtos\impl\ApplSetForEmployerDTO.class
 dtos\impl\StudentDTOimpl.class
 entities\User.class
-dtos\impl\InseratDTOimpl.class
 dtos\impl\RolleDTOimpl.class
 ui\appViews\SettingsViewParts\SettingsView_Tab4.class
 ui\layouts\MainLayout.class

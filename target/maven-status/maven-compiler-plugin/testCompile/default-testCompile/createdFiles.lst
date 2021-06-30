@@ -2,7 +2,6 @@ StudentDTOimplTest.class
 RegistrationControlTest.class
 StudentDAOTest.class
 EmployerDAOTest.class
-InseratDTOimplTest.class
 StellenanzeigeDTOimplTest.class
 LoginWebPageTest.class
 RolleDTOimplTest.class
