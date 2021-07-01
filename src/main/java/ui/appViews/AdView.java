@@ -1,6 +1,8 @@
 package ui.appViews;
 
+import Search.SearchControlproxy;
 import Search.searchControl;
+import Search.suche;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -222,11 +224,11 @@ public class AdView extends Div {
 
         grid.setDataProvider(dataProvider);
         grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("titleColum");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px").setKey("startColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px").setKey("hoursColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px").setKey("placeColum");
-        grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px");
+        grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px").setKey("statusColum");
 
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
@@ -259,7 +261,7 @@ public class AdView extends Div {
 
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
-        searchControl filterSuche = new searchControl();
+        suche filterSuche = new SearchControlproxy();
         //filterRow.getCell(titleColum).setComponent(modelField);
         grid = filterSuche.filter(dataProvider, grid);
 

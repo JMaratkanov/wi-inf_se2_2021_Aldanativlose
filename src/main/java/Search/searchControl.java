@@ -12,25 +12,68 @@ public class searchControl implements suche{
     @Override
     public Grid filter(ListDataProvider<StellenanzeigeDTOimpl> dataProvider, Grid grid) {
         HeaderRow filterRow = grid.appendHeaderRow();
-        TextField modelField = new TextField();
-        TextField modelField2 = new TextField();
-        modelField.addValueChangeListener(event -> dataProvider.addFilter(
-                ad -> StringUtils.containsIgnoreCase(ad.getTitle(),
-                        modelField.getValue())));
+        TextField titelfield  = new TextField();
+        TextField startfield  = new TextField();
+        TextField hoursfield  = new TextField();
+        TextField placefield  = new TextField();
+        TextField typefield   = new TextField();
+        TextField statusfield = new TextField();
 
-        modelField2.addValueChangeListener(event -> dataProvider.addFilter(
+
+
+//titelfield
+        titelfield.addValueChangeListener(event -> dataProvider.addFilter(
+                ad -> StringUtils.containsIgnoreCase(ad.getTitle(),
+                        titelfield.getValue())));
+
+        titelfield.setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("titleColum")).setComponent(titelfield);
+        titelfield.setSizeFull();
+        titelfield.setPlaceholder("Filter");
+//startfield
+        startfield.addValueChangeListener(event -> dataProvider.addFilter(
+                ad -> StringUtils.containsIgnoreCase(ad.getDateVon().toString(),
+                        startfield.getValue())));
+
+        startfield.setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("startColum")).setComponent(startfield);
+        startfield.setSizeFull();
+        startfield.setPlaceholder("Filter");
+//hoursfield
+        hoursfield .addValueChangeListener(event -> dataProvider.addFilter(
+                ad -> StringUtils.containsIgnoreCase(Integer.toString(ad.getStundenProWoche()),
+                        hoursfield .getValue())));
+
+        hoursfield .setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("hoursColum")).setComponent(hoursfield );
+        hoursfield .setSizeFull();
+        hoursfield .setPlaceholder("Filter");
+//placefield
+        placefield.addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(ad.getStandort(),
-                        modelField2.getValue())));
-//modelfield1
-        modelField.setValueChangeMode(ValueChangeMode.EAGER);
-        filterRow.getCell(grid.getColumnByKey("titleColum")).setComponent(modelField);
-        modelField.setSizeFull();
-        modelField.setPlaceholder("Filter");
-//modelfield2
-        modelField2.setValueChangeMode(ValueChangeMode.EAGER);
-        filterRow.getCell(grid.getColumnByKey("placeColum")).setComponent(modelField2);
-        modelField2.setSizeFull();
-        modelField2.setPlaceholder("Filter");
+                        placefield.getValue())));
+        placefield.setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("placeColum")).setComponent(placefield);
+        placefield.setSizeFull();
+        placefield.setPlaceholder("Filter");
+//typefield
+        typefield .addValueChangeListener(event -> dataProvider.addFilter(
+                ad -> StringUtils.containsIgnoreCase(ad.getInseratTyp(),
+                        typefield .getValue())));
+
+        typefield .setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("typeColum")).setComponent(typefield);
+        typefield.setSizeFull();
+        typefield.setPlaceholder("Filter");
+//statusfield
+        statusfield.addValueChangeListener(event -> dataProvider.addFilter(
+                ad -> StringUtils.containsIgnoreCase(ad.getStatus(),
+                        statusfield.getValue())));
+
+        statusfield.setValueChangeMode(ValueChangeMode.EAGER);
+        filterRow.getCell(grid.getColumnByKey("statusColum")).setComponent(statusfield);
+        statusfield.setSizeFull();
+        statusfield.setPlaceholder("Filter");
 
         return grid;
     }

@@ -10,7 +10,6 @@ C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\imp
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\repository\UserRepository.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\impl\StudentDTOimpl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\RegistrationControl.java
-C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViewsEmployer\SettingsViewEmployer.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViews\SettingsViewParts\SettingsView_Tab4.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\LoginControl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\entities\User.java
@@ -18,18 +17,18 @@ C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\daos\Stu
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\impl\StellenanzeigeDTOimpl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\RolleDTO.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\UserDTO.java
-C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViewsEmployer\AdViewEmployer.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViews\SettingsViewParts\SettingsView_Tab2.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ApplicationConfig.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\factory\Factory.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\db\exceptions\DatabaseLayerException.java
-C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViewsEmployer\ApplicationViewEmployer.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\layouts\AppLayout.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\builder\Builder.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\impl\BewerbungDTOimpl.java
+C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\Search\suche.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\Login_Registration\RegistrationEmployer.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\MainControl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\dtos\StellenanzeigeDTO.java
+C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\Search\searchControl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\control\SettingsControl.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\daos\UserDAO.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\daos\RolleDAO.java
@@ -39,6 +38,7 @@ C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\daos\Bew
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViews\AdView.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\globals\Globals.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\daos\EmployerDAO.java
+C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\Search\SearchControlproxy.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\CollatHBRSApplication.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViews\ApplicationView.java
 C:\Users\trist\IdeaProjects\wi-inf_se2_2021_Aldanativlose\src\main\java\ui\appViews\HomeView.java

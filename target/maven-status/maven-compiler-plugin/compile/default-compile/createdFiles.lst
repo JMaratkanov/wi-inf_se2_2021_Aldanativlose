@@ -50,5 +50,6 @@ db\exceptions\DatabaseLayerException.class
 dtos\impl\BewerbungDTOimpl.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
+Search\SearchControlproxy.class
 control\RegistrationResult.class
 dtos\impl\StellenanzeigeDTOimpl.class
