@@ -6,6 +6,14 @@ public class ApplSetForEmployerDTO {
     public String student_name;
     public String status;
     public int StudID;
+    public boolean sichtbar = true;
+    public int ID;
+
+    public int getID() { return ID; }
+
+    public void setID(int ID) { this.ID = ID; }
+
+
     //Lebenslauf
 
     public String getStelle() {
@@ -49,6 +57,16 @@ public class ApplSetForEmployerDTO {
                 break;
             case 1:this.status = "Offen";
                 break;
+            case 2:this.status = "Bewerbung abgelehnt";
+                break;
+            case 3:this.status = "Zum Vorstellungsgespräch eingeladen";
+                break;
         }
     }
+
+    public void setSichtbar(boolean sichtbar) { this.sichtbar = sichtbar; }
+
+    public boolean getSichtbar(){ return sichtbar; }
+
+
 }

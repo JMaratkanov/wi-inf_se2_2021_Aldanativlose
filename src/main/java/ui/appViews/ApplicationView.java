@@ -8,10 +8,12 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import control.applicationControl;
+import control.exceptions.DatabaseUserException;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.ApplSetForEmployerDTO;
@@ -24,7 +26,7 @@ import java.util.List;
 @Route(value = "application", layout = AppLayout.class)
 @PageTitle("Bewerbungen")
 public class ApplicationView extends Div {
-    private applicationControl control = new applicationControl();
+    private applicationControl applicationControl = new applicationControl();
     private int ID = getCurrentUser().getId();
     private boolean isEmployer = getTrueIfSessionIsEmployer();
 
@@ -47,7 +49,7 @@ public class ApplicationView extends Div {
         List<ApplSetForEmployerDTO> anzeigen = null;
 
         try {
-            anzeigen = control.getAllApllicantsByEmployerID(ID);
+            anzeigen = applicationControl.getAllApllicantsByEmployerID(ID);
         } catch (DatabaseLayerException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
@@ -78,7 +80,7 @@ public class ApplicationView extends Div {
         grid.addColumn(
                 new NativeButtonRenderer<>("Bewerbung ablehnen",
                         clickedItem -> {
-                            // mach was
+                            declineApplication(clickedItem.getID());
                         })
         ).setFlexGrow(0).setWidth("200px");
 
@@ -92,6 +94,7 @@ public class ApplicationView extends Div {
         return grid;
     }
 
+
     private Component createcombobox() {
         add(new Text("Für folgende Stellen"));
         filter.setPlaceholder("-alle-");
@@ -104,7 +107,7 @@ public class ApplicationView extends Div {
         List<BewerbungDTOimpl> anzeigen = null;
 
         try {
-            anzeigen = control.getAllApplicationsForUserWithID(ID);
+            anzeigen = applicationControl.getAllApplicationsForUserWithID(ID);
         } catch (DatabaseLayerException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
@@ -133,6 +136,19 @@ public class ApplicationView extends Div {
         });
 
         return grid;
+    }
+
+    private void declineApplication(int ApplicationID) {
+        try {
+            applicationControl.bewerbungablehen(ApplicationID);
+            Notification.show("Bewerbung abgelehnt!");
+        } catch (DatabaseUserException e) {
+            Dialog dialog = new Dialog();
+            dialog.add(new Text(e.getReason()));
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
     }
 
     private Component createTitle() {
