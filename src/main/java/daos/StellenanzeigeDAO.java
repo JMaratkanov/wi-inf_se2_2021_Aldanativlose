@@ -23,7 +23,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ, status FROM collhbrs.inserat ORDER BY standort ASC");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ, status FROM collhbrs.inserat ORDER BY status DESC, standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }

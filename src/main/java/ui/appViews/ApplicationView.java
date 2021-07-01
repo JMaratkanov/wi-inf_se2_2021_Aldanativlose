@@ -65,7 +65,7 @@ public class ApplicationView extends Div {
         grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setWidth("200px");
         grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setWidth("200px");
         grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
-        //grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("100px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("100px").setVisible(false);
 
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
