@@ -1,9 +1,7 @@
-ui\appViewsEmployer\AdViewEmployer.class
 db\JDBCConnection.class
 ApplicationConfig.class
 globals\Globals$Roles.class
 daos\RolleDAO.class
-ui\appViewsEmployer\MyUploadContext.class
 ui\Login_Registration\Selection.class
 control\LoginControl.class
 daos\BewerbungDAO.class
@@ -14,8 +12,6 @@ ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
 ui\Login_Registration\RegistrationEmployer.class
 dtos\StellenanzeigeDTO.class
-ui\appViewsEmployer\SettingsViewEmployer.class
-ui\appViewsEmployer\ApplicationViewEmployer.class
 control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class

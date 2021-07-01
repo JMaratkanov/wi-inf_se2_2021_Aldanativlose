@@ -9,6 +9,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
@@ -18,7 +19,9 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.data.renderer.NativeButtonRenderer;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import control.adControl;
@@ -27,6 +30,7 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
+import org.apache.commons.lang3.StringUtils;
 import ui.layouts.AppLayout;
 
 
@@ -198,10 +202,10 @@ public class AdView extends Div {
     }
 
     private Component creategrid(){
-        List<StellenanzeigeDTOimpl> anzeigen = null;
+        List<StellenanzeigeDTOimpl> stellenanzeigenList = null;
 
         try {
-            anzeigen = adControl.getAlleStellenanzeigen();
+            stellenanzeigenList = adControl.getAlleStellenanzeigen();
         } catch (DatabaseLayerException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
@@ -212,16 +216,23 @@ public class AdView extends Div {
 
         // Create a grid bound to the list
         Grid<StellenanzeigeDTOimpl> grid = new Grid<>();
+        //assert stellenanzeigenList != null;
+        ListDataProvider<StellenanzeigeDTOimpl> dataProvider = new ListDataProvider<>(stellenanzeigenList);
 
-        grid.setItems(anzeigen);
-        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setFlexGrow(0).setWidth("160px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setFlexGrow(0).setWidth("100px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setFlexGrow(0).setWidth("170px");
-        grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
+        grid.setDataProvider(dataProvider);
+        Grid.Column<StellenanzeigeDTOimpl> titelColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px");
+        Grid.Column<StellenanzeigeDTOimpl> startColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px");
+        Grid.Column<StellenanzeigeDTOimpl> hoursColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px");
+        Grid.Column<StellenanzeigeDTOimpl> placeColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px");
+        Grid.Column<StellenanzeigeDTOimpl> typColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px");
+        Grid.Column<StellenanzeigeDTOimpl> statusColum = grid
+                .addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px");
 
-        grid.setSelectionMode(Grid.SelectionMode.NONE);
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
                 d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
@@ -245,6 +256,20 @@ public class AdView extends Div {
                             })
             ).setFlexGrow(0).setWidth("200px");
         }
+
+        HeaderRow filterRow = grid.appendHeaderRow();
+
+        // First filter Hier noch andere Filter Felder einfügen, am besten generalisiert
+        TextField modelField = new TextField();
+        modelField.addValueChangeListener(event -> dataProvider.addFilter(
+                car -> StringUtils.containsIgnoreCase(car.getTitle(),
+                        modelField.getValue())));
+
+        modelField.setValueChangeMode(ValueChangeMode.EAGER);
+
+        filterRow.getCell(titelColum).setComponent(modelField);
+        modelField.setSizeFull();
+        modelField.setPlaceholder("Filter");
 
         return grid;
     }
