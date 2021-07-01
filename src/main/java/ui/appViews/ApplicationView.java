@@ -152,9 +152,9 @@ public class ApplicationView extends Div {
     }
 
     private Component createTitle() {
-        if(isEmployer)
+        if(isEmployer) {
             return new H3("Eingegangene Bewerbungen");
-
+        }
         return new H3("Meine Bewerbungen");
     }
 
@@ -164,6 +164,6 @@ public class ApplicationView extends Div {
 
     private boolean getTrueIfSessionIsEmployer(){
         int rolle = getCurrentUser().getRole();
-        return (rolle==2)?true:false;
+        return rolle == 2;
     }
 }

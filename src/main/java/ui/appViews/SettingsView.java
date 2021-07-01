@@ -16,6 +16,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import dtos.UserDTO;
 import globals.Globals;
+import org.springframework.data.domain.Page;
 import ui.appViews.SettingsViewParts.SettingsView_Tab1;
 import ui.appViews.SettingsViewParts.SettingsView_Tab2;
 import ui.appViews.SettingsViewParts.SettingsView_Tab3;
@@ -67,19 +68,21 @@ public class SettingsView extends Div {
         setId("settings-view");
         add(createTitle());
 
-        //Tab 1
+
+
+            //Tab 1
         Tab tab1 = new Tab("Allgemeine Daten");
         Div page1 = new Div();
-        if(!isEmployer) {
-            page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
-        }
-
-        //Tab2
         Tab tab2 = new Tab("Lebenslauf anpassen");
         Div page2 = new Div();
-        page2.setVisible(false);
-        page2 = buildTab2.createView(page2);
+        if(!isEmployer) {
+            page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
 
+            //Tab2
+
+            page2.setVisible(false);
+            page2 = buildTab2.createView(page2);
+        }
         //Tab3
         Tab tab3 = new Tab("Passwort ändern");
         Div page3 = new Div();
@@ -96,23 +99,40 @@ public class SettingsView extends Div {
 
         //allgemein Tab management
         Map<Tab, Component> tabsToPages = new HashMap<>();
-        tabsToPages.put(tab1, page1);
-        tabsToPages.put(tab2, page2);
+        if(!isEmployer) {
+            tabsToPages.put(tab1, page1);
+            tabsToPages.put(tab2, page2);
+        }
         tabsToPages.put(tab3, page3);
         tabsToPages.put(tab4, page4);
+        if(isEmployer) {
+            Tabs tabs = new Tabs(tab3, tab4);
+            tabs.setSelectedTab(tab4);
+            Div pages = new Div(page3, page4);
+            tabs.addSelectedChangeListener(event -> {
+                tabsToPages.values().forEach(page -> page.setVisible(false));
+                Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+                selectedPage.setVisible(true);
+            });
+            add(tabs, pages);
 
-        Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
-        tabs.setSelectedTab(tab1);
-        Div pages = new Div(page1, page2, page3, page4);
+        }
+        else {
+            Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
+            tabs.setSelectedTab(tab1);
+            Div pages = new Div(page1, page2, page3, page4);
+            tabs.addSelectedChangeListener(event -> {
+                tabsToPages.values().forEach(page -> page.setVisible(false));
+                Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+                selectedPage.setVisible(true);
+            });
+            add(tabs, pages);
 
+        }
         //switch tabs listener
-        tabs.addSelectedChangeListener(event -> {
-            tabsToPages.values().forEach(page -> page.setVisible(false));
-            Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
-            selectedPage.setVisible(true);
-        });
 
-        add(tabs, pages);
+
+        //add(tabs, pages);
     }
 
     private UserDTO getCurrentUser() {

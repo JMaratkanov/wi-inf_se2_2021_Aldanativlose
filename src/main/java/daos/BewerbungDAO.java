@@ -265,4 +265,5 @@ public class BewerbungDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
 }

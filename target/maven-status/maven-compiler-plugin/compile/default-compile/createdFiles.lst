@@ -11,11 +11,13 @@ repository\UserRepository.class
 ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
 ui\Login_Registration\RegistrationEmployer.class
+Search\searchControl.class
 dtos\StellenanzeigeDTO.class
 control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
+Search\suche.class
 ui\appViews\ApplicationView.class
 daos\StellenanzeigeDAO.class
 control\adControl.class

@@ -1,5 +1,6 @@
 package ui.appViews;
 
+import Search.searchControl;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -47,10 +48,10 @@ public class AdView extends Div {
     private double verguetung = 0.0;
     private int stunden = 0;
     private adControl adControl = new adControl();
-    private TextField suche = new TextField("Suche");
-    Select<String> wasSelect = new Select<>();
-    private TextField plztext = new TextField("PLZ");
-    Select<String> umkreisSelect = new Select<>();
+    //private TextField suche = new TextField("Suche");
+    //Select<String> wasSelect = new Select<>();
+    //private TextField plztext = new TextField("PLZ");
+    //Select<String> umkreisSelect = new Select<>();
     private Button newAd = new Button("Neue Stellenanzeige Aufgeben");
     private Button newAdFinal = new Button("Stellenanzeige Aufgeben");
 
@@ -166,14 +167,14 @@ public class AdView extends Div {
     }
 
     private  Component filter() {
-        wasSelect.setItems("Option one", "Option two");
-        wasSelect.setLabel("Was?");
-        umkreisSelect.setItems("5km", "10km", "20km", "50km", "+50km");
-        umkreisSelect.setLabel("Umkreis");
-        suche.setMaxWidth("1000px");
-        wasSelect.setMaxWidth("100px");
-        plztext.setMaxWidth("100px");
-        umkreisSelect.setMaxWidth("100px");
+        //wasSelect.setItems("Option one", "Option two");
+        //wasSelect.setLabel("Was?");
+        //umkreisSelect.setItems("5km", "10km", "20km", "50km", "+50km");
+        //umkreisSelect.setLabel("Umkreis");
+        //suche.setMaxWidth("1000px");
+        //wasSelect.setMaxWidth("100px");
+        //plztext.setMaxWidth("100px");
+        //umkreisSelect.setMaxWidth("100px");
 
         Branche.setLabel("Branchenauswahl");
         Branche.setItems("It", "Automobil", "Sonstige");
@@ -191,7 +192,7 @@ public class AdView extends Div {
 
         //Standort.setRequired(true);
         FormLayout formLayout = new FormLayout();
-        formLayout.add(suche,wasSelect,plztext,umkreisSelect);
+        //formLayout.add(suche,wasSelect,plztext,umkreisSelect);
         formLayout.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("1000px", 1),
                 new FormLayout.ResponsiveStep("100px", 2),
@@ -220,18 +221,12 @@ public class AdView extends Div {
         ListDataProvider<StellenanzeigeDTOimpl> dataProvider = new ListDataProvider<>(stellenanzeigenList);
 
         grid.setDataProvider(dataProvider);
-        Grid.Column<StellenanzeigeDTOimpl> titelColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px");
-        Grid.Column<StellenanzeigeDTOimpl> startColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px");
-        Grid.Column<StellenanzeigeDTOimpl> hoursColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px");
-        Grid.Column<StellenanzeigeDTOimpl> placeColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px");
-        Grid.Column<StellenanzeigeDTOimpl> typColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px");
-        Grid.Column<StellenanzeigeDTOimpl> statusColum = grid
-                .addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px");
+        grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("titleColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px").setKey("placeColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px");
+        grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px");
 
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
@@ -257,19 +252,18 @@ public class AdView extends Div {
             ).setFlexGrow(0).setWidth("200px");
         }
 
-        HeaderRow filterRow = grid.appendHeaderRow();
+        //HeaderRow filterRow = grid.appendHeaderRow();
 
         // First filter Hier noch andere Filter Felder einfügen, am besten generalisiert
         TextField modelField = new TextField();
-        modelField.addValueChangeListener(event -> dataProvider.addFilter(
-                car -> StringUtils.containsIgnoreCase(car.getTitle(),
-                        modelField.getValue())));
+
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
+        searchControl filterSuche = new searchControl();
+        //filterRow.getCell(titleColum).setComponent(modelField);
+        grid = filterSuche.filter(dataProvider, grid);
 
-        filterRow.getCell(titelColum).setComponent(modelField);
-        modelField.setSizeFull();
-        modelField.setPlaceholder("Filter");
+
 
         return grid;
     }
