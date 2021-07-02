@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class BewerbungDAO {
+public class BewerbungDAO extends UserDAO{
     StudentDAO GetStudentID_ByUserID = new StudentDAO();
 
     public List<BewerbungDTOimpl> getAll(int ID) throws DatabaseLayerException {
@@ -34,13 +34,9 @@ public class BewerbungDAO {
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl1!");
-            e.setReason(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         }
 
         BewerbungDTOimpl result = null;
@@ -58,10 +54,7 @@ public class BewerbungDAO {
                 }
             }while(flipflop);
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
-
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
@@ -88,13 +81,9 @@ public class BewerbungDAO {
                     set2 = sql2.executeQuery();
 
                 } catch (SQLException ex) {
-                    DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl2!");
-                    e.setReason(Globals.Errors.SQLERROR);
-                    throw e;
+                    throw new DatabaseLayerException(Globals.Errors.SQLERROR);
                 } catch (NullPointerException ex) {
-                    DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-                    e.setReason(Globals.Errors.DATABASE);
-                    throw e;
+                    throw new DatabaseLayerException(Globals.Errors.DATABASE);
                 }
 
                 try {
@@ -106,10 +95,7 @@ public class BewerbungDAO {
 
                     completeDTOliste.add(get);
                 } catch (SQLException ex) {
-                    DatabaseLayerException e = new DatabaseLayerException("Probleme mit der Datenbank");
-                    e.setReason(Globals.Errors.DATABASE);
-                    throw e;
-
+                    throw new DatabaseLayerException(Globals.Errors.DATABASE);
                 } finally {
                     JDBCConnection.getInstance().closeConnection();
                 }
@@ -143,13 +129,9 @@ public class BewerbungDAO {
             set = sql.executeQuery();
 
         } catch (SQLException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler im SQL-Befehl1!");
-            e.setReason(Globals.Errors.SQLERROR);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         } catch (NullPointerException ex) {
-            DatabaseLayerException e = new DatabaseLayerException("Fehler bei Datenbankverbindung!");
-            e.setReason(Globals.Errors.DATABASE);
-            throw e;
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
         }
 
         ApplSetForEmployerDTO result = null;
@@ -241,31 +223,24 @@ public class BewerbungDAO {
         PreparedStatement sql = null;
         PreparedStatement sql2 = null;
         try {
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.bewerbung SET status = ? WHERE id = ?");
-                sql.setInt(1, antwort);
-                sql.setInt(2, applicationID);
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "UPDATE collhbrs.bewerbung SET status = ? WHERE id = ?");
+            sql.setInt(1, antwort);
+            sql.setInt(2, applicationID);
 
-                sql2 = JDBCConnection.getInstance().getPreparedStatement(
-                       "UPDATE collhbrs.bewerbung SET visible = false WHERE id = ?");
-                sql2.setInt(1, applicationID);
+            sql2 = JDBCConnection.getInstance().getPreparedStatement(
+                    "UPDATE collhbrs.bewerbung SET visible = false WHERE id = ?");
+            sql2.setInt(1, applicationID);
 
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-            assert sql2 != null;
-            sql2.executeUpdate();
-
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
+        assert sql2 != null;
+        executeSQLUpdateCommand(sql2);
     }
 
 }
