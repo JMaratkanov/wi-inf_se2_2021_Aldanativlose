@@ -91,19 +91,18 @@ public class RegistrationEmployer extends Div {
         return buttonLayout;
     }
 
-    private void register(String companyName, String country, String street, String number, String place, String plz, String email1, String email2, String password1, String password2) {
-
-        if (email1.isEmpty()) {
+    private void register(String companyName, String country, String street, String number, String place, String plz, String employerEmail1, String employerEmail2, String employerPassword1, String employerPassword2) {
+        if (employerEmail1.isEmpty()) {
             Notification.show("Geben Sie Ihre E-Mail Adresse an");
-        } else if (email2.isEmpty()) {
+        } else if (employerEmail2.isEmpty()) {
             Notification.show("Bestätigen Sie Ihre E-Mail Adresse");
-        } else if (!email1.equals(email2)) {
+        } else if (!employerEmail1.equals(employerEmail2)) {
             Notification.show("E-Mail Adressen stimmen nicht überein");
-        } else if (password1.isEmpty()) {
+        } else if (employerPassword1.isEmpty()) {
             Notification.show("Geben Sie ein Passwort an");
-        } else if (password2.isEmpty()) {
+        } else if (employerPassword2.isEmpty()) {
             Notification.show("Bestätigen Sie Ihr Passwort");
-        } else if (!password1.equals(password2)) {
+        } else if (!employerPassword1.equals(employerPassword2)) {
             Notification.show("Passwörter stimmen nicht überein");
         } else if (companyName.isEmpty()) {
             Notification.show("Bitte geben Sie einen Firmennamen an!");
@@ -117,11 +116,11 @@ public class RegistrationEmployer extends Div {
             Notification.show("Bitte geben Sie eine Stadt an!");
         } else if (plz.isEmpty()) {
             Notification.show("Bitte geben Sie eine Postleitzahl an!");
-        } else if (plz.length() < 5 || plz.length() > 5) {
+        } else if (plz.length() != 5) {
             Notification.show("Bitte geben sie eine korrekte Postleitzahl an!");
         } else {
             try {
-                registrationControl.registerEmployerWithJDBC(companyName, country, street, number, place, plz, email1, password1);
+                registrationControl.registerEmployerWithJDBC(companyName, country, street, number, place, plz, employerEmail1, employerPassword1);
                 Notification.show("Registrierung erfolgreich: E-Mail Bestätigung versendet!");
                 UI.getCurrent().navigate(Globals.Pages.LOGIN_VIEW);
             } catch (DatabaseUserException databaseException) {
