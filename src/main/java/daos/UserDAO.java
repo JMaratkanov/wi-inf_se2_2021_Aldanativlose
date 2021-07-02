@@ -153,8 +153,9 @@ public class UserDAO {
             try {
                 if(role.equals("Unternehmer")) {
                     statement = JDBCConnection.getInstance().getPreparedStatement("SELECT unternehmen_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                } else {
+                    statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
                 }
-                statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
                 statement.setInt(1, id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
