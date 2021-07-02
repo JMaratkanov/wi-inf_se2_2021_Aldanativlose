@@ -35,6 +35,7 @@ public class BewerbungDAOTest {
         stellenanzeige = null;
     }
 
+    //Achtun, Testdaten löschen sich nicht selbstständig
     @Test
     public void getAllTest() throws DatabaseLayerException {
         student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getAllTest", "123");
