@@ -169,8 +169,7 @@ public class StellenanzeigeDAO {
         }
     }
 
-
-
+    /*
     public List<StellenanzeigeDTOimpl> getInserat() throws DatabaseLayerException {
         ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
 
@@ -216,51 +215,9 @@ public class StellenanzeigeDAO {
         return liste;
     }
 
-    public List<StellenanzeigeDTOimpl> getInseratByIdtest() throws DatabaseLayerException {
-        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
+     */
 
-        ResultSet set;
-
-        try {
-            PreparedStatement sql = null;
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ");
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-
-            assert sql != null;
-            set = sql.executeQuery();
-
-        } catch (SQLException ex) {
-            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        }
-
-        StellenanzeigeDTOimpl result;
-
-        boolean flipflop;
-        try {
-            do {
-                flipflop = set.next();
-                if (flipflop) {
-                    result = new StellenanzeigeDTOimpl();
-                    result.setTitle(set.getString(1));
-                    result.setContent(set.getString(2));
-                    result.setStandort(set.getString(3));
-                    liste.add(result);
-                }
-            }while(flipflop);
-        } catch (SQLException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
-        }
-
-        return liste;
-    }
-
+    /*
     // nicht beachten. für public inseratview
     public StellenanzeigeDTOimpl getInseratById(int id) throws DatabaseLayerException {
         ResultSet set;
@@ -318,6 +275,5 @@ public class StellenanzeigeDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
-
-
+     */
 }
