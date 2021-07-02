@@ -3,6 +3,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.time.LocalTime;
 
 import static org.junit.Assert.assertEquals;
@@ -56,16 +57,13 @@ public class StellenanzeigeDTOimplTest {
         assertEquals("test", stellenanzeige.getStandort());
     }
 
-    /*
-    TODO Muss überarbeitet werden da wir den Datentyp ändern mussten
     @Test
     public void vonTest(){
         assertEquals(null, stellenanzeige.getDateVon());
-        Date lt = LocalDate.now();
+        Date lt = new Date(1);
         stellenanzeige.setDateVon(lt);
         assertEquals(lt, stellenanzeige.getDateVon());
     }
-     */
 
     @Test
     public void bisTest(){
@@ -77,9 +75,11 @@ public class StellenanzeigeDTOimplTest {
 
     @Test
     public void statusTest(){
-        assertEquals(0, stellenanzeige.getStatus());
+        assertEquals(null, stellenanzeige.getStatus());
+        stellenanzeige.setStatus(0);
+        assertEquals("Ausschreibung beendet", stellenanzeige.getStatus());
         stellenanzeige.setStatus(1);
-        assertEquals(1, stellenanzeige.getStatus());
+        assertEquals("Offen", stellenanzeige.getStatus());
     }
 
     @Test

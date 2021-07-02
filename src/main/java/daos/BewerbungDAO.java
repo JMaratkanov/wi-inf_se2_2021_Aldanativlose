@@ -236,6 +236,7 @@ public class BewerbungDAO {
 
         return liste;
     }
+
     public void apllicationEdit(int applicationID, int antwort) throws DatabaseLayerException {
         PreparedStatement sql = null;
         PreparedStatement sql2 = null;

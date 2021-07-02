@@ -29,8 +29,6 @@ public class StudentDAOTest {
     }
 
 
-    // Erst wieder aktivieren wenn das TO-DO erledigt ist!
-    // Sonst läuft die Datenbank voll
     @Test
     public void setStudentByEmailAndPasswordTest() throws DatabaseLayerException {
         assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
@@ -71,7 +69,8 @@ public class StudentDAOTest {
         UserDTO studentDTO = student.getFullStudentDTOByStudentID(student.getStudentIdByUserId(id));
         assertEquals(student.getStudentIdByUserId(id), studentDTO.getId());
         assertEquals("test", studentDTO.getFirstName());
-        assertEquals("test", studentDTO.getLastName());student.deleteStudentProfil(student.findUserByUserEmailAndPassword("updateStudentDataTest", "123").getId());
+        assertEquals("test", studentDTO.getLastName());
+        student.deleteStudentProfil(student.findUserByUserEmailAndPassword("updateStudentDataTest", "123").getId());
     }
 
     @Test
@@ -82,4 +81,9 @@ public class StudentDAOTest {
         student.deleteStudentProfil(id);
     }
 
+    /*
+    Wird in BewerbungDAOTest getAllTest() abgedeckt
+    @Test
+    public void bewerbungDurchführenTest(){}
+     */
 }

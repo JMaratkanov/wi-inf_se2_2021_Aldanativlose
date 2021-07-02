@@ -1,8 +1,6 @@
 import daos.EmployerDAO;
-import daos.StudentDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
-import dtos.UserDTO;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -13,20 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserDAOTest {
     private static UserDAO user;
     private static EmployerDAO employer;
-    private static StudentDAO student;
 
     @BeforeClass
     public static void setup(){
         user = new UserDAO();
         employer = new EmployerDAO();
-        student = new StudentDAO();
     }
 
     @AfterClass
     public static void tearDown(){
         user = null;
         employer = null;
-        student = null;
     }
 
     @Test
