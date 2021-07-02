@@ -1,5 +1,7 @@
 package dtos.impl;
 
+import com.vaadin.flow.component.Html;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import dtos.StellenanzeigeDTO;
 
 import java.time.LocalTime;
@@ -19,6 +21,8 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
    double stundenlohn;
    String inseratTyp;
    int kenntnisse; //int []?
+    String ansprechpartner;
+    String firmenname;
 
 
     @Override
@@ -124,4 +128,19 @@ public class StellenanzeigeDTOimpl implements StellenanzeigeDTO {
     public void setKenntnisse(int kenntnisse) {
         this.kenntnisse = kenntnisse;
     }
+
+    // neu
+
+    public String getAnsprechpartner() {        return ansprechpartner;    }
+
+    public void setAnsprechpartner(String ansprechpartner) {
+        this.ansprechpartner = ansprechpartner;
+    }
+
+    public String getFirmenname() {        return firmenname;    }
+
+    public void setFirmenname(String firmenname) {
+        this.firmenname = firmenname;
+    }
+
 }

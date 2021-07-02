@@ -2,7 +2,10 @@ package daos;
 
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
+import dtos.StellenanzeigeDTO;
+import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
+import dtos.impl.StudentDTOimpl;
 import globals.Globals;
 
 import java.sql.Date;
@@ -23,7 +26,7 @@ public class StellenanzeigeDAO {
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT id, title, standort, date_von, stunden_pro_woche, inserat_typ, status FROM collhbrs.inserat ORDER BY status DESC, standort ASC");
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status, verguetung_pro_stunde, inserat.ansprechpartner, inserat.branche_id, firmenname, inserat.content, beschreibung_kurz, kontaktemail, tel FROM collhbrs.inserat JOIN collhbrs.unternehmen_profil ON inserat.unternehmen_profil_id = unternehmen_profil.id ORDER BY status DESC, standort ASC");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -44,6 +47,7 @@ public class StellenanzeigeDAO {
                 do {
                     flipflop = set.next();
                     if (flipflop) {
+                        // inserat.branche_id, firmenname, beschreibung_kurz, kontaktemail, tel
                         result = new StellenanzeigeDTOimpl();
                         result.setID(set.getInt(1));
                         result.setTitle(set.getString(2));
@@ -52,6 +56,11 @@ public class StellenanzeigeDAO {
                         result.setStundenProWoche(set.getInt(5));
                         result.setInseratTyp(getInseratTypByID(set.getInt(6)));
                         result.setStatus(set.getInt(7));
+                        result.setStundenlohn(set.getInt(8));
+                        result.setAnsprechpartner(set.getString(9));
+                        //result.set Branche 10
+                        result.setFirmenname(set.getString(11));
+                        result.setContent(set.getString(12));
                         liste.add(result);
                     }
                 }while(flipflop);
@@ -159,4 +168,156 @@ public class StellenanzeigeDAO {
             JDBCConnection.getInstance().closeConnection();
         }
     }
+
+
+
+    public List<StellenanzeigeDTOimpl> getInserat() throws DatabaseLayerException {
+        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
+
+        ResultSet set;
+
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ");
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert sql != null;
+            set = sql.executeQuery();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        }
+
+        StellenanzeigeDTOimpl result;
+
+        boolean flipflop;
+        try {
+            do {
+                flipflop = set.next();
+                if (flipflop) {
+                    result = new StellenanzeigeDTOimpl();
+                    result.setTitle(set.getString(1));
+                    result.setContent(set.getString(2));
+                    result.setStandort(set.getString(3));
+                    liste.add(result);
+                }
+            }while(flipflop);
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+
+        return liste;
+    }
+
+    public List<StellenanzeigeDTOimpl> getInseratByIdtest() throws DatabaseLayerException {
+        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
+
+        ResultSet set;
+
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT title, content, standort FROM collhbrs.inserat ");
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert sql != null;
+            set = sql.executeQuery();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        }
+
+        StellenanzeigeDTOimpl result;
+
+        boolean flipflop;
+        try {
+            do {
+                flipflop = set.next();
+                if (flipflop) {
+                    result = new StellenanzeigeDTOimpl();
+                    result.setTitle(set.getString(1));
+                    result.setContent(set.getString(2));
+                    result.setStandort(set.getString(3));
+                    liste.add(result);
+                }
+            }while(flipflop);
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+
+        return liste;
+    }
+
+    // nicht beachten. für public inseratview
+    public StellenanzeigeDTOimpl getInseratById(int id) throws DatabaseLayerException {
+        ResultSet set;
+
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT * FROM collhbrs.inserat WHERE collhbrs.inserat.id = ?");
+                sql.setInt(1, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            //TODO Select abfrage anpassen sodass alle Daten mit einer bestimmten ID ausgelesen werden
+            assert sql != null;
+            set = sql.executeQuery();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        }
+
+        StellenanzeigeDTOimpl inserat;
+
+        try {
+            if (set.next()) {
+                // "title","content","standort","date_von","date_bis","status","stunden_pro_woche","verguetung_pro_stunde",
+                // "unternehmen_profil_id","kenntnisse","inserat_typ","ansprechpartner","branche_id","id","user_id","gps_lat","gps_long"
+                inserat = new StellenanzeigeDTOimpl();
+                inserat.setTitle( set.getString(1));
+                inserat.setContent( set.getString(2));
+                inserat.setStandort( set.getString(3));
+                inserat.setDateVon( set.getDate(4));
+                //inserat.setBis( set.getDate(5));
+                inserat.setStatus( set.getInt(6));
+                inserat.setStundenProWoche( set.getInt(7));
+                inserat.setStundenlohn( set.getInt(8));
+                inserat.setUnternehmen_ID( set.getInt(9));
+                //inserat.setKenntnisse( set.getInt(10));
+                inserat.setInseratTyp( getInseratTypByID(set.getInt(11)) );
+                inserat.setAnsprechpartner( set.getString(12));
+                //inserat.set Branche
+
+
+                //TODO rest des dtos füllen
+                return inserat;
+
+            } else {
+                throw new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
+            }
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+
 }

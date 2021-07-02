@@ -13,13 +13,42 @@ vaadin-tab[selected] {
     color: #009DDB; /*Hier die Farbe für die ausgewählten Tabs angeben*/
 }
 
-a:active, a:hover, a {
+/*a:active, a:hover, a {
     --lumo-primary-color: red;
-}
+}*/
 
 .wrapper {
     margin: 0 auto;
     width: 90%;
     max-width: 1280px;
     padding: 10px;
+}
+
+.testcssclasse{
+    font-weight: 800;
+    font-size: 2em;
+}
+
+.dickelinie{
+    border-top: 2px solid #bbb;
+}
+
+.inseratdetailsbox{
+    background-color: #009DDB;
+    margin: 2px;
+    padding: 5px 3px 2px 3px;
+    color: #fff;
+    display: inline-block;
+    width: max-content;
+}
+
+.grey-text{
+    font-size: .6em;
+    color: #909090;
+    position: absolute;
+    bottom: 5px;
+}
+
+.bewerbenbtn{
+    font-size: 2em;
 }

@@ -1,5 +1,7 @@
 package dtos;
 
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+
 import java.util.Date;
 
 public interface StellenanzeigeDTO {
@@ -10,4 +12,7 @@ public interface StellenanzeigeDTO {
     public Date getDateVon();
     public String getInseratTyp();
     public String getStatus();
+    // neu
+    public String getAnsprechpartner();
+    public String getFirmenname();
 }
