@@ -20,6 +20,7 @@ public class RegistrationTest {
     UserBuilder ub = null;
     
     @BeforeEach
+
     void setup() {
         user1 = Factory.createUser(1, "Max", "Mustermann");
         user2 = Factory.createUserIF(2, "Toni");
