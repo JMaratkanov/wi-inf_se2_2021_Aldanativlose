@@ -2,6 +2,7 @@ import daos.BewerbungDAO;
 import daos.StellenanzeigeDAO;
 import daos.StudentDAO;
 import daos.UserDAO;
+import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.BewerbungDTOimpl;
 import dtos.impl.StellenanzeigeDTOimpl;
@@ -9,6 +10,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class BewerbungDAOTest {
     }
 
     @Test
-    public void getAllTest() throws DatabaseLayerException {
+    public void getAllTest() throws DatabaseLayerException, SQLException {
         student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getAllTest", "123");
 
         List<BewerbungDTOimpl> list = bewerbung.getAll(student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
@@ -62,6 +65,14 @@ public class BewerbungDAOTest {
 
         stellenanzeige.cancelAd(inseratId);
         student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
+
+        deleteInserat();
+
+    }
+
+    private void deleteInserat() throws DatabaseLayerException, SQLException {
+        PreparedStatement sql = JDBCConnection.getInstance().getPreparedStatement("DELETE FROM collhbrs.inserat WHERE collhbrs.inserat.title='BewerbungGetAllTest'");
+        sql.executeUpdate();
     }
 
     /*
