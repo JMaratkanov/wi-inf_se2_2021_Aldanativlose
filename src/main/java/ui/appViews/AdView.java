@@ -226,11 +226,14 @@ public class AdView extends Div {
                 d.add( new Html("<br/>") );
             }
 
-            if(event.getItem().getStatus()=="Offen"){
-                d.add( new Button("Jetzt bewerben!" , e -> submitApplication(event.getItem().getID()) ) );
-            }else{
-                d.add( new Html("<vaadin-button disabled>Ausschreibung beendet</vaadin-button>"));
-                d.add( new Html("<span class='smalltext'><b>Eine Bewerbung ist leider nicht mehr möglich</b></span>") );
+            if(!isEmployer){
+                if(event.getItem().getStatus()=="Offen"){
+                    d.add( new Button("Jetzt bewerben!" , e -> submitApplication(event.getItem().getID()) ) );
+                }else{
+                    d.add( new Html("<vaadin-button disabled>Ausschreibung beendet</vaadin-button>"));
+                    d.add( new Html("<span class='smalltext'><b>Eine Bewerbung ist leider nicht mehr möglich</b></span>") );
+                }
+
             }
 
 
