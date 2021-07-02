@@ -30,17 +30,13 @@ public class UserDAOTest {
     }
 
     @Test
-    public void findUserByUseridAndPasswordTest(){
-        try{
-            employer.setEmployer("findUserByUseridAndPasswordTest", "germany", "strasse", "5", "Ort", "12345", "findUserByUseridAndPasswordTest@ag.com", "123");
+    public void findUserByUseridAndPasswordTest() throws DatabaseLayerException {
+        employer.setEmployer("findUserByUseridAndPasswordTest", "germany", "strasse", "5", "Ort", "12345", "findUserByUseridAndPasswordTest@ag.com", "123");
 
-            assertEquals("findUserByUseridAndPasswordTest@ag.com", user.findUserByUserEmailAndPassword("findUserByUseridAndPasswordTest@ag.com", "123").getEmail());
+        assertEquals("findUserByUseridAndPasswordTest@ag.com", user.findUserByUserEmailAndPassword("findUserByUseridAndPasswordTest@ag.com", "123").getEmail());
 
-            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("findUserByUseridAndPasswordTest@ag.com", "123").getId());
-        }
-        catch(DatabaseLayerException e){
-            assertEquals(true, false);
-        }
+        employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("findUserByUseridAndPasswordTest@ag.com", "123").getId());
+
         assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUserEmailAndPassword("nicht Vorhanden", "123")).getReason());
     }
 
@@ -65,17 +61,11 @@ public class UserDAOTest {
     }
 
     @Test
-    public void getUserPasswordByIdTest(){
-        try {
-            employer.setEmployer("getUserPasswordByIdTest", "germany", "strasse", "5", "Ort", "12345", "getUserPasswordByIdTest@ag.com", "123");
-            int id = employer.findUserByUserEmailAndPassword("getUserPasswordByIdTest@ag.com", "123").getId();
-            assertEquals("123", user.getUserPasswordById(id));
+    public void getUserPasswordByIdTest() throws DatabaseLayerException {
+        employer.setEmployer("getUserPasswordByIdTest", "germany", "strasse", "5", "Ort", "12345", "getUserPasswordByIdTest@ag.com", "123");
+        int id = employer.findUserByUserEmailAndPassword("getUserPasswordByIdTest@ag.com", "123").getId();
+        assertEquals("123", user.getUserPasswordById(id));
 
-            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("getUserPasswordByIdTest@ag.com", "123").getId());
-        }
-        catch (DatabaseLayerException e){
-            System.out.println(e.getReason());
-            assertEquals(true, false);
-        }
+        employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("getUserPasswordByIdTest@ag.com", "123").getId());
     }
 }

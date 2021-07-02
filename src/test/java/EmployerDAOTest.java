@@ -27,36 +27,22 @@ public class EmployerDAOTest {
 
 
     @Test
-    public void setEmployerTest(){
-        try{
-            employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123");
-            UserDTO userDTO = user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
-            assertEquals("setEmployerTest@ag.com", userDTO.getEmail());
+    public void setEmployerTest() throws DatabaseLayerException {
+        employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123");
+        UserDTO userDTO = user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
+        assertEquals("setEmployerTest@ag.com", userDTO.getEmail());
 
-            assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class,
-                    () -> employer.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
+        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class,
+                () -> employer.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
 
-            employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());
-        }
-        catch(DatabaseLayerException e){
-            assertEquals(true, false);
-        }
-
-       //Todo
-        // Delete setEmployerTest@ag.com from Database after each run
+        employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());
     }
 
     @Test
-    public void deleteEmployerProfilTest(){
-        try {
-            employer.setEmployer("deleteEmployerProfil", "germany", "strasse", "5", "Ort", "12345", "deleteEmployerProfilTest@ag.com", "123");
-            int id = user.findUserByUserEmailAndPassword("deleteEmployerProfilTest@ag.com", "123").getId();
+    public void deleteEmployerProfilTest() throws DatabaseLayerException {
+        employer.setEmployer("deleteEmployerProfil", "germany", "strasse", "5", "Ort", "12345", "deleteEmployerProfilTest@ag.com", "123");
+        int id = user.findUserByUserEmailAndPassword("deleteEmployerProfilTest@ag.com", "123").getId();
 
-            employer.deleteEmployerProfil(id);
-        }
-        catch (DatabaseLayerException e){
-            System.out.println(e.getReason());
-            assertEquals(true, false);
-        }
+        employer.deleteEmployerProfil(id);
     }
 }
