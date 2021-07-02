@@ -16,6 +16,8 @@ public class MainControl {
                     "Please contact the admin");
         } else if (reason.equals(Globals.Errors.EXISTINGUSER)) {
             throw new DatabaseUserException("There is already a user with this email address!");
+        } else if (reason.equals(Globals.Errors.DOUBLEAPPLICATION)) {
+            throw new DatabaseUserException("You have already sent an application for this offer!");
         } else {
             throw new DatabaseUserException("A unknown failure occured");
         }

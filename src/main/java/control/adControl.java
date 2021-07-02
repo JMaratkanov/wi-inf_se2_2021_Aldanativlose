@@ -3,7 +3,9 @@ package control;
 import control.exceptions.DatabaseUserException;
 import daos.StellenanzeigeDAO;
 import daos.StudentDAO;
+import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 
 import java.time.LocalDate;
@@ -19,6 +21,13 @@ public class adControl extends MainControl{
 
         return liste;
     }
+
+
+    /*public static StellenanzeigeDTOimpl getInseratById(int InseratId) throws DatabaseLayerException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        StellenanzeigeDTOimpl inserat = dao.getInseratById(InseratId);
+        return inserat;
+    }*/
 
     public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
@@ -52,6 +61,7 @@ public class adControl extends MainControl{
     public void bewerben(int stellenanzeigeID, int userID) throws DatabaseUserException {
         StudentDAO dao = new StudentDAO();
         try {
+            dao.checkBewerbungDoppelt(stellenanzeigeID, userID);
             dao.bewerbungDurchfuehren(stellenanzeigeID, userID);
         } catch ( DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());

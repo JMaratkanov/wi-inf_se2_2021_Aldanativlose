@@ -27,6 +27,7 @@ public class Globals {
         public static final String SQLERROR = "Fehler im SQL-Befehl!";
         public static final String DATABASE = "Fehler bei Datenbankverbindung!";
         public static final String ILLEGALCHAR = "Sie versuchen ein nicht erlaubtes Zeichen zu verwenden. " +  "\n" + " Nicht erlaubt sind: '!'  ','  ':'";
+        public static final String DOUBLEAPPLICATION = "Sie haben sich bereits auf dieses Inserat beworben.";
     }
 
 }

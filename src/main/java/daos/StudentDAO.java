@@ -181,6 +181,7 @@ public class StudentDAO extends UserDAO{
     public void bewerbungDurchfuehren(int inseratID, int userID) throws DatabaseLayerException {
         int student_profil_id = getStudentIdByUserId(userID);
 
+        checkBewerbungDoppelt(inseratID, userID);
         PreparedStatement sql = null;
         try {
             sql = JDBCConnection.getInstance().getPreparedStatement(
@@ -194,5 +195,42 @@ public class StudentDAO extends UserDAO{
         }
         assert sql != null;
         executeSQLUpdateCommand(sql);
+    }
+
+    public void checkBewerbungDoppelt(int stellenanzeigeID, int userID) throws DatabaseLayerException {
+        ResultSet set;
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT COUNT(*) FROM collhbrs.bewerbung WHERE inserat_id = ? AND student_profil = ?");
+                sql.setInt(1, stellenanzeigeID);
+                sql.setInt(2, userID);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert sql != null;
+            set = sql.executeQuery();
+            int erg = 2;
+            if(set.next()) {
+                erg = set.getInt(1);
+            }
+            ///erg = 3; // zum testen ob Fehler geworfen wird => ja, wird korrekt geworfen
+
+            if (erg == 1) {
+                throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
+            }else if(erg>=1){
+                throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
+            }else{
+                //throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
+            }
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
     }
 }
