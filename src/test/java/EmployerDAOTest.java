@@ -10,39 +10,39 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EmployerDAOTest {
-    private static UserDAO user;
-    private static EmployerDAO employer;
+    private static UserDAO userDAO;
+    private static EmployerDAO employerDAO;
 
     @BeforeClass
     public static void setup(){
-        user = new UserDAO();
-        employer = new EmployerDAO();
+        userDAO = new UserDAO();
+        employerDAO = new EmployerDAO();
     }
 
     @AfterClass
     public static void tearDown(){
-        user = null;
-        employer = null;
+        userDAO = null;
+        employerDAO = null;
     }
 
 
     @Test
     public void setEmployerTest() throws DatabaseLayerException {
-        employer.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123");
-        UserDTO userDTO = user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
+        employerDAO.setEmployer("setEmployerTest", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123");
+        UserDTO userDTO = userDAO.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
         assertEquals("setEmployerTest@ag.com", userDTO.getEmail());
 
         assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class,
-                () -> employer.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
+                () -> employerDAO.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
 
-        employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());
+        employerDAO.deleteEmployerProfil(userDAO.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());
     }
 
     @Test
     public void deleteEmployerProfilTest() throws DatabaseLayerException {
-        employer.setEmployer("deleteEmployerProfil", "germany", "strasse", "5", "Ort", "12345", "deleteEmployerProfilTest@ag.com", "123");
-        int id = user.findUserByUserEmailAndPassword("deleteEmployerProfilTest@ag.com", "123").getId();
+        employerDAO.setEmployer("deleteEmployerProfil", "germany", "strasse", "5", "Ort", "12345", "deleteEmployerProfilTest@ag.com", "123");
+        int id = userDAO.findUserByUserEmailAndPassword("deleteEmployerProfilTest@ag.com", "123").getId();
 
-        employer.deleteEmployerProfil(id);
+        employerDAO.deleteEmployerProfil(id);
     }
 }
