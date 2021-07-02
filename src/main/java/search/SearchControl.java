@@ -1,4 +1,4 @@
-package Search;
+package search;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
@@ -8,7 +8,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import dtos.impl.StellenanzeigeDTOimpl;
 import org.apache.commons.lang3.StringUtils;
 
-public class searchControl implements suche{
+public class SearchControl implements Suche {
     @Override
     public Grid filter(ListDataProvider<StellenanzeigeDTOimpl> dataProvider, Grid grid) {
         HeaderRow filterRow = grid.appendHeaderRow();
@@ -18,6 +18,7 @@ public class searchControl implements suche{
         TextField placefield  = new TextField();
         TextField typefield   = new TextField();
         TextField statusfield = new TextField();
+        String filter = "Filter";
 
 
 
@@ -29,7 +30,7 @@ public class searchControl implements suche{
         titelfield.setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("titleColum")).setComponent(titelfield);
         titelfield.setSizeFull();
-        titelfield.setPlaceholder("Filter");
+        titelfield.setPlaceholder(filter);
 //startfield
         startfield.addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(ad.getDateVon().toString(),
@@ -38,7 +39,7 @@ public class searchControl implements suche{
         startfield.setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("startColum")).setComponent(startfield);
         startfield.setSizeFull();
-        startfield.setPlaceholder("Filter");
+        startfield.setPlaceholder(filter);
 //hoursfield
         hoursfield .addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(Integer.toString(ad.getStundenProWoche()),
@@ -47,7 +48,7 @@ public class searchControl implements suche{
         hoursfield .setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("hoursColum")).setComponent(hoursfield );
         hoursfield .setSizeFull();
-        hoursfield .setPlaceholder("Filter");
+        hoursfield .setPlaceholder(filter);
 //placefield
         placefield.addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(ad.getStandort(),
@@ -55,7 +56,7 @@ public class searchControl implements suche{
         placefield.setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("placeColum")).setComponent(placefield);
         placefield.setSizeFull();
-        placefield.setPlaceholder("Filter");
+        placefield.setPlaceholder(filter);
 //typefield
         typefield .addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(ad.getInseratTyp(),
@@ -64,7 +65,7 @@ public class searchControl implements suche{
         typefield .setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("typeColum")).setComponent(typefield);
         typefield.setSizeFull();
-        typefield.setPlaceholder("Filter");
+        typefield.setPlaceholder(filter);
 //statusfield
         statusfield.addValueChangeListener(event -> dataProvider.addFilter(
                 ad -> StringUtils.containsIgnoreCase(ad.getStatus(),
@@ -73,7 +74,7 @@ public class searchControl implements suche{
         statusfield.setValueChangeMode(ValueChangeMode.EAGER);
         filterRow.getCell(grid.getColumnByKey("statusColum")).setComponent(statusfield);
         statusfield.setSizeFull();
-        statusfield.setPlaceholder("Filter");
+        statusfield.setPlaceholder(filter);
 
         return grid;
     }

@@ -1,8 +1,7 @@
 package ui.appViews;
 
-import Search.SearchControlproxy;
-import Search.searchControl;
-import Search.suche;
+import search.SearchControlproxy;
+import search.Suche;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -12,7 +11,6 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.notification.Notification;
@@ -33,7 +31,6 @@ import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 import globals.Globals;
-import org.apache.commons.lang3.StringUtils;
 import ui.layouts.AppLayout;
 
 
@@ -261,7 +258,7 @@ public class AdView extends Div {
 
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
-        suche filterSuche = new SearchControlproxy();
+        Suche filterSuche = new SearchControlproxy();
         //filterRow.getCell(titleColum).setComponent(modelField);
         grid = filterSuche.filter(dataProvider, grid);
 
