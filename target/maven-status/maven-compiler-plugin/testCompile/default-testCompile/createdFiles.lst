@@ -6,8 +6,10 @@ EmployerDAOTest.class
 StellenanzeigeDTOimplTest.class
 LoginWebPageTest.class
 RolleDTOimplTest.class
+StellenanzeigeDAOTest.class
 RegistrationTest.class
 SettingsControlTest.class
 BewerbungDTOimplTest.class
+ApplSetForEmployerDTOTest.class
 UserDTOimplTest.class
 LogoutWebPageTest.class

@@ -17,11 +17,10 @@ import dtos.UserDTO;
 import globals.Globals;
 
 public class SettingsView_Tab3 {
-    private LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
-    private SettingsControl settingsControl = new SettingsControl();
+    private final LoginControl loginControl = new LoginControl(); //Um die current user ID zu bekommen
+    private final SettingsControl settingsControl = new SettingsControl();
 
     public Div createView(Div page3, PasswordField alt, PasswordField neu,PasswordField neu2, Button cancel, Button save) {
-
         FormLayout formLayout = new FormLayout();
         formLayout.add(alt, neu, neu2);
         page3.add(formLayout);

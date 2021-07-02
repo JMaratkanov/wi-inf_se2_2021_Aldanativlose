@@ -68,7 +68,8 @@ public class SettingsView extends Div {
         setId("settings-view");
         add(createTitle());
 
-
+        Tabs tabs;
+        Div pages;
 
             //Tab 1
         Tab tab1 = new Tab("Allgemeine Daten");
@@ -77,9 +78,6 @@ public class SettingsView extends Div {
         Div page2 = new Div();
         if(!isEmployer) {
             page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
-
-            //Tab2
-
             page2.setVisible(false);
             page2 = buildTab2.createView(page2);
         }
@@ -96,7 +94,6 @@ public class SettingsView extends Div {
         page4.setVisible(false);
         page4 = buildTab4.createView(isEmployer, page4, delete);
 
-
         //allgemein Tab management
         Map<Tab, Component> tabsToPages = new HashMap<>();
         if(!isEmployer) {
@@ -106,33 +103,27 @@ public class SettingsView extends Div {
         tabsToPages.put(tab3, page3);
         tabsToPages.put(tab4, page4);
         if(isEmployer) {
-            Tabs tabs = new Tabs(tab3, tab4);
+            tabs = new Tabs(tab3, tab4);
             tabs.setSelectedTab(tab4);
-            Div pages = new Div(page3, page4);
+            pages = new Div(page3, page4);
+            Tabs finalTabs = tabs;
             tabs.addSelectedChangeListener(event -> {
                 tabsToPages.values().forEach(page -> page.setVisible(false));
-                Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+                Component selectedPage = tabsToPages.get(finalTabs.getSelectedTab());
                 selectedPage.setVisible(true);
             });
-            add(tabs, pages);
-
-        }
-        else {
-            Tabs tabs = new Tabs(tab1, tab2, tab3, tab4);
+        } else {
+            tabs = new Tabs(tab1, tab2, tab3, tab4);
             tabs.setSelectedTab(tab1);
-            Div pages = new Div(page1, page2, page3, page4);
+            pages = new Div(page1, page2, page3, page4);
+            Tabs finalTabs1 = tabs;
             tabs.addSelectedChangeListener(event -> {
                 tabsToPages.values().forEach(page -> page.setVisible(false));
-                Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+                Component selectedPage = tabsToPages.get(finalTabs1.getSelectedTab());
                 selectedPage.setVisible(true);
             });
-            add(tabs, pages);
-
         }
-        //switch tabs listener
-
-
-        //add(tabs, pages);
+        add(tabs, pages);
     }
 
     private UserDTO getCurrentUser() {
@@ -141,7 +132,7 @@ public class SettingsView extends Div {
 
     private boolean getTrueIfSessionIsEmployer(){
         int rolle = getCurrentUser().getRole();
-        return (rolle==2)?true:false;
+        return rolle == 2;
     }
 
     private Component createTitle() {

@@ -41,30 +41,24 @@ import java.util.concurrent.atomic.AtomicReference;
 @Route(value = "ads", layout = AppLayout.class)
 @PageTitle("Stellenanzeigen")
 public class AdView extends Div {
-    private boolean isEmployer = getTrueIfSessionIsEmployer();
+    private final boolean isEmployer = getTrueIfSessionIsEmployer();
 
-    private AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
+    private final AtomicReference<Dialog> dialog = new AtomicReference<>(new Dialog());
     private double verguetung = 0.0;
     private int stunden = 0;
-    private adControl adControl = new adControl();
-    //private TextField suche = new TextField("Suche");
-    //Select<String> wasSelect = new Select<>();
-    //private TextField plztext = new TextField("PLZ");
-    //Select<String> umkreisSelect = new Select<>();
-    private Button newAd = new Button("Neue Stellenanzeige Aufgeben");
-    private Button newAdFinal = new Button("Stellenanzeige Aufgeben");
+    private final adControl adControl = new adControl();
+    private final Button newAdFinal = new Button("Stellenanzeige Aufgeben");
 
     //Inhalt der Stellenanzeige
-    private TextField Bezeichnung = new TextField("Bezeichnung");
-    private TextField Standort = new TextField("Standort"); //Lieber außerhalb eine Liste angeben
-    private TextArea Inhalt = new TextArea("Inhalt");
-    private DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
-    private DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
-    //Select<String> StundenProWoche = new Select<>("Unter 5", "Unter 10", "Unter 20", "Unter 30", "Über 30");
-    private IntegerField StundenProWoche = new IntegerField("Stunden pro Woche");
-    private NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
+    private final TextField Bezeichnung = new TextField("Bezeichnung");
+    private final TextField Standort = new TextField("Standort"); //Lieber außerhalb eine Liste angeben
+    private final TextArea Inhalt = new TextArea("Inhalt");
+    private final DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
+    private final DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
+    private final IntegerField StundenProWoche = new IntegerField("Stunden pro Woche");
+    private final NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
     Select<String> InseratTyp = new Select<>("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
-    private TextField Ansprechpartner = new TextField("Ansprechpartner");
+    private final TextField Ansprechpartner = new TextField("Ansprechpartner");
     Select<String> Branche = new Select<>("It", "Automobil", "Sonstige");
 
 
@@ -76,46 +70,42 @@ public class AdView extends Div {
         //Button
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
+        Button newAd = new Button("Neue Stellenanzeige Aufgeben");
         newAd.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(newAd);
 
-
-
         if(isEmployer) {
-        newAd.addClickListener(e -> {
-                    dialog.set(new Dialog());
-                    dialog.get().add(new Div(formLayout, newAdFinal));
-                    dialog.get().setWidth("1000px");
-                    dialog.get().setHeight("10000px");
-                    dialog.get().open();
-                });
-
-        newAdFinal.addClickListener(e -> {
-            if (!VerguetungProStunde.isEmpty()){ verguetung = VerguetungProStunde.getValue();}
-            if (!StundenProWoche.isEmpty()){ stunden = StundenProWoche.getValue();}
-            createNewAd(
-                Bezeichnung.getValue(),
-                Standort.getValue(),
-                DateVon.getValue(),
-                DateBis.getValue(),
-                stunden,
-                verguetung,
-                InseratTyp.getValue(),
-                Ansprechpartner.getValue(),
-                Branche.getValue(),
-                Inhalt.getValue()
-            );
-                //dialog.get().close();
-               /* Notification.show(Bezeichnung.getValue() +
-                        Standort.getValue() +
-                        DateVon.getValue() +DateBis.getValue() + StundenProWoche.getValue()
-                        + VerguetungProStunde.getValue() + InseratTyp.getValue() + Ansprechpartner.getValue()
-                        + Branche.getValue() + Inhalt.getValue());*/
+            newAd.addClickListener(e -> {
+                dialog.set(new Dialog());
+                dialog.get().add(new Div(formLayout, newAdFinal));
+                dialog.get().setWidth("1000px");
+                dialog.get().setHeight("10000px");
+                dialog.get().open();
             });
 
+            newAdFinal.addClickListener(e -> {
+                if (!VerguetungProStunde.isEmpty()) {
+                    verguetung = VerguetungProStunde.getValue();
+                }
+                if (!StundenProWoche.isEmpty()) {
+                    stunden = StundenProWoche.getValue();
+                }
+                createNewAd(
+                        Bezeichnung.getValue(),
+                        Standort.getValue(),
+                        DateVon.getValue(),
+                        DateBis.getValue(),
+                        stunden,
+                        verguetung,
+                        InseratTyp.getValue(),
+                        Ansprechpartner.getValue(),
+                        Branche.getValue(),
+                        Inhalt.getValue()
+                );
+            });
             add(newAd);
-
         }
+
         setId("ad-view");
         addClassName("wrapper");
         add(createTitle());
@@ -166,32 +156,19 @@ public class AdView extends Div {
     }
 
     private  Component filter() {
-        //wasSelect.setItems("Option one", "Option two");
-        //wasSelect.setLabel("Was?");
-        //umkreisSelect.setItems("5km", "10km", "20km", "50km", "+50km");
-        //umkreisSelect.setLabel("Umkreis");
-        //suche.setMaxWidth("1000px");
-        //wasSelect.setMaxWidth("100px");
-        //plztext.setMaxWidth("100px");
-        //umkreisSelect.setMaxWidth("100px");
-
         Branche.setLabel("Branchenauswahl");
         Branche.setItems("It", "Automobil", "Sonstige");
         Branche.setValue("Sonstige");
         InseratTyp.setLabel("Typ des Inserats");
         InseratTyp.setItems("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");
         InseratTyp.setValue("keine Angabe");
-        //StundenProWoche.setLabel("Wochenstunden");
-        //StundenProWoche.setItems("Bis 5", "Bis 10", "Bis 15", "bis 20", "bis 30", "bis 40", "über 40");
         Bezeichnung.setRequired(true);
         Inhalt.setRequired(true);
         DateVon.setRequired(true);
         DateBis.setRequired(true);
         Ansprechpartner.setRequired(true);
 
-        //Standort.setRequired(true);
         FormLayout formLayout = new FormLayout();
-        //formLayout.add(suche,wasSelect,plztext,umkreisSelect);
         formLayout.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("1000px", 1),
                 new FormLayout.ResponsiveStep("100px", 2),
@@ -216,24 +193,26 @@ public class AdView extends Div {
 
         // Create a grid bound to the list
         Grid<StellenanzeigeDTOimpl> grid = new Grid<>();
-        //assert stellenanzeigenList != null;
+        assert stellenanzeigenList != null;
         ListDataProvider<StellenanzeigeDTOimpl> dataProvider = new ListDataProvider<>(stellenanzeigenList);
 
         grid.setDataProvider(dataProvider);
         grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("titleColum");
         grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px").setKey("startColum");
-        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("100px").setKey("hoursColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("120px").setKey("hoursColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px").setKey("placeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px").setKey("statusColum");
 
+        /*
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
-                d.add( new Text( "TODO Clicked Item: " + event.getItem()) );
+                d.add( new Text( "Clicked Item: " + event.getItem()) );
                 d.setWidth("800px");
                 d.setHeight("500px");
                 d.open();
         });
+        */
 
         if(!isEmployer) {
             grid.addColumn(
@@ -250,20 +229,13 @@ public class AdView extends Div {
                             })
             ).setFlexGrow(0).setWidth("200px");
         }
-
-        //HeaderRow filterRow = grid.appendHeaderRow();
-
-        // First filter Hier noch andere Filter Felder einfügen, am besten generalisiert
         TextField modelField = new TextField();
-
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
         Suche filterSuche = new SearchControlproxy();
-        //filterRow.getCell(titleColum).setComponent(modelField);
         grid = filterSuche.filter(dataProvider, grid);
 
-
-
+        grid.setHeight("600px");
         return grid;
     }
 
