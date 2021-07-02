@@ -90,28 +90,21 @@ public class UserDAO {
     }
 
     public void updatePassword(int id, String password) throws DatabaseLayerException {
+        PreparedStatement sql = null;
         try {
-            PreparedStatement sql = null;
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.user " +
-                                "SET password = (?)" +
-                                "WHERE id=(?)");
-                sql.setString(1, password);
-                sql.setInt(2, id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
-        } catch (SQLException ex) {
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "UPDATE collhbrs.user " +
+                            "SET password = (?)" +
+                            "WHERE id=(?)");
+            sql.setString(1, password);
+            sql.setInt(2, id);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
+        } catch (SQLException es) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 
     public String getUserPasswordById(int id) throws DatabaseLayerException {
@@ -176,5 +169,17 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
         return studentProfilId;
+    }
+
+    public void executeSQLUpdateCommand(PreparedStatement ps) throws DatabaseLayerException {
+        try {
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
     }
 }

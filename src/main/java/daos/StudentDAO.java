@@ -136,37 +136,30 @@ public class StudentDAO extends UserDAO{
             gebTagAsDate = Date.valueOf(geb_date);
         }
 
+        PreparedStatement sql = null;
         try {
-            PreparedStatement sql = null;
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.student_profil " +
-                                "SET vorname = (?), nachname = (?), referenzen = (?), kenntnisse = (?), kurzbeschreibung = (?), " +
-                                "semester = (?), studiengang = (?), fachbereich = (?), geb_date = (?)" +
-                                "WHERE id=(?)");
-                sql.setString(1, vorname);
-                sql.setString(2, nachname);
-                sql.setString(3, referenzen);
-                sql.setString(4, kenntnisse);
-                sql.setString(5, kurzbeschreibung);
-                sql.setDate(6, semesterAsDate);
-                sql.setString(7, studiengang);
-                sql.setString(8, fachbereich);
-                sql.setDate(9, gebTagAsDate);
-                sql.setInt(10, student_profil_id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "UPDATE collhbrs.student_profil " +
+                            "SET vorname = (?), nachname = (?), referenzen = (?), kenntnisse = (?), kurzbeschreibung = (?), " +
+                            "semester = (?), studiengang = (?), fachbereich = (?), geb_date = (?)" +
+                            "WHERE id=(?)");
+            sql.setString(1, vorname);
+            sql.setString(2, nachname);
+            sql.setString(3, referenzen);
+            sql.setString(4, kenntnisse);
+            sql.setString(5, kurzbeschreibung);
+            sql.setDate(6, semesterAsDate);
+            sql.setString(7, studiengang);
+            sql.setString(8, fachbereich);
+            sql.setDate(9, gebTagAsDate);
+            sql.setInt(10, student_profil_id);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 
     public void deleteStudentProfil(int id) throws DatabaseLayerException {
@@ -192,7 +185,7 @@ public class StudentDAO extends UserDAO{
         }
     }
 
-    public void bewerbungDurchführen(int inseratID, int userID) throws DatabaseLayerException {
+    public void bewerbungDurchfuehren(int inseratID, int userID) throws DatabaseLayerException {
         int student_profil_id = getStudentIdByUserId(userID);
 
         PreparedStatement sql = null;

@@ -1,7 +1,6 @@
 import daos.BewerbungDAO;
 import daos.StellenanzeigeDAO;
 import daos.StudentDAO;
-import daos.UserDAO;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
 import dtos.impl.BewerbungDTOimpl;
@@ -57,7 +56,7 @@ public class BewerbungDAOTest {
             }
         }
 
-        student.bewerbungDurchführen(inseratId, student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
+        student.bewerbungDurchfuehren(inseratId, student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
 
         list = bewerbung.getAll(student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
         assertEquals(1, list.size());
