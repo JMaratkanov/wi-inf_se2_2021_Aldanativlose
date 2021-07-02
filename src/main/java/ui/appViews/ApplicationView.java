@@ -80,14 +80,16 @@ public class ApplicationView extends Div {
         grid.addColumn(
                 new NativeButtonRenderer<>("Bewerbung ablehnen",
                         clickedItem -> {
-                            declineApplication(clickedItem.getID());
+                            apllicationEdit(clickedItem.getID(),2);
+                            Notification.show("Bewerbung abgelehnt!");
                         })
         ).setFlexGrow(0).setWidth("200px");
 
         grid.addColumn(
                 new NativeButtonRenderer<>("Zum Vorstellungsgespräch einladen",
                         clickedItem -> {
-                            // mach was
+                            apllicationEdit(clickedItem.getID(),3);
+                            Notification.show("Bewerber ist eingeladen!");
                         })
         ).setFlexGrow(0).setWidth("250px");
 
@@ -138,10 +140,10 @@ public class ApplicationView extends Div {
         return grid;
     }
 
-    private void declineApplication(int ApplicationID) {
+    private void apllicationEdit(int applicationID, int status) {
         try {
-            applicationControl.bewerbungablehen(ApplicationID);
-            Notification.show("Bewerbung abgelehnt!");
+            applicationControl.apllicationEdit(applicationID,status);
+
         } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add(new Text(e.getReason()));

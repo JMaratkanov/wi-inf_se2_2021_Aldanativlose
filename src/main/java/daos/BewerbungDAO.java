@@ -236,14 +236,15 @@ public class BewerbungDAO {
 
         return liste;
     }
-    public void bewerbungablehnen(int applicationID) throws DatabaseLayerException {
+    public void apllicationEdit(int applicationID, int antwort) throws DatabaseLayerException {
         PreparedStatement sql = null;
         PreparedStatement sql2 = null;
         try {
             try {
                 sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.bewerbung SET status = 2 WHERE id = ?");
-                sql.setInt(1, applicationID);
+                        "UPDATE collhbrs.bewerbung SET status = ? WHERE id = ?");
+                sql.setInt(1, antwort);
+                sql.setInt(2, applicationID);
 
                 sql2 = JDBCConnection.getInstance().getPreparedStatement(
                        "UPDATE collhbrs.bewerbung SET visible = false WHERE id = ?");

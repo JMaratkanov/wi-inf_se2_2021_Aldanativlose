@@ -11,10 +11,10 @@ import java.util.List;
 
 public class applicationControl extends MainControl{
 
-    public void bewerbungablehen(int applicationID) throws DatabaseUserException {
+    public void apllicationEdit(int applicationID, int status) throws DatabaseUserException {
         BewerbungDAO dao = new BewerbungDAO();
         try {
-            dao.bewerbungablehnen(applicationID);
+            dao.apllicationEdit(applicationID, status);
         } catch ( DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());
         }
