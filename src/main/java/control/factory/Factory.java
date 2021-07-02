@@ -9,7 +9,6 @@ public class Factory {
         x.setFirstname(firstname);
         x.setLastname(lastname);
         return x;
-
     }
 
     public static UserDTOimpl createUserIF(int id, String firstname) {
