@@ -45,14 +45,8 @@ public class UserDAO {
                 user.setId( set.getInt(1));
                 user.setEmail(set.getString(2));
                 user.setRole(set.getInt(5));
-                //TODO
-                // Haben setFirstname und setLastname für den Zugriff auf unsere Datenbank ausgenommen, da wir Vor- und Nachname
-                // bisher nicht in der User Tabelle vorhanden ist. Ggf.: muss das hier noch angepasst werden!
-                //user.setFirstname( set.getString(4));
-                //user.setLastname(set.getString(5));
 
                 return user;
-
             } else {
                 // Error Handling
                 throw new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
@@ -148,5 +142,38 @@ public class UserDAO {
             JDBCConnection.getInstance().closeConnection();
         }
         return userPW;
+    }
+
+    public int getPersonalIdByUserId(int id, String role) throws DatabaseLayerException {
+        ResultSet set;
+        int studentProfilId = 0;
+
+        try {
+            PreparedStatement statement = null;
+            try {
+                if(role == "Unternehmer") {
+                    statement = JDBCConnection.getInstance().getPreparedStatement("SELECT unternehmen_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                }
+                statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
+                statement.setInt(1, id);
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert statement != null;
+            set = statement.executeQuery();
+
+            if(set.next()) {
+                studentProfilId = set.getInt(1);
+            }
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+        return studentProfilId;
     }
 }

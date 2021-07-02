@@ -68,33 +68,7 @@ public class StudentDAO extends UserDAO{
     }
 
     public int getStudentIdByUserId(int id) throws DatabaseLayerException {
-        ResultSet set;
-        int studentProfilId = 0;
-
-        try {
-            PreparedStatement statement = null;
-            try {
-                statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
-                statement.setInt(1, id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-
-            assert statement != null;
-            set = statement.executeQuery();
-
-            if(set.next()) {
-                studentProfilId = set.getInt(1);
-            }
-
-        } catch (SQLException ex) {
-            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
-        }
-        return studentProfilId;
+        return getPersonalIdByUserId(id, "Student");
     }
 
     public UserDTO getFullStudentDTOByStudentID(int id) throws DatabaseLayerException {
