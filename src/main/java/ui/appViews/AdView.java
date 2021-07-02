@@ -213,8 +213,32 @@ public class AdView extends Div {
             d.add( new Html("<hr class='dickelinie'/>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Verfügbar ab: </b>" + event.getItem().getDateVon() + "</span>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Standort: </b>" + event.getItem().getStandort() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Typ: </b>" + event.getItem().getInseratTyp() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Arbeitszeit: </b>" + event.getItem().getStundenProWoche() + " Stunden pro Woche</span>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Stundenlohn: </b>" + event.getItem().getStundenlohn() + "€/h</span>") );
             d.add( new Html("<hr class='dickelinie'/>") );
+            d.add( new Html("<span class='inseratcontent'>" + event.getItem().getContent() + "</span>") );
+            d.add( new Html("<hr class='dickelinie'/>") );
+            d.add( new Html("<span><b>Unternehmen: </b>" + event.getItem().getFirmenname() + "</span>") );
+            d.add( new Html("<br/>") );
+            if(event.getItem().getAnsprechpartner()!=null){
+                d.add( new Html("<span><b>Ansprechpartner: </b>" + event.getItem().getAnsprechpartner() + "</span>") );
+                d.add( new Html("<br/>") );
+            }
+
+            if(!isEmployer){
+                if(event.getItem().getStatus()=="Offen"){
+                    d.add( new Button("Jetzt bewerben!" , e -> submitApplication(event.getItem().getID()) ) );
+                }else{
+                    d.add( new Html("<vaadin-button disabled>Ausschreibung beendet</vaadin-button>"));
+                    d.add( new Html("<span class='smalltext'><b>Eine Bewerbung ist leider nicht mehr möglich</b></span>") );
+                }
+
+            }
+
+
+            d.add( new Html("<span class='grey-text'>Job-ID: #" + event.getItem().getID() + "</span>") );
+
 
                 d.setWidth("800px");
                 d.setHeight("500px");

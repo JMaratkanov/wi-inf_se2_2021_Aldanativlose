@@ -52,3 +52,7 @@ vaadin-tab[selected] {
 .bewerbenbtn{
     font-size: 2em;
 }
+
+.smalltext{
+    font-size: .8em;
+}
