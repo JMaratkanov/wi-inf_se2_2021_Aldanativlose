@@ -38,7 +38,6 @@ public class UserDAOTest {
     @Test
     public void checkOnExistingUserTest() throws DatabaseLayerException {
         employer.setEmployer("checkOnExistingUserTest", "germany", "strasse", "5", "Ort", "12345", "checkOnExistingUserTest@ag.com", "123");
-
         assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("checkOnExistingUserTest@ag.com")).getReason());
 
         employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("checkOnExistingUserTest@ag.com", "123").getId());
