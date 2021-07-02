@@ -151,7 +151,7 @@ public class UserDAO {
         try {
             PreparedStatement statement = null;
             try {
-                if(role == "Unternehmer") {
+                if(role.equals("Unternehmer")) {
                     statement = JDBCConnection.getInstance().getPreparedStatement("SELECT unternehmen_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
                 }
                 statement = JDBCConnection.getInstance().getPreparedStatement("SELECT student_profil FROM collhbrs.user WHERE collhbrs.user.id = ?");
