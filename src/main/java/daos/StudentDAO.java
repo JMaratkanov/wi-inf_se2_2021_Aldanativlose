@@ -163,26 +163,19 @@ public class StudentDAO extends UserDAO{
     }
 
     public void deleteStudentProfil(int id) throws DatabaseLayerException {
+        PreparedStatement sql = null;
         try {
-            PreparedStatement sql = null;
-            try {
-                int studentID = getStudentIdByUserId(id);
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "DELETE FROM collhbrs.student_profil WHERE collhbrs.student_profil.id = ?");
-                sql.setInt(1, studentID);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
+            int studentID = getStudentIdByUserId(id);
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "DELETE FROM collhbrs.student_profil WHERE collhbrs.student_profil.id = ?");
+            sql.setInt(1, studentID);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 
     public void bewerbungDurchfuehren(int inseratID, int userID) throws DatabaseLayerException {
@@ -190,23 +183,16 @@ public class StudentDAO extends UserDAO{
 
         PreparedStatement sql = null;
         try {
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "INSERT INTO collhbrs.bewerbung(inserat_id, student_profil) VALUES (?, ?)");
-                sql.setInt(1, inseratID);
-                sql.setInt(2, student_profil_id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "INSERT INTO collhbrs.bewerbung(inserat_id, student_profil) VALUES (?, ?)");
+            sql.setInt(1, inseratID);
+            sql.setInt(2, student_profil_id);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 }

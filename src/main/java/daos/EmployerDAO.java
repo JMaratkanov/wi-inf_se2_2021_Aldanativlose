@@ -62,26 +62,18 @@ public class EmployerDAO extends UserDAO{
     }
 
     public void deleteEmployerProfil(int id) throws DatabaseLayerException {
-
+        PreparedStatement sql = null;
         try {
-            PreparedStatement sql = null;
-            try {
-                int employerID = getEmployerIdByUserId(id);
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "DELETE FROM collhbrs.unternehmen_profil WHERE collhbrs.unternehmen_profil.id = ?");
-                sql.setInt(1, employerID);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
+            int employerID = getEmployerIdByUserId(id);
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "DELETE FROM collhbrs.unternehmen_profil WHERE collhbrs.unternehmen_profil.id = ?");
+            sql.setInt(1, employerID);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 }
