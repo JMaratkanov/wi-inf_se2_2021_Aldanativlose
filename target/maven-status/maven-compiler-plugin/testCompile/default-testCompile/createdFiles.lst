@@ -1,4 +1,5 @@
 StudentDTOimplTest.class
+BewerbungDAOTest.class
 RegistrationControlTest.class
 StudentDAOTest.class
 EmployerDAOTest.class

@@ -23,6 +23,7 @@ public class ApplSetForEmployerDTO {
     public void setStelle(String stelle) {
         this.stelle = stelle;
     }
+
     public String getStudentname() {
         return student_name;
     }
