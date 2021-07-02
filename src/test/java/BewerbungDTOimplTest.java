@@ -43,17 +43,21 @@ public class BewerbungDTOimplTest {
     public void statusTest(){
         assertEquals(null, bewerbung.getStatus());
         bewerbung.setStatus(0);
-        assertEquals("abgelehnt", bewerbung.getStatus());
+        assertEquals("Ausschreibung beendet", bewerbung.getStatus());
         bewerbung.setStatus(1);
-        assertEquals("Stelle noch verfügbar", bewerbung.getStatus());
+        assertEquals("Ausschreibung läuft noch", bewerbung.getStatus());
         bewerbung.setStatus(2);
-        assertEquals("Ausschreibung beendet", bewerbung.getStatus());
+        assertEquals("Bewerbung abgelehnt", bewerbung.getStatus());
+        bewerbung.setStatus(3);
+        assertEquals("Zum Vorstellungsgespräch eingeladen", bewerbung.getStatus());
         bewerbung.setStatusFromDB(0);
-        assertEquals("abgelehnt", bewerbung.getStatus());
-        bewerbung.setStatusFromDB(1);
-        assertEquals("Stelle noch verfügbar", bewerbung.getStatus());
-        bewerbung.setStatusFromDB(2);
         assertEquals("Ausschreibung beendet", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(1);
+        assertEquals("Ausschreibung läuft noch", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(2);
+        assertEquals("Bewerbung abgelehnt", bewerbung.getStatus());
+        bewerbung.setStatusFromDB(3);
+        assertEquals("Zum Vorstellungsgespräch eingeladen", bewerbung.getStatus());
     }
 
     @Test
