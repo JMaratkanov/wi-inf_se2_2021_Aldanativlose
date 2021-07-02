@@ -1,5 +1,6 @@
 package ui.appViews;
 
+import com.vaadin.flow.component.Html;
 import search.SearchControlproxy;
 import search.Suche;
 import com.vaadin.flow.component.Component;
@@ -204,15 +205,22 @@ public class AdView extends Div {
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px").setKey("statusColum");
 
-        /*
+
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();
-                d.add( new Text( "Clicked Item: " + event.getItem()) );
+
+            d.add( new Html("<h2>" + event.getItem().getTitle() + "</h2>") );
+            d.add( new Html("<hr class='dickelinie'/>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Verfügbar ab: </b>" + event.getItem().getDateVon() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Standort: </b>" + event.getItem().getStandort() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Stundenlohn: </b>" + event.getItem().getStundenlohn() + "€/h</span>") );
+            d.add( new Html("<hr class='dickelinie'/>") );
+
                 d.setWidth("800px");
                 d.setHeight("500px");
                 d.open();
         });
-        */
+
 
         if(!isEmployer) {
             grid.addColumn(
