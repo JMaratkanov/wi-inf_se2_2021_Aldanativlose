@@ -21,13 +21,14 @@ public class Globals {
 
     }
 
+    //"Technische" Fehler
     public static class Errors {
-        public static final String NOUSERFOUND = "Nutzer konnte nicht gefunden werden, sind sie bereits registriert?";
-        public static final String EXISTINGUSER = "User existiert bereits!";
-        public static final String SQLERROR = "Fehler im SQL-Befehl!";
-        public static final String DATABASE = "Fehler bei Datenbankverbindung!";
+        public static final String NOUSERFOUND = "No User could be found! Please check your credentials!";
+        public static final String EXISTINGUSER = "There is already a user with this email address!";
+        public static final String SQLERROR = "There were problems with the SQL code. Please contact the developer!";
+        public static final String DATABASE = "A failure occured while trying to connect to database with JDBC. Please contact the admin";
         public static final String ILLEGALCHAR = "Sie versuchen ein nicht erlaubtes Zeichen zu verwenden. " +  "\n" + " Nicht erlaubt sind: '!'  ','  ':'";
-        public static final String DOUBLEAPPLICATION = "Sie haben sich bereits auf dieses Inserat beworben.";
+        public static final String DOUBLEAPPLICATION = "You have already sent an application for this offer!";
     }
 
 }

@@ -1,6 +1,7 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
+import daos.BewerbungDAO;
 import daos.StellenanzeigeDAO;
 import daos.StudentDAO;
 import daos.UserDAO;

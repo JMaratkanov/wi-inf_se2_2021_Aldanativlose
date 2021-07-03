@@ -83,7 +83,6 @@ public class StudentDAO extends UserDAO{
                 e.printStackTrace();
             }
 
-            //TODO Select abfrage anpassen sodass alle Daten eines Studenten mit einer bestimmten ID ausgelesen werden
             assert sql != null;
             set = sql.executeQuery();
 
@@ -111,9 +110,7 @@ public class StudentDAO extends UserDAO{
                 user.setFachfromDB(set.getString(10));
                 user.setGeb_date(set.getDate(11));
 
-                //TODO rest des dtos füllen
                 return user;
-
             } else {
                 throw new DatabaseLayerException(Globals.Errors.NOUSERFOUND);
             }
@@ -181,7 +178,6 @@ public class StudentDAO extends UserDAO{
     public void bewerbungDurchfuehren(int inseratID, int userID) throws DatabaseLayerException {
         int student_profil_id = getStudentIdByUserId(userID);
 
-        checkBewerbungDoppelt(inseratID, userID);
         PreparedStatement sql = null;
         try {
             sql = JDBCConnection.getInstance().getPreparedStatement(
@@ -197,32 +193,27 @@ public class StudentDAO extends UserDAO{
         executeSQLUpdateCommand(sql);
     }
 
-    public void checkBewerbungDoppelt(int stellenanzeigeID, int userID) throws DatabaseLayerException {
+    public void checkBewerbungDoppelt(int inseratID, int userID) throws DatabaseLayerException {
         ResultSet set;
+        int student_profil_id = getStudentIdByUserId(userID);
         try {
             PreparedStatement sql = null;
             try {
                 sql = JDBCConnection.getInstance().getPreparedStatement("SELECT COUNT(*) FROM collhbrs.bewerbung WHERE inserat_id = ? AND student_profil = ?");
-                sql.setInt(1, stellenanzeigeID);
-                sql.setInt(2, userID);
+                sql.setInt(1, inseratID);
+                sql.setInt(2, student_profil_id);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
 
             assert sql != null;
             set = sql.executeQuery();
-            int erg = 2;
+            int erg = 1;
             if(set.next()) {
                 erg = set.getInt(1);
             }
-            ///erg = 3; // zum testen ob Fehler geworfen wird => ja, wird korrekt geworfen
-
-            if (erg == 1) {
+            if(erg > 0) {
                 throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
-            }else if(erg>=1){
-                throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
-            }else{
-                //throw new DatabaseLayerException(Globals.Errors.DOUBLEAPPLICATION);
             }
 
         } catch (SQLException ex) {

@@ -242,5 +242,4 @@ public class BewerbungDAO extends UserDAO{
         assert sql2 != null;
         executeSQLUpdateCommand(sql2);
     }
-
 }
