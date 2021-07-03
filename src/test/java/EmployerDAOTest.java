@@ -32,7 +32,7 @@ public class EmployerDAOTest {
         UserDTO userDTO = userDAO.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123");
         assertEquals("setEmployerTest@ag.com", userDTO.getEmail());
 
-        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class,
+        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class,
                 () -> employerDAO.setEmployer("setEmployerTestqwe", "germany", "strasse", "5", "Ort", "12345", "setEmployerTest@ag.com", "123")).getReason());
 
         employerDAO.deleteEmployerProfil(userDAO.findUserByUserEmailAndPassword("setEmployerTest@ag.com", "123").getId());

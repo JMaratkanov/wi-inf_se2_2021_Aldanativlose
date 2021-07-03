@@ -31,12 +31,12 @@ public class StudentDAOTest {
 
     @Test
     public void setStudentByEmailAndPasswordTest() throws DatabaseLayerException {
-        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
+        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
 
         student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
         UserDTO userDTO = student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
         assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
-        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
+        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
 
         student.deleteStudentProfil(student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123").getId());
     }
@@ -56,7 +56,7 @@ public class StudentDAOTest {
         assertEquals("Max", studentDTO.getFirstName());
         assertEquals("Mustermann", studentDTO.getLastName());
         student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getFullStudentDTOByStudentIDTest", "123").getId());
-        assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?",
+        assertEquals("No User could be found! Please check your credentials!",
                 assertThrows(DatabaseLayerException.class, ()-> student.getFullStudentDTOByStudentID(0)).getReason());
     }
 
