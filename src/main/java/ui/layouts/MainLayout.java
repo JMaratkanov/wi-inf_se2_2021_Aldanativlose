@@ -6,7 +6,6 @@ import ui.Login_Registration.Selection;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -59,7 +58,7 @@ public class MainLayout extends AppLayout {
         header.add(logo);
         //Avatar avatar = new Avatar();
         //avatar.setId("avatar");
-        header.add(new H1("Coll@HBRS"));
+        header.add(new H1(Globals.Headlines.MAIN_HEADLINE));
         //header.add(avatar);
         return header;
     }

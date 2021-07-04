@@ -27,6 +27,10 @@ public class Globals {
         public static final String VIEW_BACKGROUND = "#ffffff";
     }
 
+    public static class Headlines {
+        public static final String MAIN_HEADLINE = "Coll@HBRS - Das Kollaborations Portal";
+    }
+
     //"Technische" Fehler
     public static class Errors {
         public static final String NOUSERFOUND = "No User could be found! Please check your credentials!";
