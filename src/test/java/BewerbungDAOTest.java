@@ -1,9 +1,7 @@
-import daos.BewerbungDAO;
-import daos.StellenanzeigeDAO;
-import daos.StudentDAO;
-import daos.UserDAO;
+import daos.*;
 import db.JDBCConnection;
 import db.exceptions.DatabaseLayerException;
+import dtos.impl.ApplSetForEmployerDTO;
 import dtos.impl.BewerbungDTOimpl;
 import dtos.impl.StellenanzeigeDTOimpl;
 import org.junit.AfterClass;
@@ -23,12 +21,14 @@ public class BewerbungDAOTest {
     private static BewerbungDAO bewerbung;
     private static StudentDAO student;
     private static StellenanzeigeDAO stellenanzeige;
+    private static EmployerDAO employer;
 
     @BeforeClass
     public static void setup(){
         bewerbung = new BewerbungDAO();
         student = new StudentDAO();
         stellenanzeige = new StellenanzeigeDAO();
+        employer = new EmployerDAO();
     }
 
     @AfterClass
@@ -36,6 +36,7 @@ public class BewerbungDAOTest {
         bewerbung = null;
         student = null;
         stellenanzeige = null;
+        employer = null;
     }
 
     @Test
@@ -47,7 +48,8 @@ public class BewerbungDAOTest {
         assertEquals(list, bewerbung.getAll(student.findUserByUserEmailAndPassword("getAllTest", "123").getId()));
 
         LocalDate date = LocalDate.now();
-        stellenanzeige.newadtodao("BewerbungGetAllTest", "Bonn", date, date, 1, 1.0, 1, "demo", 1, "test");
+        stellenanzeige.newadtodao("BewerbungGetAllTest", "Bonn", date, date, 1, 1.0, 1, "demo", 1, "test", 209);
+
         int inseratId = 0;
         List<StellenanzeigeDTOimpl> stellenanzeigeDAOimplList = stellenanzeige.getAll();
         for(int i = 0; i < stellenanzeigeDAOimplList.size(); i++){
@@ -57,7 +59,7 @@ public class BewerbungDAOTest {
             }
         }
 
-        student.bewerbungDurchführen(inseratId, student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
+        student.bewerbungDurchfuehren(inseratId, student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
 
         list = bewerbung.getAll(student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
         assertEquals(1, list.size());
@@ -66,19 +68,48 @@ public class BewerbungDAOTest {
         stellenanzeige.cancelAd(inseratId);
         student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getAllTest", "123").getId());
 
-        deleteInserat();
+        deleteInserat("BewerbungGetAllTest");
 
     }
 
-    private void deleteInserat() throws DatabaseLayerException, SQLException {
-        PreparedStatement sql = JDBCConnection.getInstance().getPreparedStatement("DELETE FROM collhbrs.inserat WHERE collhbrs.inserat.title='BewerbungGetAllTest'");
+    private void deleteInserat(String inserat) throws DatabaseLayerException, SQLException {
+        PreparedStatement sql = JDBCConnection.getInstance().getPreparedStatement("DELETE FROM collhbrs.inserat WHERE collhbrs.inserat.title='" + inserat + "'");
         sql.executeUpdate();
     }
 
-    /*
+
     @Test
-    public void getAllApllicantsByEmployerIDTest(){
+    public void getAllApllicantsByEmployerIDTest() throws DatabaseLayerException, SQLException {
+        student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getAllApllicantsByEmployerIDTest", "123");
+        employer.setEmployer("getAllApllicantsByEmployerIDTest", "germany", "strasse", "5", "Ort", "12345", "getAllApllicantsByEmployerIDTest@ag.com", "123");
+
+        List<ApplSetForEmployerDTO> list = bewerbung.getAllApllicantsByEmployerID(employer.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest@ag.com", "123").getId());
+        assertEquals(0, list.size());
+        assertEquals(list, bewerbung.getAllApllicantsByEmployerID(employer.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest@ag.com", "123").getId()));
+
+        LocalDate date = LocalDate.now();
+        stellenanzeige.newadtodao("getAllApllicantsByEmployerIDTest", "Bonn", date, date, 1, 1.0, 1, "demo", 1, "test", employer.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest@ag.com", "123").getId());
+
+        int inseratId = 0;
+        List<StellenanzeigeDTOimpl> stellenanzeigeDAOimplList = stellenanzeige.getAll();
+        for(int i = 0; i < stellenanzeigeDAOimplList.size(); i++){
+            if(stellenanzeigeDAOimplList.get(i).getTitle().equals("getAllApllicantsByEmployerIDTest")){
+                inseratId = stellenanzeigeDAOimplList.get(i).getID();
+                break;
+            }
+        }
+
+        student.bewerbungDurchfuehren(inseratId, student.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest", "123").getId());
+
+        list = bewerbung.getAllApllicantsByEmployerID(employer.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest@ag.com", "123").getId());
+        assertEquals(1, list.size());
+
+        stellenanzeige.cancelAd(inseratId);
+        student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest", "123").getId());
+
+        deleteInserat("getAllApllicantsByEmployerIDTest");
+        employer.deleteEmployerProfil(employer.findUserByUserEmailAndPassword("getAllApllicantsByEmployerIDTest@ag.com", "123").getId());
 
     }
-     */
+
 }
