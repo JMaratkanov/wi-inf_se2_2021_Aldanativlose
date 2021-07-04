@@ -31,56 +31,11 @@ public class StellenanzeigeDAO extends UserDAO{
         assert sql != null;
         set = executeSQLQueryCommand(sql);
 
-        StellenanzeigeDTOimpl result;
-
-        boolean flipflop;
-            try {
-                do {
-                    flipflop = set.next();
-                    if (flipflop) {
-                        // inserat.branche_id, firmenname, beschreibung_kurz, kontaktemail, tel
-                        result = new StellenanzeigeDTOimpl();
-                        result.setID(set.getInt(1));
-                        result.setTitle(set.getString(2));
-                        result.setStandort(set.getString(3));
-                        result.setDateVon(set.getDate(4));
-                        result.setStundenProWoche(set.getInt(5));
-                        result.setInseratTyp(getInseratTypByID(set.getInt(6)));
-                        result.setStatus(set.getInt(7));
-                        result.setStundenlohn(set.getInt(8));
-                        result.setAnsprechpartner(set.getString(9));
-                        //result.set Branche 10
-                        result.setFirmenname(set.getString(11));
-                        result.setContent(set.getString(12));
-                        liste.add(result);
-                    }
-                }while(flipflop);
-            } catch (SQLException ex) {
-                throw new DatabaseLayerException(Globals.Errors.DATABASE);
-            } finally {
-                JDBCConnection.getInstance().closeConnection();
-            }
-        return liste;
+        return flipflop(set);
     }
 
-    public List<StellenanzeigeDTOimpl> getAllAdsOf1Employer(int userID) throws DatabaseLayerException {
-        PreparedStatement sql = null;
-        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
-        ResultSet set;
-        int idd = getPersonalIdByUserId(userID, "Unternehmer");
-
-        try {
-            sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status, verguetung_pro_stunde, inserat.ansprechpartner, inserat.branche_id, firmenname, inserat.content, beschreibung_kurz, kontaktemail, tel FROM collhbrs.inserat JOIN collhbrs.unternehmen_profil ON inserat.unternehmen_profil_id = unternehmen_profil.id WHERE inserat.unternehmen_profil_id = (?) ORDER BY status DESC, standort ASC");
-            sql.setInt(1, idd);
-        } catch (DatabaseLayerException e) {
-            e.printStackTrace();
-        } catch (SQLException ex) {
-            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        }
-
-        assert sql != null;
-        set = executeSQLQueryCommand(sql);
-
+    public ArrayList<StellenanzeigeDTOimpl> flipflop(ResultSet set) throws DatabaseLayerException{
+        ArrayList<StellenanzeigeDTOimpl> erg = new ArrayList<>();
         StellenanzeigeDTOimpl result;
 
         boolean flipflop;
@@ -102,7 +57,7 @@ public class StellenanzeigeDAO extends UserDAO{
                     //result.set Branche 10
                     result.setFirmenname(set.getString(11));
                     result.setContent(set.getString(12));
-                    liste.add(result);
+                    erg.add(result);
                 }
             }while(flipflop);
         } catch (SQLException ex) {
@@ -110,14 +65,35 @@ public class StellenanzeigeDAO extends UserDAO{
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
+        return erg;
+    }
 
-        return liste;
+    public List<StellenanzeigeDTOimpl> getAllAdsOf1Employer(int userID) throws DatabaseLayerException {
+        PreparedStatement sql = null;
+        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
+        ResultSet set;
+        int id = getPersonalIdByUserId(userID, "Unternehmer");
+
+        try {
+            sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status, verguetung_pro_stunde, inserat.ansprechpartner, inserat.branche_id, firmenname, inserat.content, beschreibung_kurz, kontaktemail, tel FROM collhbrs.inserat JOIN collhbrs.unternehmen_profil ON inserat.unternehmen_profil_id = unternehmen_profil.id WHERE inserat.unternehmen_profil_id = (?) ORDER BY status DESC, standort ASC");
+            sql.setInt(1, id);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        }
+
+        assert sql != null;
+        set = executeSQLQueryCommand(sql);
+
+        return flipflop(set);
     }
 
     public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, int stunden_pro_woche, double verguetung_pro_stunde, int inserat_typ, String ansprechpartner, int branche_id, String content, int userID) throws DatabaseLayerException {
         Date date_von = null; //java.sql.Date.valueOf(dateVon);
         Date date_bis = null; //java.sql.Date.valueOf(dateBis);
         PreparedStatement sql = null;
+        int id = getPersonalIdByUserId(userID, "Unternehmer");
 
         if (dateVon != null){
             date_von = Date.valueOf(dateVon);
@@ -136,7 +112,7 @@ public class StellenanzeigeDAO extends UserDAO{
             sql.setInt(6, 1);
             sql.setInt(7, stunden_pro_woche);
             sql.setDouble(8, verguetung_pro_stunde);
-            sql.setInt(9, 95);//getPersonalIdByUserId(userID, "Unternehmer"));
+            sql.setInt(9, id);
             sql.setInt(10, inserat_typ);
             sql.setString(11, ansprechpartner);
             sql.setInt(12, branche_id);
