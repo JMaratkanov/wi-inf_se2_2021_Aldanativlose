@@ -57,10 +57,10 @@ public class MainLayout extends AppLayout {
         Image logo = new Image("images/logo1.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
-        Avatar avatar = new Avatar();
-        avatar.setId("avatar");
+        //Avatar avatar = new Avatar();
+        //avatar.setId("avatar");
         header.add(new H1("Coll@HBRS"));
-        header.add(avatar);
+        //header.add(avatar);
         return header;
     }
 
