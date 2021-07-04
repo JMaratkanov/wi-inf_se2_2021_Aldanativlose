@@ -227,7 +227,7 @@ public class AdView extends Div {
             }
 
             if(!isEmployer){
-                if(event.getItem().getStatus()=="Offen"){
+                if(event.getItem().getStatus().equals("Offen")){
                     d.add( new Button("Jetzt bewerben!" , e -> submitApplication(event.getItem().getID()) ) );
                 }else{
                     d.add( new Html("<vaadin-button disabled>Ausschreibung beendet</vaadin-button>"));

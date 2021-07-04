@@ -133,7 +133,8 @@ public class ApplicationView extends Div {
     private void apllicationEdit(int applicationID, int status) {
         try {
             applicationControl.apllicationEdit(applicationID,status);
-
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.APPLICATION_VIEW);
         } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add(new Text(e.getReason()));

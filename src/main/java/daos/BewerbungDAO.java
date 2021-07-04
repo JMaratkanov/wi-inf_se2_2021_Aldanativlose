@@ -120,7 +120,7 @@ public class BewerbungDAO extends UserDAO{
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("select bewerbung.id, student_profil.vorname, student_profil.nachname, inserat.title, inserat.status, student_profil.id from collhbrs.student_profil join collhbrs.bewerbung on bewerbung.student_profil = student_profil.id join collhbrs.inserat on inserat.id = bewerbung.inserat_id WHERE bewerbung.visible = true AND  inserat.unternehmen_profil_id = " + employerID + "order by inserat.title");
+                sql = JDBCConnection.getInstance().getPreparedStatement("select bewerbung.id, student_profil.vorname, student_profil.nachname, inserat.title, bewerbung.status, student_profil.id from collhbrs.student_profil join collhbrs.bewerbung on bewerbung.student_profil = student_profil.id join collhbrs.inserat on inserat.id = bewerbung.inserat_id WHERE bewerbung.visible = true AND  inserat.unternehmen_profil_id = " + employerID + "order by inserat.title");
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }
@@ -219,18 +219,13 @@ public class BewerbungDAO extends UserDAO{
         return liste;
     }
 
-    public void apllicationEdit(int applicationID, int antwort) throws DatabaseLayerException {
+    public void apllicationEdit(int applicationID, int status) throws DatabaseLayerException {
         PreparedStatement sql = null;
-        PreparedStatement sql2 = null;
         try {
             sql = JDBCConnection.getInstance().getPreparedStatement(
-                    "UPDATE collhbrs.bewerbung SET status = ? WHERE id = ?");
-            sql.setInt(1, antwort);
+                    "UPDATE collhbrs.bewerbung SET status = ?, visible = false WHERE id = ?");
+            sql.setInt(1, status);
             sql.setInt(2, applicationID);
-
-            sql2 = JDBCConnection.getInstance().getPreparedStatement(
-                    "UPDATE collhbrs.bewerbung SET visible = false WHERE id = ?");
-            sql2.setInt(1, applicationID);
 
         } catch (DatabaseLayerException e) {
             e.printStackTrace();
@@ -239,7 +234,5 @@ public class BewerbungDAO extends UserDAO{
         }
         assert sql != null;
         executeSQLUpdateCommand(sql);
-        assert sql2 != null;
-        executeSQLUpdateCommand(sql2);
     }
 }
