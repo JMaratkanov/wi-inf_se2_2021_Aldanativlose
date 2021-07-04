@@ -79,11 +79,9 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
 
         header.add(new H1("Coll@HBRS - Das Kollaborations Portal"));
 
-        /*
         Avatar avatar = new Avatar();
         avatar.setId("avatar");
         header.add(avatar);
-         */
 
         helloUser = new H1();
         // Der Name des Users wird später reingesetzt, falls die Navigation stattfindet
