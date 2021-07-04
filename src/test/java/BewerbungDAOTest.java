@@ -46,7 +46,7 @@ public class BewerbungDAOTest {
         assertEquals(list, bewerbung.getAll(student.findUserByUserEmailAndPassword("getAllTest", "123").getId()));
 
         LocalDate date = LocalDate.now();
-        stellenanzeige.newadtodao("BewerbungGetAllTest", "Bonn", date, date, 1, 1.0, 1, "demo", 1, "test");
+        stellenanzeige.newadtodao("BewerbungGetAllTest", "Bonn", date, date, 1, 1.0, 1, "demo", 1, "test", 209);
         int inseratId = 0;
         List<StellenanzeigeDTOimpl> stellenanzeigeDAOimplList = stellenanzeige.getAll();
         for(int i = 0; i < stellenanzeigeDAOimplList.size(); i++){

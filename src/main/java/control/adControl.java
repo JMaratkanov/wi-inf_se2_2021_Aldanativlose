@@ -23,6 +23,12 @@ public class adControl extends MainControl{
         return liste;
     }
 
+    public List<StellenanzeigeDTOimpl> getAllAdsOf1Emp(int userId) throws DatabaseLayerException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+
+        return dao.getAllAdsOf1Employer(userId);
+    }
+
     public List<StellenanzeigeDTOimpl> getLatestAds() throws DatabaseLayerException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         List<StellenanzeigeDTOimpl> list = dao.getLatest();
@@ -36,7 +42,7 @@ public class adControl extends MainControl{
         return inserat;
     }*/
 
-    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
+    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt, int userID) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         int InseratTypInt = 6;
         int BrancheID = 2;
@@ -58,7 +64,7 @@ public class adControl extends MainControl{
         }
 
         try {
-            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt);
+            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt, userID);
         }
         catch (DatabaseLayerException e){
             checkReasonAndThrowEx(e.getReason());

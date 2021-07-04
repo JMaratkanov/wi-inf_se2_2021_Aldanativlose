@@ -111,7 +111,10 @@ public class AdView extends Div {
         addClassName("wrapper");
         add(createTitle());
         add(filter());
-        add(creategrid());
+        add(creategrid(false));
+        add(createYourAdsTitle());
+        add(createBodyText());
+        add(creategrid(true));
     }
 
     private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
@@ -141,7 +144,7 @@ public class AdView extends Div {
             Notification.show("Bitte geben Sie den Inhalt an!");
         } else {
             try {
-                adControl.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
+                adControl.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt, getCurrentUser().getId());
                 Notification.show("Stellenanzeige erfolgreich aufgegeben!");
                 dialog.get().close();
                 UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
@@ -179,11 +182,16 @@ public class AdView extends Div {
         return formLayout;
     }
 
-    private Component creategrid(){
+    private Component creategrid(boolean ownAds){
         List<StellenanzeigeDTOimpl> stellenanzeigenList = null;
 
         try {
-            stellenanzeigenList = adControl.getAlleStellenanzeigen();
+            if (ownAds){
+                stellenanzeigenList = adControl.getAllAdsOf1Emp(getCurrentUser().getId());
+            } else {
+                stellenanzeigenList = adControl.getAlleStellenanzeigen();
+            }
+
         } catch (DatabaseLayerException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
@@ -252,13 +260,16 @@ public class AdView extends Div {
                             })
             ).setFlexGrow(0).setWidth("200px");
         } else {
-            grid.addColumn(
-                    new NativeButtonRenderer<>("Ausschreibung beenden!",
-                            clickedItem -> {
-                                ausschreibungBeenden(clickedItem.getID());
-                            })
-            ).setFlexGrow(0).setWidth("200px");
+            if(ownAds) {
+                grid.addColumn(
+                        new NativeButtonRenderer<>("Ausschreibung beenden!",
+                                clickedItem -> {
+                                    ausschreibungBeenden(clickedItem.getID());
+                                })
+                ).setFlexGrow(0).setWidth("200px");
+            }
         }
+
         TextField modelField = new TextField();
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
@@ -270,7 +281,7 @@ public class AdView extends Div {
     }
 
     private Component createTitle() {
-        return new H3("Stellenanzeigen");
+        return new H3("Alle Stellenanzeigen");
     }
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
@@ -307,5 +318,10 @@ public class AdView extends Div {
             dialog.setHeight("150px");
             dialog.open();
         }
+    }
+
+    private Component createYourAdsTitle() { return new H3("Ihre Stellenanzeigen:");}
+    private Component createBodyText() {
+        return new Text("Hier sehen Sie Ihre Stellenanzeigen: \n");
     }
 }
