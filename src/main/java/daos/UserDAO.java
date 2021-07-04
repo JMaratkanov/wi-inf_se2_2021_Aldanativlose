@@ -90,28 +90,21 @@ public class UserDAO {
     }
 
     public void updatePassword(int id, String password) throws DatabaseLayerException {
+        PreparedStatement sql = null;
         try {
-            PreparedStatement sql = null;
-            try {
-                sql = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.user " +
-                                "SET password = (?)" +
-                                "WHERE id=(?)");
-                sql.setString(1, password);
-                sql.setInt(2, id);
-            } catch (DatabaseLayerException e) {
-                e.printStackTrace();
-            }
-            assert sql != null;
-            sql.executeUpdate();
-
-        } catch (SQLException ex) {
+            sql = JDBCConnection.getInstance().getPreparedStatement(
+                    "UPDATE collhbrs.user " +
+                            "SET password = (?)" +
+                            "WHERE id=(?)");
+            sql.setString(1, password);
+            sql.setInt(2, id);
+        } catch (DatabaseLayerException e) {
+            e.printStackTrace();
+        } catch (SQLException es) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
-        } catch (NullPointerException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
         }
+        assert sql != null;
+        executeSQLUpdateCommand(sql);
     }
 
     public String getUserPasswordById(int id) throws DatabaseLayerException {
@@ -146,7 +139,7 @@ public class UserDAO {
 
     public int getPersonalIdByUserId(int id, String role) throws DatabaseLayerException {
         ResultSet set;
-        int studentProfilId = 0;
+        int personalUserID = 0;
 
         try {
             PreparedStatement statement = null;
@@ -165,7 +158,7 @@ public class UserDAO {
             set = statement.executeQuery();
 
             if(set.next()) {
-                studentProfilId = set.getInt(1);
+                personalUserID = set.getInt(1);
             }
 
         } catch (SQLException ex) {
@@ -175,6 +168,43 @@ public class UserDAO {
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
-        return studentProfilId;
+        return personalUserID;
+    }
+
+    public void executeSQLUpdateCommand(PreparedStatement ps) throws DatabaseLayerException {
+        try {
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public void executeSQLUpdateCommand(PreparedStatement ps1, PreparedStatement ps2) throws DatabaseLayerException {
+        try {
+            ps1.executeUpdate();
+            ps2.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
+    public ResultSet executeSQLQueryCommand(PreparedStatement ps) throws DatabaseLayerException {
+        try {
+            return ps.executeQuery();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
     }
 }

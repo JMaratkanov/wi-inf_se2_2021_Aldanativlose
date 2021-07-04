@@ -32,13 +32,14 @@ public class UserDAOTest {
 
         employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("findUserByUseridAndPasswordTest@ag.com", "123").getId());
 
-        assertEquals("Nutzer konnte nicht gefunden werden, sind sie bereits registriert?", assertThrows(DatabaseLayerException.class, () -> user.findUserByUserEmailAndPassword("nicht Vorhanden", "123")).getReason());
+        assertEquals("No User could be found! Please check your credentials!", assertThrows(DatabaseLayerException.class, () -> user.findUserByUserEmailAndPassword("nicht Vorhanden", "123")).getReason());
     }
 
     @Test
     public void checkOnExistingUserTest() throws DatabaseLayerException {
         employer.setEmployer("checkOnExistingUserTest", "germany", "strasse", "5", "Ort", "12345", "checkOnExistingUserTest@ag.com", "123");
-        assertEquals("User existiert bereits!", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("checkOnExistingUserTest@ag.com")).getReason());
+
+        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () -> user.checkOnExistingUser("checkOnExistingUserTest@ag.com")).getReason());
 
         employer.deleteEmployerProfil(user.findUserByUserEmailAndPassword("checkOnExistingUserTest@ag.com", "123").getId());
     }

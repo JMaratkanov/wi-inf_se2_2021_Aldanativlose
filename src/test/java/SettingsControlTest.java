@@ -58,7 +58,7 @@ public class SettingsControlTest {
 
         student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getStudentWithJDBCByIDTest", "123").getId());
 
-        assertEquals("No User could be found! Please check your credentials!",
+        assertEquals("Nutzer konnte nicht gefunden werden! Bitte überprüfen Sie Ihre Eingaben!",
                 assertThrows(DatabaseUserException.class, ()-> sc.getStudentWithJDBCByID(0)).getReason());
     }
 

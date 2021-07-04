@@ -1,29 +1,60 @@
 package control;
 
-import com.vaadin.flow.component.datepicker.DatePicker;
 import control.exceptions.DatabaseUserException;
-import daos.BewerbungDAO;
-import daos.StellenanzeigeDAO;
-import daos.StudentDAO;
+import daos.*;
 import db.exceptions.DatabaseLayerException;
+import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 
 public class adControl extends MainControl{
 
-    public List<StellenanzeigeDTOimpl> getAlleStellenanzeigen() throws DatabaseLayerException {
+    public List<StellenanzeigeDTOimpl> getAlleStellenanzeigen() throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
 
-        List<StellenanzeigeDTOimpl> liste = dao.getAll();
+        List<StellenanzeigeDTOimpl> liste = null;
 
+        try {
+            liste = dao.getAll();
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
         return liste;
     }
 
-    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt) throws DatabaseUserException {
+    public List<StellenanzeigeDTOimpl> getAllAdsOf1Emp(int userId) throws DatabaseUserException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        List<StellenanzeigeDTOimpl> liste = null;
+        try {
+            liste = dao.getAllAdsOf1Employer(userId);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+        return liste;
+    }
+
+    public List<StellenanzeigeDTOimpl> getLatestAds() throws DatabaseLayerException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        List<StellenanzeigeDTOimpl> list = dao.getLatest();
+        return list;
+    }
+
+    public int getEmpID(int userID) throws DatabaseLayerException {
+        EmployerDAO dao = new EmployerDAO();
+        return dao.getEmployerIdByUserId(userID);
+    }
+
+
+    /*public static StellenanzeigeDTOimpl getInseratById(int InseratId) throws DatabaseLayerException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        StellenanzeigeDTOimpl inserat = dao.getInseratById(InseratId);
+        return inserat;
+    }*/
+
+    public void insertnewad(String bezeichnung, String standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche, double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String inhalt, int userID) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         int InseratTypInt = 6;
         int BrancheID = 2;
@@ -45,7 +76,7 @@ public class adControl extends MainControl{
         }
 
         try {
-            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt);
+            dao.newadtodao(bezeichnung, standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTypInt, Ansprechpartner, BrancheID, inhalt, userID);
         }
         catch (DatabaseLayerException e){
             checkReasonAndThrowEx(e.getReason());
@@ -55,7 +86,8 @@ public class adControl extends MainControl{
     public void bewerben(int stellenanzeigeID, int userID) throws DatabaseUserException {
         StudentDAO dao = new StudentDAO();
         try {
-            dao.bewerbungDurchführen(stellenanzeigeID, userID);
+            dao.checkBewerbungDoppelt(stellenanzeigeID, userID);
+            dao.bewerbungDurchfuehren(stellenanzeigeID, userID);
         } catch ( DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());
         }
@@ -65,6 +97,14 @@ public class adControl extends MainControl{
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         try {
             dao.cancelAd(inseratID);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+    }
+    public void ausschreibungLöschen(int inseratID) throws DatabaseUserException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        try {
+            dao.deleteAd(inseratID);
         } catch (DatabaseLayerException e) {
             checkReasonAndThrowEx(e.getReason());
         }

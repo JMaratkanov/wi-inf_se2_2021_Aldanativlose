@@ -25,7 +25,7 @@ import java.util.List;
 
 @Route(value = "application", layout = AppLayout.class)
 @PageTitle("Bewerbungen")
-public class ApplicationView extends Div {
+public class  ApplicationView extends Div {
     private applicationControl applicationControl = new applicationControl();
     private int ID = getCurrentUser().getId();
     private boolean isEmployer = getTrueIfSessionIsEmployer();
@@ -36,7 +36,6 @@ public class ApplicationView extends Div {
         setId("application-view");
         addClassName("wrapper");
         add(createTitle());
-        add(createcombobox());
 
         if(isEmployer){
             add(creatGridEmployer());
@@ -50,7 +49,7 @@ public class ApplicationView extends Div {
 
         try {
             anzeigen = applicationControl.getAllApllicantsByEmployerID(ID);
-        } catch (DatabaseLayerException e) {
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");
@@ -61,11 +60,11 @@ public class ApplicationView extends Div {
         Grid<ApplSetForEmployerDTO> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setWidth("190px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setWidth("190px");
-        grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setWidth("230px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("100px").setVisible(false);
+        grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setSortable(true).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setSortable(true).setWidth("190px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setSortable(true).setWidth("190px");
+        grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setSortable(true).setWidth("230px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setSortable(true).setWidth("100px").setVisible(false);
 
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
@@ -79,7 +78,9 @@ public class ApplicationView extends Div {
 
         grid.addColumn(
                 new NativeButtonRenderer<>("Bewerbung ablehnen",
+
                         clickedItem -> {
+                            //if(ApplSetForEmployerDTO.getStatus()=="Ausschreibung beendet"){Notification.show("Ausschreibung bereits beendet!");}
                             apllicationEdit(clickedItem.getID(),2);
                             Notification.show("Bewerbung abgelehnt!");
                         })
@@ -97,21 +98,12 @@ public class ApplicationView extends Div {
         return grid;
     }
 
-
-    private Component createcombobox() {
-        add(new Text("Für folgende Stellen"));
-        filter.setPlaceholder("-alle-");
-        filter.setItems("-alle-");
-        filter.setItems("Stelle A", "Stelle B");
-
-        return filter;
-    }
     private Component creatgrid(){
         List<BewerbungDTOimpl> anzeigen = null;
 
         try {
             anzeigen = applicationControl.getAllApplicationsForUserWithID(ID);
-        } catch (DatabaseLayerException e) {
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");
@@ -122,9 +114,9 @@ public class ApplicationView extends Div {
         Grid<BewerbungDTOimpl> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(BewerbungDTOimpl::getName).setHeader("Jobtitel").setFlexGrow(0).setWidth("200px");
+        grid.addColumn(BewerbungDTOimpl::getName).setHeader("Jobtitel").setFlexGrow(0).setWidth("220px");
         grid.addColumn(BewerbungDTOimpl::getUnternehmen).setHeader("Unternehmen").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(BewerbungDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("250px");
+        grid.addColumn(BewerbungDTOimpl::getStatus).setHeader("Status").setFlexGrow(0).setWidth("270px");
         grid.addColumn(BewerbungDTOimpl::getMehr).setHeader("mehr").setFlexGrow(0).setWidth("250px");
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
@@ -136,14 +128,15 @@ public class ApplicationView extends Div {
             d.open();
         });
 
-        grid.setHeight("600px");
+        //grid.setHeight("600px");
         return grid;
     }
 
     private void apllicationEdit(int applicationID, int status) {
         try {
             applicationControl.apllicationEdit(applicationID,status);
-
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.APPLICATION_VIEW);
         } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add(new Text(e.getReason()));

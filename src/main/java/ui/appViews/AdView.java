@@ -62,7 +62,6 @@ public class AdView extends Div {
     private final TextField Ansprechpartner = new TextField("Ansprechpartner");
     Select<String> Branche = new Select<>("It", "Automobil", "Sonstige");
 
-
     FormLayout formLayout = new FormLayout();
 
     public AdView() {
@@ -111,7 +110,12 @@ public class AdView extends Div {
         addClassName("wrapper");
         add(createTitle());
         add(filter());
-        add(creategrid());
+        add(creategrid(false));
+        if (isEmployer) {
+            add(createYourAdsTitle());
+            add(createBodyText());
+            add(creategrid(true));
+        }
     }
 
     private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
@@ -141,7 +145,7 @@ public class AdView extends Div {
             Notification.show("Bitte geben Sie den Inhalt an!");
         } else {
             try {
-                adControl.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt);
+                adControl.insertnewad(Bezeichnung, Standort, DateVon, DateBis, StundenProWoche, VerguetungProStunde, InseratTyp, Ansprechpartner, Branche, Inhalt, getCurrentUser().getId());
                 Notification.show("Stellenanzeige erfolgreich aufgegeben!");
                 dialog.get().close();
                 UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
@@ -179,12 +183,17 @@ public class AdView extends Div {
         return formLayout;
     }
 
-    private Component creategrid(){
+    private Component creategrid(boolean ownAds){
         List<StellenanzeigeDTOimpl> stellenanzeigenList = null;
 
         try {
-            stellenanzeigenList = adControl.getAlleStellenanzeigen();
-        } catch (DatabaseLayerException e) {
+            if (ownAds){
+                stellenanzeigenList = adControl.getAllAdsOf1Emp(getCurrentUser().getId());
+            } else {
+                stellenanzeigenList = adControl.getAlleStellenanzeigen();
+            }
+
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");
@@ -199,7 +208,7 @@ public class AdView extends Div {
 
         grid.setDataProvider(dataProvider);
         grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("titleColum");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px").setKey("startColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("180px").setKey("startColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("120px").setKey("hoursColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px").setKey("placeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
@@ -213,8 +222,30 @@ public class AdView extends Div {
             d.add( new Html("<hr class='dickelinie'/>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Verfügbar ab: </b>" + event.getItem().getDateVon() + "</span>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Standort: </b>" + event.getItem().getStandort() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Typ: </b>" + event.getItem().getInseratTyp() + "</span>") );
+            d.add( new Html("<span class='inseratdetailsbox'><b>Arbeitszeit: </b>" + event.getItem().getStundenProWoche() + " Stunden pro Woche</span>") );
             d.add( new Html("<span class='inseratdetailsbox'><b>Stundenlohn: </b>" + event.getItem().getStundenlohn() + "€/h</span>") );
             d.add( new Html("<hr class='dickelinie'/>") );
+            d.add( new Html("<span class='inseratcontent'>" + event.getItem().getContent() + "</span>") );
+            d.add( new Html("<hr class='dickelinie'/>") );
+            d.add( new Html("<span><b>Unternehmen: </b>" + event.getItem().getFirmenname() + "</span>") );
+            d.add( new Html("<br/>") );
+            if(event.getItem().getAnsprechpartner()!=null){
+                d.add( new Html("<span><b>Ansprechpartner: </b>" + event.getItem().getAnsprechpartner() + "</span>") );
+                d.add( new Html("<br/>") );
+            }
+
+            if(!isEmployer){
+                if(event.getItem().getStatus().equals("Offen")){
+                    d.add( new Button("Jetzt bewerben!" , e -> submitApplication(event.getItem().getID()) ) );
+                }else{
+                    d.add( new Html("<vaadin-button disabled>Ausschreibung beendet</vaadin-button>"));
+                    d.add( new Html("<span class='smalltext'><b>Eine Bewerbung ist leider nicht mehr möglich</b></span>") );
+                }
+
+            }
+
+            d.add( new Html("<span class='grey-text'>Job-ID: #" + event.getItem().getID() + "</span>") );
 
                 d.setWidth("800px");
                 d.setHeight("500px");
@@ -230,25 +261,35 @@ public class AdView extends Div {
                             })
             ).setFlexGrow(0).setWidth("200px");
         } else {
-            grid.addColumn(
-                    new NativeButtonRenderer<>("Ausschreibung beenden!",
-                            clickedItem -> {
-                                ausschreibungBeenden(clickedItem.getID());
-                            })
-            ).setFlexGrow(0).setWidth("200px");
+            if(ownAds) {
+                grid.addColumn(
+                        new NativeButtonRenderer<>("Ausschreibung beenden!",
+                                clickedItem -> {
+                                    ausschreibungBeenden(clickedItem.getID());
+                                })
+                ).setFlexGrow(0).setWidth("200px");
+                grid.addColumn(
+                        new NativeButtonRenderer<>("Ausschreibung löschen",
+                                clickedItem -> {
+                                    ausschreibungLöschen(clickedItem.getID());
+                                })
+                ).setFlexGrow(0).setWidth("200px");
+
+            }
         }
+
         TextField modelField = new TextField();
 
         modelField.setValueChangeMode(ValueChangeMode.EAGER);
         Suche filterSuche = new SearchControlproxy();
         grid = filterSuche.filter(dataProvider, grid);
 
-        grid.setHeight("600px");
+        grid.setHeight("500px");
         return grid;
     }
 
     private Component createTitle() {
-        return new H3("Stellenanzeigen");
+        return new H3("Alle Stellenanzeigen");
     }
     private UserDTO getCurrentUser() {
         return (UserDTO) UI.getCurrent().getSession().getAttribute(Globals.CURRENT_USER);
@@ -285,5 +326,24 @@ public class AdView extends Div {
             dialog.setHeight("150px");
             dialog.open();
         }
+    }
+    private void ausschreibungLöschen(int inseratID) {
+        try {
+            adControl.ausschreibungLöschen(inseratID);
+            Notification.show("Ausschreibung wurde gelöscht!");
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
+        } catch (DatabaseUserException e) {
+            Dialog dialog = new Dialog();
+            dialog.add(new Text(e.getReason()));
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+    }
+
+    private Component createYourAdsTitle() { return new H3("Ihre Stellenanzeigen:");}
+    private Component createBodyText() {
+        return new Text("Hier sehen Sie Ihre Stellenanzeigen: \n");
     }
 }

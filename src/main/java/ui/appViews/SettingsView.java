@@ -94,6 +94,7 @@ public class SettingsView extends Div {
         page4.setVisible(false);
         page4 = buildTab4.createView(isEmployer, page4, delete);
 
+
         //allgemein Tab management
         Map<Tab, Component> tabsToPages = new HashMap<>();
         if(!isEmployer) {
