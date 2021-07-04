@@ -284,7 +284,7 @@ public class AdView extends Div {
         Suche filterSuche = new SearchControlproxy();
         grid = filterSuche.filter(dataProvider, grid);
 
-        grid.setHeight("600px");
+        grid.setHeight("500px");
         return grid;
     }
 
