@@ -221,18 +221,27 @@ public class BewerbungDAO extends UserDAO{
 
     public void apllicationEdit(int applicationID, int status) throws DatabaseLayerException {
         PreparedStatement sql = null;
+        PreparedStatement sql2 = null;
         try {
             sql = JDBCConnection.getInstance().getPreparedStatement(
-                    "UPDATE collhbrs.bewerbung SET status = ?, visible = false WHERE id = ?");
+                    "UPDATE collhbrs.bewerbung SET status = ? WHERE id = ?");
             sql.setInt(1, status);
             sql.setInt(2, applicationID);
-
+            if(status == 2) {
+                sql2 = JDBCConnection.getInstance().getPreparedStatement(
+                        "UPDATE collhbrs.bewerbung SET visible = false WHERE id = ?");
+                sql2.setInt(1, applicationID);
+            }
         } catch (DatabaseLayerException e) {
             e.printStackTrace();
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         }
         assert sql != null;
-        executeSQLUpdateCommand(sql);
+        if(status == 2) {
+            executeSQLUpdateCommand(sql, sql2);
+        } else {
+            executeSQLUpdateCommand(sql);
+        }
     }
 }

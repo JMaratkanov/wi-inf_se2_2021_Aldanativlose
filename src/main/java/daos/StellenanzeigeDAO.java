@@ -187,13 +187,6 @@ public class StellenanzeigeDAO extends UserDAO{
         executeSQLUpdateCommand(sql, sql2);
     }
 
-    public void doubleExecute(PreparedStatement sql1, PreparedStatement sql2) throws DatabaseLayerException {
-        assert sql1 != null;
-        executeSQLUpdateCommand(sql1);
-        assert sql2 != null;
-        executeSQLUpdateCommand(sql2);
-    }
-
     public List<StellenanzeigeDTOimpl> getLatest() throws DatabaseLayerException {
         ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
         ResultSet set;

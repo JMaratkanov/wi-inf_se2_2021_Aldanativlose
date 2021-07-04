@@ -25,7 +25,7 @@ import java.util.List;
 
 @Route(value = "application", layout = AppLayout.class)
 @PageTitle("Bewerbungen")
-public class ApplicationView extends Div {
+public class  ApplicationView extends Div {
     private applicationControl applicationControl = new applicationControl();
     private int ID = getCurrentUser().getId();
     private boolean isEmployer = getTrueIfSessionIsEmployer();
