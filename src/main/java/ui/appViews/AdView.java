@@ -216,6 +216,11 @@ public class AdView extends Div {
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px").setKey("statusColum");
 
+        if(ownAds) {
+            //grid.getColumnByKey("startColum").setVisible(false);
+            grid.getColumnByKey("hoursColum").setVisible(false);
+            grid.getColumnByKey("placeColum").setVisible(false);
+        }
 
         grid.addItemClickListener(event -> {
                 Dialog d = new Dialog();

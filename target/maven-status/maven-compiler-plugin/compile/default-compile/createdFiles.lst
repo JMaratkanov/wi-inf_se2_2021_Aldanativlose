@@ -13,6 +13,7 @@ ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
 ui\Login_Registration\RegistrationEmployer.class
 dtos\StellenanzeigeDTO.class
+globals\Globals$Backgrounds.class
 control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
