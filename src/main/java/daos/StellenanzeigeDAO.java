@@ -31,10 +31,10 @@ public class StellenanzeigeDAO extends UserDAO{
         assert sql != null;
         set = executeSQLQueryCommand(sql);
 
-        return flipflop(set);
+        return flipflop(set, false);
     }
 
-    public ArrayList<StellenanzeigeDTOimpl> flipflop(ResultSet set) throws DatabaseLayerException{
+    public ArrayList<StellenanzeigeDTOimpl> flipflop(ResultSet set, boolean limit) throws DatabaseLayerException{
         ArrayList<StellenanzeigeDTOimpl> erg = new ArrayList<>();
         StellenanzeigeDTOimpl result;
 
@@ -52,11 +52,14 @@ public class StellenanzeigeDAO extends UserDAO{
                     result.setStundenProWoche(set.getInt(5));
                     result.setInseratTyp(getInseratTypByID(set.getInt(6)));
                     result.setStatus(set.getInt(7));
-                    result.setStundenlohn(set.getInt(8));
-                    result.setAnsprechpartner(set.getString(9));
-                    //result.set Branche 10
-                    result.setFirmenname(set.getString(11));
-                    result.setContent(set.getString(12));
+
+                    if(!limit) {
+                        result.setStundenlohn(set.getInt(8));
+                        result.setAnsprechpartner(set.getString(9));
+                        //result.set Branche 10
+                        result.setFirmenname(set.getString(11));
+                        result.setContent(set.getString(12));
+                    }
                     erg.add(result);
                 }
             }while(flipflop);
@@ -86,7 +89,7 @@ public class StellenanzeigeDAO extends UserDAO{
         assert sql != null;
         set = executeSQLQueryCommand(sql);
 
-        return flipflop(set);
+        return flipflop(set, false);
     }
 
     public void newadtodao(String title, String standort, LocalDate dateVon, LocalDate dateBis, int stunden_pro_woche, double verguetung_pro_stunde, int inserat_typ, String ansprechpartner, int branche_id, String content, int userID) throws DatabaseLayerException {
@@ -200,30 +203,7 @@ public class StellenanzeigeDAO extends UserDAO{
         assert sql != null;
         set = executeSQLQueryCommand(sql);
 
-        StellenanzeigeDTOimpl result;
-
-        boolean flipflop;
-        try {
-            do {
-                flipflop = set.next();
-                if (flipflop) {
-                    result = new StellenanzeigeDTOimpl();
-                    result.setID(set.getInt(1));
-                    result.setTitle(set.getString(2));
-                    result.setStandort(set.getString(3));
-                    result.setDateVon(set.getDate(4));
-                    result.setStundenProWoche(set.getInt(5));
-                    result.setInseratTyp(getInseratTypByID(set.getInt(6)));
-                    result.setStatus(set.getInt(7));
-                    liste.add(result);
-                }
-            }while(flipflop);
-        } catch (SQLException ex) {
-            throw new DatabaseLayerException(Globals.Errors.DATABASE);
-        } finally {
-            JDBCConnection.getInstance().closeConnection();
-        }
-        return liste;
+        return flipflop(set, true);
     }
 
     /*
