@@ -169,6 +169,53 @@ public class StellenanzeigeDAO {
         }
     }
 
+    public List<StellenanzeigeDTOimpl> getLatest() throws DatabaseLayerException {
+        ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
+        ResultSet set;
+
+        try {
+            PreparedStatement sql = null;
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status FROM collhbrs.inserat WHERE status = 1 ORDER BY inserat.id DESC LIMIT 5");
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+
+            assert sql != null;
+            set = sql.executeQuery();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        }
+
+        StellenanzeigeDTOimpl result;
+
+        boolean flipflop;
+        try {
+            do {
+                flipflop = set.next();
+                if (flipflop) {
+                    result = new StellenanzeigeDTOimpl();
+                    result.setID(set.getInt(1));
+                    result.setTitle(set.getString(2));
+                    result.setStandort(set.getString(3));
+                    result.setDateVon(set.getDate(4));
+                    result.setStundenProWoche(set.getInt(5));
+                    result.setInseratTyp(getInseratTypByID(set.getInt(6)));
+                    result.setStatus(set.getInt(7));
+                    liste.add(result);
+                }
+            }while(flipflop);
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+        return liste;
+    }
+
     /*
     public List<StellenanzeigeDTOimpl> getInserat() throws DatabaseLayerException {
         ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();

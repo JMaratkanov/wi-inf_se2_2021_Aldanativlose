@@ -23,6 +23,12 @@ public class adControl extends MainControl{
         return liste;
     }
 
+    public List<StellenanzeigeDTOimpl> getLatestAds() throws DatabaseLayerException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        List<StellenanzeigeDTOimpl> list = dao.getLatest();
+        return list;
+    }
+
 
     /*public static StellenanzeigeDTOimpl getInseratById(int InseratId) throws DatabaseLayerException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();

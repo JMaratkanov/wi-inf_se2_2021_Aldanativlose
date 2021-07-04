@@ -36,7 +36,6 @@ public class ApplicationView extends Div {
         setId("application-view");
         addClassName("wrapper");
         add(createTitle());
-        add(createcombobox());
 
         if(isEmployer){
             add(creatGridEmployer());
@@ -97,15 +96,6 @@ public class ApplicationView extends Div {
         return grid;
     }
 
-
-    private Component createcombobox() {
-        add(new Text("Für folgende Stellen"));
-        filter.setPlaceholder("-alle-");
-        filter.setItems("-alle-");
-        filter.setItems("Stelle A", "Stelle B");
-
-        return filter;
-    }
     private Component creatgrid(){
         List<BewerbungDTOimpl> anzeigen = null;
 
@@ -136,7 +126,7 @@ public class ApplicationView extends Div {
             d.open();
         });
 
-        grid.setHeight("600px");
+        //grid.setHeight("600px");
         return grid;
     }
 

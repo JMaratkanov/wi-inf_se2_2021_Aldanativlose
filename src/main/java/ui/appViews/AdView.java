@@ -199,7 +199,7 @@ public class AdView extends Div {
 
         grid.setDataProvider(dataProvider);
         grid.addColumn(StellenanzeigeDTOimpl::getTitle).setHeader("Bezeichnung").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("titleColum");
-        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("160px").setKey("startColum");
+        grid.addColumn(StellenanzeigeDTOimpl::getDateVon).setHeader("Beginn der Tätigkeit").setSortable(true).setFlexGrow(0).setWidth("180px").setKey("startColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStundenProWoche).setHeader("Stunden").setSortable(true).setFlexGrow(0).setWidth("120px").setKey("hoursColum");
         grid.addColumn(StellenanzeigeDTOimpl::getStandort).setHeader("Standort").setSortable(true).setFlexGrow(0).setWidth("170px").setKey("placeColum");
         grid.addColumn(StellenanzeigeDTOimpl::getInseratTyp).setHeader("Inserat Typ").setSortable(true).setFlexGrow(0).setWidth("200px").setKey("typeColum");
@@ -236,9 +236,7 @@ public class AdView extends Div {
 
             }
 
-
             d.add( new Html("<span class='grey-text'>Job-ID: #" + event.getItem().getID() + "</span>") );
-
 
                 d.setWidth("800px");
                 d.setHeight("500px");
