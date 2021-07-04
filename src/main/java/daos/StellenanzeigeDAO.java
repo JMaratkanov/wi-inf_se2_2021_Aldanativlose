@@ -75,14 +75,14 @@ public class StellenanzeigeDAO extends UserDAO{
 
     public List<StellenanzeigeDTOimpl> getAllAdsOf1Employer(int userID) throws DatabaseLayerException {
         ArrayList<StellenanzeigeDTOimpl> liste = new ArrayList<>();
-
         ResultSet set;
+        int idd = getPersonalIdByUserId(userID, "Unternehmer");
 
         try {
             PreparedStatement sql = null;
             try {
-                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status, verguetung_pro_stunde, inserat.ansprechpartner, inserat.branche_id, firmenname, inserat.content, beschreibung_kurz, kontaktemail, tel FROM collhbrs.inserat JOIN collhbrs.unternehmen_profil ON inserat.unternehmen_profil_id = unternehmen_profil.id WHERE inserat.unternehmen_profil_id = 95 ORDER BY status DESC, standort ASC");
-                //sql.setInt(getPersonalIdByUserId(userID, "Unternehmer"), 1);
+                sql = JDBCConnection.getInstance().getPreparedStatement("SELECT inserat.id, inserat.title, inserat.standort, date_von, stunden_pro_woche, inserat_typ, status, verguetung_pro_stunde, inserat.ansprechpartner, inserat.branche_id, firmenname, inserat.content, beschreibung_kurz, kontaktemail, tel FROM collhbrs.inserat JOIN collhbrs.unternehmen_profil ON inserat.unternehmen_profil_id = unternehmen_profil.id WHERE inserat.unternehmen_profil_id = (?) ORDER BY status DESC, standort ASC");
+                sql.setInt(1, idd);
             } catch (DatabaseLayerException e) {
                 e.printStackTrace();
             }

@@ -194,7 +194,7 @@ public class AdView extends Div {
                 stellenanzeigenList = adControl.getAlleStellenanzeigen();
             }
 
-        } catch (DatabaseLayerException e) {
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");

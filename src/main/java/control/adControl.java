@@ -1,10 +1,7 @@
 package control;
 
 import control.exceptions.DatabaseUserException;
-import daos.BewerbungDAO;
-import daos.StellenanzeigeDAO;
-import daos.StudentDAO;
-import daos.UserDAO;
+import daos.*;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
 import dtos.impl.StellenanzeigeDTOimpl;
@@ -15,24 +12,39 @@ import java.util.List;
 
 public class adControl extends MainControl{
 
-    public List<StellenanzeigeDTOimpl> getAlleStellenanzeigen() throws DatabaseLayerException {
+    public List<StellenanzeigeDTOimpl> getAlleStellenanzeigen() throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
 
-        List<StellenanzeigeDTOimpl> liste = dao.getAll();
+        List<StellenanzeigeDTOimpl> liste = null;
 
+        try {
+            liste = dao.getAll();
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
         return liste;
     }
 
-    public List<StellenanzeigeDTOimpl> getAllAdsOf1Emp(int userId) throws DatabaseLayerException {
+    public List<StellenanzeigeDTOimpl> getAllAdsOf1Emp(int userId) throws DatabaseUserException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
-
-        return dao.getAllAdsOf1Employer(userId);
+        List<StellenanzeigeDTOimpl> liste = null;
+        try {
+            liste = dao.getAllAdsOf1Employer(userId);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+        return liste;
     }
 
     public List<StellenanzeigeDTOimpl> getLatestAds() throws DatabaseLayerException {
         StellenanzeigeDAO dao = new StellenanzeigeDAO();
         List<StellenanzeigeDTOimpl> list = dao.getLatest();
         return list;
+    }
+
+    public int getEmpID(int userID) throws DatabaseLayerException {
+        EmployerDAO dao = new EmployerDAO();
+        return dao.getEmployerIdByUserId(userID);
     }
 
 

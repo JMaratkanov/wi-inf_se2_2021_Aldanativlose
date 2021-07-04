@@ -20,18 +20,25 @@ public class applicationControl extends MainControl{
         }
     }
 
-    public List<BewerbungDTOimpl> getAllApplicationsForUserWithID(int ID) throws DatabaseLayerException {
+    public List<BewerbungDTOimpl> getAllApplicationsForUserWithID(int ID) throws DatabaseUserException {
         BewerbungDAO dao = new BewerbungDAO();
-
-        List<BewerbungDTOimpl> liste = dao.getAll(ID);
-
+        List<BewerbungDTOimpl> liste = null;
+        try {
+            liste = dao.getAll(ID);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
         return liste;
     }
 
-    public List<ApplSetForEmployerDTO> getAllApllicantsByEmployerID(int id) throws DatabaseLayerException{
+    public List<ApplSetForEmployerDTO> getAllApllicantsByEmployerID(int id) throws DatabaseUserException{
         BewerbungDAO dao = new BewerbungDAO();
-
-        List<ApplSetForEmployerDTO> liste = dao.getAllApllicantsByEmployerID(id);
+        List<ApplSetForEmployerDTO> liste = null;
+        try {
+            liste = dao.getAllApllicantsByEmployerID(id);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
 
         return liste;
     }

@@ -139,7 +139,7 @@ public class UserDAO {
 
     public int getPersonalIdByUserId(int id, String role) throws DatabaseLayerException {
         ResultSet set;
-        int studentProfilId = 0;
+        int personalUserID = 0;
 
         try {
             PreparedStatement statement = null;
@@ -158,7 +158,7 @@ public class UserDAO {
             set = statement.executeQuery();
 
             if(set.next()) {
-                studentProfilId = set.getInt(1);
+                personalUserID = set.getInt(1);
             }
 
         } catch (SQLException ex) {
@@ -168,7 +168,7 @@ public class UserDAO {
         } finally {
             JDBCConnection.getInstance().closeConnection();
         }
-        return studentProfilId;
+        return personalUserID;
     }
 
     public void executeSQLUpdateCommand(PreparedStatement ps) throws DatabaseLayerException {

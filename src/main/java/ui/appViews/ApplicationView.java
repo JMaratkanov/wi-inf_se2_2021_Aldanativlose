@@ -49,7 +49,7 @@ public class ApplicationView extends Div {
 
         try {
             anzeigen = applicationControl.getAllApllicantsByEmployerID(ID);
-        } catch (DatabaseLayerException e) {
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");
@@ -101,7 +101,7 @@ public class ApplicationView extends Div {
 
         try {
             anzeigen = applicationControl.getAllApplicationsForUserWithID(ID);
-        } catch (DatabaseLayerException e) {
+        } catch (DatabaseUserException e) {
             Dialog dialog = new Dialog();
             dialog.add( new Text( e.getReason()) );
             dialog.setWidth("400px");
