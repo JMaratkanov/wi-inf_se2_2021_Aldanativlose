@@ -62,7 +62,6 @@ public class AdView extends Div {
     private final TextField Ansprechpartner = new TextField("Ansprechpartner");
     Select<String> Branche = new Select<>("It", "Automobil", "Sonstige");
 
-
     FormLayout formLayout = new FormLayout();
 
     public AdView() {
