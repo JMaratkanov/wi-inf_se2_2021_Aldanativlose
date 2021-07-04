@@ -112,9 +112,9 @@ public class AdView extends Div {
         add(createTitle());
         add(filter());
         add(creategrid(false));
-        add(createYourAdsTitle());
-        add(createBodyText());
         if (isEmployer) {
+            add(createYourAdsTitle());
+            add(createBodyText());
             add(creategrid(true));
         }
     }
