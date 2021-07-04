@@ -114,7 +114,9 @@ public class AdView extends Div {
         add(creategrid(false));
         add(createYourAdsTitle());
         add(createBodyText());
-        add(creategrid(true));
+        if (isEmployer) {
+            add(creategrid(true));
+        }
     }
 
     private void createNewAd(String Bezeichnung, String Standort, LocalDate DateVon, LocalDate DateBis, int StundenProWoche,  double VerguetungProStunde, String InseratTyp, String Ansprechpartner, String Branche, String Inhalt) {
