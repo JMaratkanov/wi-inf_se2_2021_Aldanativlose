@@ -88,6 +88,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         header.add(helloUser);
 
         Button logoutbtn = new Button("Logout" , e -> logoutUser());
+        logoutbtn.getElement().getStyle().set("margin-left", "7px");
         logoutbtn.setId("logoutbtn");
         header.add(logoutbtn);
 
