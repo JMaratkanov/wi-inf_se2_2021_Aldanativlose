@@ -159,7 +159,9 @@ public class StellenanzeigeDAO extends UserDAO{
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         }
-        doubleExecute(sql, sql2);
+        assert sql != null;
+        assert sql2 != null;
+        executeSQLUpdateCommand(sql, sql2);
     }
 
     public void deleteAd(int inseratID) throws DatabaseLayerException {
@@ -180,7 +182,9 @@ public class StellenanzeigeDAO extends UserDAO{
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
         }
-        doubleExecute(sql, sql2);
+        assert sql != null;
+        assert sql2 != null;
+        executeSQLUpdateCommand(sql, sql2);
     }
 
     public void doubleExecute(PreparedStatement sql1, PreparedStatement sql2) throws DatabaseLayerException {

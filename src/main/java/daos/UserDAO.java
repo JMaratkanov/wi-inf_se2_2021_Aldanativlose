@@ -183,6 +183,19 @@ public class UserDAO {
         }
     }
 
+    public void executeSQLUpdateCommand(PreparedStatement ps1, PreparedStatement ps2) throws DatabaseLayerException {
+        try {
+            ps1.executeUpdate();
+            ps2.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+
     public ResultSet executeSQLQueryCommand(PreparedStatement ps) throws DatabaseLayerException {
         try {
             return ps.executeQuery();
