@@ -3,11 +3,11 @@ ApplicationConfig.class
 globals\Globals$Roles.class
 daos\RolleDAO.class
 ui\Login_Registration\Selection.class
-search\SearchControlproxy.class
 control\LoginControl.class
 daos\BewerbungDAO.class
 daos\EmployerDAO.class
 globals\Globals$Pages.class
+Search\Suche.class
 repository\UserRepository.class
 ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
@@ -17,13 +17,12 @@ control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
 globals\Globals.class
+Search\SearchControl.class
 ui\appViews\ApplicationView.class
-search\Suche.class
 daos\StellenanzeigeDAO.class
 control\adControl.class
 ui\appViews\SettingsViewParts\SettingsView_Tab3.class
 dtos\RolleDTO.class
-search\SearchControl.class
 ui\Login_Registration\RegistrationStudent.class
 control\RegistrationControl.class
 control\builder\Builder.class
@@ -51,4 +50,5 @@ db\exceptions\DatabaseLayerException.class
 dtos\impl\BewerbungDTOimpl.class
 ui\appViews\AdView.class
 ui\Login_Registration\LoginView.class
+Search\SearchControlproxy.class
 dtos\impl\StellenanzeigeDTOimpl.class

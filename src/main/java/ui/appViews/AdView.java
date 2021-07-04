@@ -269,6 +269,13 @@ public class AdView extends Div {
                                     ausschreibungBeenden(clickedItem.getID());
                                 })
                 ).setFlexGrow(0).setWidth("200px");
+                grid.addColumn(
+                        new NativeButtonRenderer<>("Ausschreibung löschen",
+                                clickedItem -> {
+                                    ausschreibungLöschen(clickedItem.getID());
+                                })
+                ).setFlexGrow(0).setWidth("200px");
+
             }
         }
 
@@ -311,6 +318,20 @@ public class AdView extends Div {
         try {
             adControl.ausschreibungBeenden(inseratID);
             Notification.show("Ausschreibung wurde beendet!");
+            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+            UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
+        } catch (DatabaseUserException e) {
+            Dialog dialog = new Dialog();
+            dialog.add(new Text(e.getReason()));
+            dialog.setWidth("400px");
+            dialog.setHeight("150px");
+            dialog.open();
+        }
+    }
+    private void ausschreibungLöschen(int inseratID) {
+        try {
+            adControl.ausschreibungLöschen(inseratID);
+            Notification.show("Ausschreibung wurde gelöscht!");
             UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
             UI.getCurrent().navigate(Globals.Pages.AD_VIEW);
         } catch (DatabaseUserException e) {

@@ -60,11 +60,11 @@ public class ApplicationView extends Div {
         Grid<ApplSetForEmployerDTO> grid = new Grid<>();
 
         grid.setItems(anzeigen);
-        grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setWidth("200px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setWidth("190px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setWidth("190px");
-        grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setWidth("230px");
-        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setWidth("100px").setVisible(false);
+        grid.addColumn(ApplSetForEmployerDTO::getStelle).setHeader("Stelle").setFlexGrow(0).setSortable(true).setWidth("200px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudent_vorname).setHeader("Bewerber Vorname").setFlexGrow(0).setSortable(true).setWidth("190px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudentname).setHeader("Nachname").setFlexGrow(0).setSortable(true).setWidth("190px");
+        grid.addColumn(ApplSetForEmployerDTO::getStatus).setHeader("Status").setFlexGrow(0).setSortable(true).setWidth("230px");
+        grid.addColumn(ApplSetForEmployerDTO::getStudID).setHeader("HIDE").setFlexGrow(0).setSortable(true).setWidth("100px").setVisible(false);
 
 
         grid.setSelectionMode(Grid.SelectionMode.NONE);
@@ -78,7 +78,9 @@ public class ApplicationView extends Div {
 
         grid.addColumn(
                 new NativeButtonRenderer<>("Bewerbung ablehnen",
+
                         clickedItem -> {
+                            //if(ApplSetForEmployerDTO.getStatus()=="Ausschreibung beendet"){Notification.show("Ausschreibung bereits beendet!");}
                             apllicationEdit(clickedItem.getID(),2);
                             Notification.show("Bewerbung abgelehnt!");
                         })

@@ -101,4 +101,12 @@ public class adControl extends MainControl{
             checkReasonAndThrowEx(e.getReason());
         }
     }
+    public void ausschreibungLöschen(int inseratID) throws DatabaseUserException {
+        StellenanzeigeDAO dao = new StellenanzeigeDAO();
+        try {
+            dao.deleteAd(inseratID);
+        } catch (DatabaseLayerException e) {
+            checkReasonAndThrowEx(e.getReason());
+        }
+    }
 }

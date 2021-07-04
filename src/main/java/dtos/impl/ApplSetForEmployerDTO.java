@@ -52,6 +52,7 @@ public class ApplSetForEmployerDTO {
         return status;
     }
 
+
     public void setStatus(int statusID) {
         switch(statusID){
             case 0:this.status = "Ausschreibung beendet";
