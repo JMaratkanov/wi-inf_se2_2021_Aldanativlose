@@ -152,7 +152,7 @@ public class StellenanzeigeDAO extends UserDAO{
                 sql.setInt(6, 1);
                 sql.setInt(7, stunden_pro_woche);
                 sql.setDouble(8, verguetung_pro_stunde);
-                sql.setInt(9, getPersonalIdByUserId(userID, "Unternehmer"));
+                sql.setInt(9, 95);//getPersonalIdByUserId(userID, "Unternehmer"));
                 sql.setInt(10, inserat_typ);
                 sql.setString(11, ansprechpartner);
                 sql.setInt(12, branche_id);
@@ -205,7 +205,7 @@ public class StellenanzeigeDAO extends UserDAO{
                 sql.setInt(1, inseratID);
 
                 sql2 = JDBCConnection.getInstance().getPreparedStatement(
-                        "UPDATE collhbrs.bewerbung SET status = 0 WHERE inserat_id = ?");
+                        "UPDATE collhbrs.bewerbung SET status = 0, visible = false WHERE inserat_id = ?");
                 sql2.setInt(1, inseratID);
 
             } catch (DatabaseLayerException e) {
@@ -215,6 +215,37 @@ public class StellenanzeigeDAO extends UserDAO{
             sql.executeUpdate();
             assert sql2 != null;
             sql2.executeUpdate();
+
+        } catch (SQLException ex) {
+            throw new DatabaseLayerException(Globals.Errors.SQLERROR);
+        } catch (NullPointerException ex) {
+            throw new DatabaseLayerException(Globals.Errors.DATABASE);
+        } finally {
+            JDBCConnection.getInstance().closeConnection();
+        }
+    }
+    public void deleteAd(int inseratID) throws DatabaseLayerException {
+        PreparedStatement sql = null;
+        PreparedStatement sql2 = null;
+        try {
+            try {
+                sql = JDBCConnection.getInstance().getPreparedStatement(
+                        "DELETE from collhbrs.bewerbung WHERE inserat_id = ?");
+
+                sql.setInt(1, inseratID);
+                sql2 = JDBCConnection.getInstance().getPreparedStatement(
+                        "DELETE from collhbrs.inserat WHERE inserat.id = ?");
+                sql2.setInt(1, inseratID);
+
+
+            } catch (DatabaseLayerException e) {
+                e.printStackTrace();
+            }
+            assert sql != null;
+            sql.executeUpdate();
+            assert sql2 != null;
+            sql2.executeUpdate();
+
 
         } catch (SQLException ex) {
             throw new DatabaseLayerException(Globals.Errors.SQLERROR);
