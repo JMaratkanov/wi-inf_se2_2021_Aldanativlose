@@ -71,6 +71,8 @@ public class AdView extends Div {
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         Button newAd = new Button("Neue Stellenanzeige Aufgeben");
+        newAd.getElement().getStyle().set("border", "solid 2px");
+        newAd.getElement().getStyle().set("border-color", "#233348");
         newAd.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(newAd);
 

@@ -50,6 +50,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         }*/
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
+        getElement().getStyle().set("background-image", Globals.Backgrounds.APP_LAYOUT_BACKGROUND);
     }
 
 
@@ -76,7 +77,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         logo.setId("logo");
         header.add(logo);
 
-        header.add(new H1("Coll@HBRS"));
+        header.add(new H1("Coll@HBRS - Das Kollaborations Portal"));
 
         Avatar avatar = new Avatar();
         avatar.setId("avatar");

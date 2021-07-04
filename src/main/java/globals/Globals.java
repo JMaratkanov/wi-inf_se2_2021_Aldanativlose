@@ -19,7 +19,12 @@ public class Globals {
     public static class Roles {
         public static final String ADMIN = "admin";
         public static final String USER = "user";
+    }
 
+    public static class Backgrounds {
+        public static final String APP_LAYOUT_BACKGROUND = "url('images/logo_klein.png')";
+        public static final String MAIN_LAYOUT_BACKGROUND = "url('images/logo_klein.png')";
+        public static final String VIEW_BACKGROUND = "#ffffff";
     }
 
     //"Technische" Fehler

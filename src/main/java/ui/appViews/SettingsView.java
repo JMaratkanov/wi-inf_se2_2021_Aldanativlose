@@ -125,6 +125,9 @@ public class SettingsView extends Div {
             });
         }
         add(tabs, pages);
+        tabs.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        pages.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        pages.getElement().getStyle().set("padding", "12px");
     }
 
     private UserDTO getCurrentUser() {

@@ -1,5 +1,6 @@
 package ui.layouts;
 
+import globals.Globals;
 import ui.Login_Registration.LoginView;
 import ui.Login_Registration.Selection;
 import com.vaadin.flow.component.Component;
@@ -32,6 +33,7 @@ public class MainLayout extends AppLayout {
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
+        getElement().getStyle().set("background-image", Globals.Backgrounds.MAIN_LAYOUT_BACKGROUND);
     }
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {

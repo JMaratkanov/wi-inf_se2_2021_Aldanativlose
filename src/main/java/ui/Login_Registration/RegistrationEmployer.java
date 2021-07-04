@@ -68,6 +68,11 @@ public class RegistrationEmployer extends Div {
                 password1.getValue(),
                 password2.getValue()
         ));
+
+        getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        getElement().getStyle().set("margin-top", "16px");
+        getElement().getStyle().set("padding-top", "1px");
+        getElement().getStyle().set("padding-bottom", "1px");
     }
 
     private Component createTitle() {
