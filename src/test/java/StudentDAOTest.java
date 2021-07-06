@@ -3,6 +3,7 @@ import daos.StudentDAO;
 import daos.UserDAO;
 import db.exceptions.DatabaseLayerException;
 import dtos.UserDTO;
+import dtos.impl.StudentDTOimpl;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,9 +32,9 @@ public class StudentDAOTest {
 
     @Test
     public void setStudentByEmailAndPasswordTest() throws DatabaseLayerException {
-        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "demo", "demo")).getReason());
-
         student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "setStudentByEmailAndPasswordTest", "123");
+        assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () -> student.setStudentByFirstnameLastnameEmailPassword("sqlerror1", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
+
         UserDTO userDTO = student.findUserByUserEmailAndPassword("setStudentByEmailAndPasswordTest", "123");
         assertEquals("setStudentByEmailAndPasswordTest", userDTO.getEmail());
         assertEquals("There is already a user with this email address!", assertThrows(DatabaseLayerException.class, () ->  student.setStudentByFirstnameLastnameEmailPassword("sqlerror2", "Mustermann", "setStudentByEmailAndPasswordTest", "123")).getReason());
@@ -44,7 +45,14 @@ public class StudentDAOTest {
 
     @Test
     public void getStudentIdByUserIdTest() throws DatabaseLayerException {
-        assertEquals(34, student.getStudentIdByUserId(199));
+        student.setStudentByFirstnameLastnameEmailPassword("Max", "Mustermann", "getStudentIdByUserIdTest", "123");
+
+        UserDTO s = student.getFullStudentDTOByStudentID(student.getStudentIdByUserId(student.findUserByUserEmailAndPassword("getStudentIdByUserIdTest", "123").getId()));
+
+        assertEquals(s.getId(), student.getStudentIdByUserId(student.findUserByUserEmailAndPassword("getStudentIdByUserIdTest", "123").getId()));
+
+        student.deleteStudentProfil(student.findUserByUserEmailAndPassword("getStudentIdByUserIdTest", "123").getId());
+
     }
 
     @Test
