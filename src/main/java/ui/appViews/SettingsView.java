@@ -77,7 +77,7 @@ public class SettingsView extends Div {
         Tab tab2 = new Tab("Lebenslauf anpassen");
         Div page2 = new Div();
         if(!isEmployer) {
-            page1 = buildTab1.createView(Vorname, Nachname, description, skills, references, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
+            page1 = buildTab1.createView(Vorname, Nachname, references, skills, description, datePicker, Fachbereich, Studiengang, semesterdatePicker, actualize);
             page2.setVisible(false);
             page2 = buildTab2.createView(page2);
         }

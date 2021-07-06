@@ -33,6 +33,7 @@ public class MainLayout extends AppLayout {
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
         getElement().getStyle().set("background-image", Globals.Backgrounds.MAIN_LAYOUT_BACKGROUND);
+        //getElement().getStyle().set("opacity", "1");
     }
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {

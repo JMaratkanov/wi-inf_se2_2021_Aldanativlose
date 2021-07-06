@@ -36,6 +36,7 @@ ui\appViews\SettingsView.class
 dtos\BewerbungDTO.class
 control\MainControl.class
 daos\UserDAO.class
+globals\Globals$Headlines.class
 dtos\impl\ApplSetForEmployerDTO.class
 dtos\impl\StudentDTOimpl.class
 entities\User.class
