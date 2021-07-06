@@ -108,7 +108,7 @@ public class SettingsView extends Div {
         tabsToPages.put(tab4, page4);
         if(isEmployer) {
             tabs = new Tabs(tab3, tab4);
-            tabs.setSelectedTab(tab4);
+            tabs.setSelectedTab(tab3);
             pages = new Div(page3, page4);
             Tabs finalTabs = tabs;
             tabs.addSelectedChangeListener(event -> {

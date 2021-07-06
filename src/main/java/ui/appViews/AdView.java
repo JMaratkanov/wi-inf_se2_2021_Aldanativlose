@@ -55,7 +55,7 @@ public class AdView extends Div {
     private final TextField Standort = new TextField("Standort"); //Lieber außerhalb eine Liste angeben
     private final TextArea Inhalt = new TextArea("Inhalt");
     private final DatePicker DateVon = new DatePicker("Frühstmöglicher Beginn");
-    private final DatePicker DateBis = new DatePicker("Ende oder unbefristet "); //Muss noch überlegt werden wie
+    private final DatePicker DateBis = new DatePicker("Ende oder frei lassen für unbefristet "); //Muss noch überlegt werden wie
     private final IntegerField StundenProWoche = new IntegerField("Stunden pro Woche");
     private final NumberField VerguetungProStunde = new NumberField("Vergütung pro Stunde");
     Select<String> InseratTyp = new Select<>("Teilzeit", "Vollzeit", "Praktikum", "Bachelorarbeit", "Masterarbeit", "keine Angabe");

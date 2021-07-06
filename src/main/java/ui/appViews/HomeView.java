@@ -5,8 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
@@ -20,8 +19,6 @@ import search.Suche;
 import ui.layouts.AppLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -118,9 +115,9 @@ public class HomeView extends Div {
      */
 
     private Component createTitle() { return new H2("Guten Tag!"); }
-    private Component createTitle2() { return new H3("Neue Stellenangebote");}
+    private Component createTitle2() { return new H1("Neue Stellenangebote"); }
     private Component createBodyText() {
-        return new Text("Hier sehen Sie die 5 Neuesten Stellenanzeigen: \n");
+        return new H2("Hier sehen Sie die 5 Neuesten Stellenanzeigen: \n");
     }
     private Component createTitle3() { return new H4("Deine Bewerbungen");}
 }
