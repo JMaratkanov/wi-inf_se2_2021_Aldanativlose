@@ -111,27 +111,39 @@ public class SettingsView_Tab1 {
         return page1;
     }
     private void update(String vorname, String nachname, String referenzen, String kenntnisse, String kurzbeschreibung, LocalDate semester, String studiengang, String fachbereich, LocalDate gebDate) {
-        if(vorname.isEmpty()){ vorname = vNameFromDB; }
-        if(nachname.isEmpty()){ nachname = nNameFromDB; }
-        if(kurzbeschreibung.isEmpty()){kurzbeschreibung = desFromDB; }
-        if(kenntnisse.isEmpty()){ kenntnisse = skillFromDB; }
-        if(referenzen.isEmpty()){ referenzen = refFromDB; }
-        if(fachbereich.isEmpty()){ fachbereich = fachfromDB; }
-        if(studiengang.isEmpty()){ studiengang = sGangfromDB; }
-        if(gebDate == null) {gebDate = gebFromDB.toLocalDate();}
-        if(semester == null) {semester = semFromDB.toLocalDate();}
+        if (vorname.isEmpty()) { vorname = vNameFromDB; }
+        if (nachname.isEmpty()) { nachname = nNameFromDB; }
+        if (kurzbeschreibung.isEmpty()) { kurzbeschreibung = desFromDB; }
+        if (kenntnisse.isEmpty()) { kenntnisse = skillFromDB; }
+        if (fachbereich.isEmpty()) { fachbereich = fachfromDB; }
+        if (studiengang.isEmpty()) { studiengang = sGangfromDB; }
+        if (gebDate == null) { gebDate = gebFromDB.toLocalDate(); }
+        if (semester == null) { semester = semFromDB.toLocalDate(); }
 
-        try {
-            settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname,  referenzen, kenntnisse,  kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
-            Notification.show("Update erfolgreich!");
-            UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
-            UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
-        } catch (DatabaseUserException databaseException) {
-            Dialog dialog = new Dialog();
-            dialog.add( new Text( databaseException.getReason()) );
-            dialog.setWidth("400px");
-            dialog.setHeight("150px");
-            dialog.open();
+        if (referenzen.length() > 60) {
+            Notification.show("Die Referenzen dürfen Maximal 60 Zeichen lang sein");
+        } else if (kenntnisse.length() > 60) {
+            Notification.show("Die Kenntnisse dürfen Maximal 60 Zeichen lang sein");
+        } else if (kurzbeschreibung.length() > 300) {
+            Notification.show("Die Kurzbeschreibung darf Maximal 300 Zeichen lang sein");
+        } else if (vorname.length() > 60) {
+            Notification.show("Der Vorname darf Maximal 60 Zeichen lang sein");
+        } else if (nachname.length() > 60) {
+            Notification.show("Der Nachname darf Maximal 60 Zeichen lang sein");
+        }
+        else {
+            try {
+                settingsControl.updateStudentWithJDBC(this.ID, vorname, nachname, referenzen, kenntnisse, kurzbeschreibung, semester, studiengang, fachbereich, gebDate);
+                Notification.show("Update erfolgreich!");
+                UI.getCurrent().navigate(Globals.Pages.HOME_VIEW);
+                UI.getCurrent().navigate(Globals.Pages.SETTINGS_VIEW);
+            } catch (DatabaseUserException databaseException) {
+                Dialog dialog = new Dialog();
+                dialog.add(new Text(databaseException.getReason()));
+                dialog.setWidth("400px");
+                dialog.setHeight("150px");
+                dialog.open();
+            }
         }
     }
 
