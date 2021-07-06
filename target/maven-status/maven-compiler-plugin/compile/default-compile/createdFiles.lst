@@ -13,6 +13,7 @@ ui\appViews\SettingsViewParts\MyUploadContext.class
 ui\layouts\AppLayout.class
 ui\Login_Registration\RegistrationEmployer.class
 dtos\StellenanzeigeDTO.class
+globals\Globals$Backgrounds.class
 control\SettingsControl.class
 ui\appViews\HomeView.class
 control\exceptions\DatabaseUserException.class
@@ -35,6 +36,7 @@ ui\appViews\SettingsView.class
 dtos\BewerbungDTO.class
 control\MainControl.class
 daos\UserDAO.class
+globals\Globals$Headlines.class
 dtos\impl\ApplSetForEmployerDTO.class
 dtos\impl\StudentDTOimpl.class
 entities\User.class

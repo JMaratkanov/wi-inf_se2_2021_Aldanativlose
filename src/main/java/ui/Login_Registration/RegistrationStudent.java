@@ -58,6 +58,11 @@ public class RegistrationStudent extends Div {
                 password2.getValue()
 
         ));
+
+        getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        getElement().getStyle().set("margin-top", "16px");
+        getElement().getStyle().set("padding-top", "1px");
+        getElement().getStyle().set("padding-bottom", "1px");
     }
 
     private Component createTitle() {
@@ -65,6 +70,7 @@ public class RegistrationStudent extends Div {
     }
 
     private Component createFormLayout() {
+        //getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
         FormLayout formLayout = new FormLayout();
         firstname.setRequired(true);
         lastname.setRequired(true);

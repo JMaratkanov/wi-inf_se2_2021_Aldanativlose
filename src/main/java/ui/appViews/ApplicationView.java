@@ -3,6 +3,7 @@ package ui.appViews;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
@@ -92,9 +93,10 @@ public class  ApplicationView extends Div {
                             apllicationEdit(clickedItem.getID(),3);
                             Notification.show("Bewerber ist eingeladen!");
                         })
-        ).setFlexGrow(0).setWidth("250px");
+        ).setFlexGrow(0).setWidth("260px");
 
-        grid.setHeight("600px");
+        //grid.setHeight("400px");
+        grid.setHeightByRows(true);
         return grid;
     }
 

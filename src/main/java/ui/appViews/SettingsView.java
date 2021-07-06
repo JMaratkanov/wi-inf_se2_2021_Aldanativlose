@@ -16,7 +16,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import dtos.UserDTO;
 import globals.Globals;
-import org.springframework.data.domain.Page;
 import ui.appViews.SettingsViewParts.SettingsView_Tab1;
 import ui.appViews.SettingsViewParts.SettingsView_Tab2;
 import ui.appViews.SettingsViewParts.SettingsView_Tab3;
@@ -84,7 +83,11 @@ public class SettingsView extends Div {
         //Tab3
         Tab tab3 = new Tab("Passwort ändern");
         Div page3 = new Div();
-        page3.setVisible(false);
+        if(!isEmployer) {
+            page3.setVisible(false);
+        }else{
+            page3.setVisible(true);
+        }
         page3 = buildTab3.createView(page3, passwordOld, passwordNew, passwordNew2, cancel, save);
 
         //Tab4
@@ -125,6 +128,9 @@ public class SettingsView extends Div {
             });
         }
         add(tabs, pages);
+        tabs.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        pages.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
+        pages.getElement().getStyle().set("padding", "12px");
     }
 
     private UserDTO getCurrentUser() {

@@ -1,11 +1,11 @@
 package ui.layouts;
 
+import globals.Globals;
 import ui.Login_Registration.LoginView;
 import ui.Login_Registration.Selection;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.avatar.Avatar;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -32,6 +32,7 @@ public class MainLayout extends AppLayout {
         HorizontalLayout header = createHeader();
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
+        getElement().getStyle().set("background-image", Globals.Backgrounds.MAIN_LAYOUT_BACKGROUND);
     }
 
     private VerticalLayout createTopBar(HorizontalLayout header, Tabs menu) {
@@ -55,10 +56,10 @@ public class MainLayout extends AppLayout {
         Image logo = new Image("images/logo1.png", "Coll@HBRS Logo");
         logo.setId("logo");
         header.add(logo);
-        Avatar avatar = new Avatar();
-        avatar.setId("avatar");
-        header.add(new H1("Coll@HBRS"));
-        header.add(avatar);
+        //Avatar avatar = new Avatar();
+        //avatar.setId("avatar");
+        header.add(new H1(Globals.Headlines.MAIN_HEADLINE));
+        //header.add(avatar);
         return header;
     }
 
