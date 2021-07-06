@@ -51,6 +51,7 @@ public class AppLayout extends com.vaadin.flow.component.applayout.AppLayout imp
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
         getElement().getStyle().set("background-image", Globals.Backgrounds.APP_LAYOUT_BACKGROUND);
+        getElement().getStyle().set("background-size", "cover");
     }
 
 

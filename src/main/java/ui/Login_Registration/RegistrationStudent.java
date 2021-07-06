@@ -63,6 +63,7 @@ public class RegistrationStudent extends Div {
         getElement().getStyle().set("margin-top", "16px");
         getElement().getStyle().set("padding-top", "1px");
         getElement().getStyle().set("padding-bottom", "1px");
+        getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
     }
 
     private Component createTitle() {

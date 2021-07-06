@@ -22,9 +22,11 @@ public class Globals {
     }
 
     public static class Backgrounds {
-        public static final String APP_LAYOUT_BACKGROUND = "url('images/logo_klein.png')";
-        public static final String MAIN_LAYOUT_BACKGROUND = "url('images/logo_klein.png')";
+        public static final String APP_LAYOUT_BACKGROUND = "url('images/hbrs_farbverlauf_inv.png')";
+        public static final String MAIN_LAYOUT_BACKGROUND = "url('images/hbrs_farbverlauf_inv.png')";
         public static final String VIEW_BACKGROUND = "#ffffff";
+        public static final String MAIN_COLOR = "#009DDB";
+        //Header Color: #233348
     }
 
     public static class Headlines {

@@ -97,6 +97,7 @@ public class  ApplicationView extends Div {
 
         //grid.setHeight("400px");
         grid.setHeightByRows(true);
+        grid.getStyle().set("box-shadow", "2px 2px 4px #000000");
         return grid;
     }
 
@@ -131,6 +132,7 @@ public class  ApplicationView extends Div {
         });
 
         //grid.setHeight("600px");
+        grid.getStyle().set("box-shadow", "2px 2px 4px #000000");
         return grid;
     }
 

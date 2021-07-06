@@ -35,12 +35,12 @@ public class Selection extends VerticalLayout{
         buttonLayout.addClassName("button-layout");
         registerStudent.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         registerEmployer.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        registerStudent.getElement().getStyle().set("border", "solid 2px");
-        registerStudent.getElement().getStyle().set("border-color", "#233348");
-        //registerStudent.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
-        registerEmployer.getElement().getStyle().set("border", "solid 2px");
-        registerEmployer.getElement().getStyle().set("border-color", "#233348");
-        //registerEmployer.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
+        //registerStudent.getElement().getStyle().set("border", "solid 2px");
+        //registerStudent.getElement().getStyle().set("border-color", "#FFFFFF");
+        registerStudent.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
+        //registerEmployer.getElement().getStyle().set("border", "solid 2px");
+        //registerEmployer.getElement().getStyle().set("border-color", "#FFFFFF");
+        registerEmployer.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
         buttonLayout.add(createTitle());
         registerStudent.setWidth("300px");
         registerEmployer.setWidth("300px");

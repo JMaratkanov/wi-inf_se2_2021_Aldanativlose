@@ -33,6 +33,8 @@ public class MainLayout extends AppLayout {
         menu = createMenuTabs();
         addToNavbar(createTopBar(header, menu));
         getElement().getStyle().set("background-image", Globals.Backgrounds.MAIN_LAYOUT_BACKGROUND);
+        getElement().getStyle().set("background-size", "cover");
+        //getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
         //getElement().getStyle().set("opacity", "1");
     }
 

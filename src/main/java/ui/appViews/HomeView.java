@@ -77,6 +77,7 @@ public class HomeView extends Div {
         grid.addColumn(StellenanzeigeDTOimpl::getStatus).setHeader("Status").setSortable(true).setFlexGrow(0).setWidth("250px").setKey("statusColum");
         grid.setHeight("260px");
         //grid.setWidth("1150px");
+        grid.getStyle().set("box-shadow", "2px 2px 4px #000000");
         return grid;
     }
 

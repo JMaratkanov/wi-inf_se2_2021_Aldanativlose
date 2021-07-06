@@ -59,9 +59,9 @@ public class LoginView extends VerticalLayout {
             }
         });
 
+        component.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
         add(component);
         this.setAlignItems( Alignment.CENTER );
-        //component.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
     }
 
     private void grabAndSetUserIntoSession() {

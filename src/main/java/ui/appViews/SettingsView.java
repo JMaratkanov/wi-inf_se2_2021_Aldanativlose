@@ -131,6 +131,8 @@ public class SettingsView extends Div {
         tabs.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
         pages.getElement().getStyle().set("background-color", Globals.Backgrounds.VIEW_BACKGROUND);
         pages.getElement().getStyle().set("padding", "12px");
+        //tabs.getElement().getStyle().set("box-shadow", "2px 2px  #000000");
+        pages.getElement().getStyle().set("box-shadow", "2px 2px 4px #000000");
     }
 
     private UserDTO getCurrentUser() {

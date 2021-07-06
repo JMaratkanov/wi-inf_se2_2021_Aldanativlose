@@ -71,6 +71,7 @@ public class AdView extends Div {
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.addClassName("button-layout");
         Button newAd = new Button("Neue Stellenanzeige Aufgeben");
+        newAd.getElement().getStyle().set("color", "black");
         newAd.getElement().getStyle().set("border", "solid 2px");
         newAd.getElement().getStyle().set("border-color", "#233348");
         newAd.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
@@ -292,6 +293,7 @@ public class AdView extends Div {
         grid = filterSuche.filter(dataProvider, grid);
 
         grid.setHeight("500px");
+        grid.getStyle().set("box-shadow", "2px 2px 4px #000000");
         return grid;
     }
 
